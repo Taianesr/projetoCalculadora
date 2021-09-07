@@ -12,6 +12,11 @@ public interface MedicamentoRepository extends JpaRepository<Medicamento,BigInte
 
 	Optional<Medicamento> findByNome(String nome);
 	
+
+	//Optional<Medicamento> findByNomeAndLaboratorioId(String nome, BigInteger laboratorio_id);
+	
+	Optional<Medicamento> findByNomeAndGrupoMedicamentoIdAndLaboratorioId(String nome,BigInteger grupo_medicamento_id , BigInteger laboratorio_id);
+
     
 	
 }

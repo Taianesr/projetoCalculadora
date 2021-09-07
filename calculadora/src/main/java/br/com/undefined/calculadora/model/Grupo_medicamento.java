@@ -1,6 +1,8 @@
 package br.com.undefined.calculadora.model;
 
 import java.math.BigInteger;
+
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -12,6 +14,7 @@ public class Grupo_medicamento {
 
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private BigInteger id;
+	@Column
 	private String nome;
 
 	public Grupo_medicamento() {

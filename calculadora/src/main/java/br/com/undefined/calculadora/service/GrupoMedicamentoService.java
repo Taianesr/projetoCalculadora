@@ -2,7 +2,6 @@ package br.com.undefined.calculadora.service;
 
 import java.math.BigInteger;
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -33,10 +32,19 @@ public class GrupoMedicamentoService {
 		// Grupo_medicamento grupoMed=
 		// grupoMedicamentoRepository.findByNome(grupoMedForm.getNome()).orElseThrow(()
 		// -> new ServiceException("Já existe um grupo medicamento com esse nome!"));
+		
+		 Boolean grupoMed= grupoMedicamentoRepository.findByNome(grupoMedForm.getNome()).isEmpty();
+		 
+		 if(grupoMed==true) {
+				Grupo_medicamento grupoMed2 = modelMapper.modelMapper().map(grupoMedForm, Grupo_medicamento.class);
+				grupoMedicamentoRepository.save(grupoMed2);
+				return grupoMed2;
+		 }else {
+			 throw new ServiceException("Já existe um grupo medicamento cadastrado com esse nome!");
+		 }
+		 
 
-		Grupo_medicamento grupoMed2 = modelMapper.modelMapper().map(grupoMedForm, Grupo_medicamento.class);
-		grupoMedicamentoRepository.save(grupoMed2);
-		return grupoMed2;
+	
 
 	}
 
@@ -44,7 +52,7 @@ public class GrupoMedicamentoService {
 			throws ServiceException {
 
 		Grupo_medicamento grupoMed = grupoMedicamentoRepository.findById(id)
-				.orElseThrow(() -> new ServiceException("Não encontrado grupo medicamento com esse id!"));
+				.orElseThrow(() -> new ServiceException("Não encontrado o grupo medicamento com esse id!"));
 
 		grupoMed.setNome(atGrupoMedForm.getNome());
 

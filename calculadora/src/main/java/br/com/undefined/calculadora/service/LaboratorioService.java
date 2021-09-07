@@ -33,14 +33,16 @@ public class LaboratorioService {
 	public Laboratorio criar(LaboratorioForm labForm) throws ServiceException {
 		// classse mapper
 
-		 Optional lab= laboratorioRepository.findByNome(labForm.getNome());
+		 Boolean lab= laboratorioRepository.findByNome(labForm.getNome()).isEmpty();
 		 
-         if(lab.isEmpty()) {
+		// List <Laboratorio> lab3= laboratorioRepository.findByNome(labForm.getNome());		
+				
+         if(lab==true) {
         	Laboratorio lab2 = modelMapper.modelMapper().map(labForm, Laboratorio.class);
      		laboratorioRepository.save(lab2);
      		return lab2;
          }else {
-        	 throw new ServiceException("Já existe laboratório com esse nome!");
+        	 throw new ServiceException("Já existe um laboratório cadastrado com esse nome!");
          }
 		
 		
@@ -49,7 +51,7 @@ public class LaboratorioService {
 
 	public LaboratorioDto atualizar(BigInteger id, AtualizacaoLaboratorioForm atLabForm) throws ServiceException {
 		Laboratorio lab = laboratorioRepository.findById(id)
-				.orElseThrow(() -> new ServiceException("Não encontrado laboratório com esse id!"));
+				.orElseThrow(() -> new ServiceException("Não encontrado o laboratório com esse id!"));
 
 		lab.setNome(atLabForm.getNome());
 

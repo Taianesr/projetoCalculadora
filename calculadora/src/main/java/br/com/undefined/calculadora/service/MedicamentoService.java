@@ -2,7 +2,7 @@ package br.com.undefined.calculadora.service;
 
 import java.math.BigInteger;
 import java.util.List;
-
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -42,20 +42,33 @@ public class MedicamentoService {
 	public Medicamento criar(MedicamentoForm medForm) throws ServiceException {
 
 		Laboratorio lab = labRepository.findById(medForm.getLaboratorio_id())
-				.orElseThrow(() -> new ServiceException("Não encontrado laboratório com esse id!"));
+				.orElseThrow(() -> new ServiceException("Não encontrado o laboratório com esse id!"));
 
 		Grupo_medicamento grupoMed = grupoMedicamentoRepository.findById(medForm.getGrupo_medicamento_id())
-				.orElseThrow(() -> new ServiceException("Não encontrado grupo medicamento com esse id!"));
+				.orElseThrow(() -> new ServiceException("Não encontrado o grupo medicamento com esse id!"));
+		
+		
+		Optional<Medicamento> med2= medicamentoRepository.findByNomeAndGrupoMedicamentoIdAndLaboratorioId(medForm.getNome(), medForm.getGrupo_medicamento_id(), medForm.getLaboratorio_id());
+		
+		if(med2.isEmpty()) {
+			Medicamento med = new Medicamento(grupoMed, lab, medForm.getNome());
+			medicamentoRepository.save(med);
+			return med;
+		}else {
+			   throw new ServiceException("Medicamento já inserido!");
+			
+		}
+		
+		//Medicamento med3 = new Medicamento(grupoMed, lab, medForm.getNome());
+		//medicamentoRepository.save(med3);
+		//return med3;
 		
 
-		Medicamento med = new Medicamento(grupoMed, lab, medForm.getNome());
-		medicamentoRepository.save(med);
-		return med;
 	}
 
 	public MedicamentoDto atualizar(BigInteger id, AtualizacaoMedicamentoForm atMedForm) throws ServiceException {
 		
-		Medicamento med= medicamentoRepository.findById(id).orElseThrow(() -> new ServiceException("Não encontrado medicamento com esse id!"));
+		Medicamento med= medicamentoRepository.findById(id).orElseThrow(() -> new ServiceException("Não encontrado o medicamento com esse id!"));
 
 		med.setNome(atMedForm.getNome());
 		med.getLaboratorio().setId(atMedForm.getLaboratorio_id());

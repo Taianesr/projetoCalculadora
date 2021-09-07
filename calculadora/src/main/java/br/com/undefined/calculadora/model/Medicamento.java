@@ -2,6 +2,7 @@ package br.com.undefined.calculadora.model;
 
 import java.math.BigInteger;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -15,10 +16,11 @@ public class Medicamento {
 	private BigInteger id;
 	@ManyToOne
 	@JoinColumn(name="grupo_medicamento_id")
-	private Grupo_medicamento grupo_medicamento;
+	private Grupo_medicamento grupoMedicamento;
 	@ManyToOne
 	@JoinColumn(name="laboratorio_id")
 	private Laboratorio laboratorio;
+	@Column
 	private String nome;
 
 	public Medicamento() {
@@ -29,7 +31,7 @@ public class Medicamento {
 	public Medicamento(BigInteger id, Grupo_medicamento grupo_medicamento, Laboratorio laboratorio, String nome) {
 		super();
 		this.id = id;
-		this.grupo_medicamento = grupo_medicamento;
+		this.grupoMedicamento = grupo_medicamento;
 		this.laboratorio = laboratorio;
 		this.nome = nome;
 	}
@@ -37,7 +39,7 @@ public class Medicamento {
 	
 	public Medicamento(Grupo_medicamento grupo_medicamento, Laboratorio laboratorio, String nome) {
 		super();
-		this.grupo_medicamento = grupo_medicamento;
+		this.grupoMedicamento = grupo_medicamento;
 		this.laboratorio = laboratorio;
 		this.nome = nome;
 	}
@@ -53,11 +55,11 @@ public class Medicamento {
 	}
 
 	public Grupo_medicamento getGrupo_medicamento() {
-		return grupo_medicamento;
+		return grupoMedicamento;
 	}
 
 	public void setGrupo_medicamento(Grupo_medicamento grupo_medicamento) {
-		this.grupo_medicamento = grupo_medicamento;
+		this.grupoMedicamento = grupo_medicamento;
 	}
 
 	public Laboratorio getLaboratorio() {
