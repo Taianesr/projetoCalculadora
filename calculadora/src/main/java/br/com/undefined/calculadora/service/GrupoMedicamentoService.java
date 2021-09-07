@@ -17,41 +17,38 @@ import br.com.undefined.calculadora.repository.GrupoMedicamentoRepository;
 
 @Service
 public class GrupoMedicamentoService {
-	
+
 	@Autowired
 	private GrupoMedicamentoRepository grupoMedicamentoRepository;
-	
+
 	@Autowired
 	private ModelMapperConfig modelMapper;
-	
 
 	public List<Grupo_medicamento> listar() {
 		return grupoMedicamentoRepository.findAll();
 	}
-	
-	
-	public Grupo_medicamento criar (GrupoMedicamentoForm grupoMedForm) throws ServiceException {
-		
-		//Grupo_medicamento grupoMed= grupoMedicamentoRepository.findByNome(grupoMedForm.getNome()).orElseThrow(() -> new ServiceException("Já existe um grupo medicamento com esse nome!"));
-		
-		
-		
-		Grupo_medicamento grupoMed2= modelMapper.modelMapper().map(grupoMedForm, Grupo_medicamento.class);
+
+	public Grupo_medicamento criar(GrupoMedicamentoForm grupoMedForm) throws ServiceException {
+
+		// Grupo_medicamento grupoMed=
+		// grupoMedicamentoRepository.findByNome(grupoMedForm.getNome()).orElseThrow(()
+		// -> new ServiceException("Já existe um grupo medicamento com esse nome!"));
+
+		Grupo_medicamento grupoMed2 = modelMapper.modelMapper().map(grupoMedForm, Grupo_medicamento.class);
 		grupoMedicamentoRepository.save(grupoMed2);
 		return grupoMed2;
+
 	}
-	
-	
-	public GrupoMedicamentoDto atualizar(BigInteger id, AtualizacaoGrupoMedicamentoForm atGrupoMedForm) throws ServiceException {
+
+	public GrupoMedicamentoDto atualizar(BigInteger id, AtualizacaoGrupoMedicamentoForm atGrupoMedForm)
+			throws ServiceException {
 
 		Grupo_medicamento grupoMed = grupoMedicamentoRepository.findById(id)
 				.orElseThrow(() -> new ServiceException("Não encontrado grupo medicamento com esse id!"));
-		
+
 		grupoMed.setNome(atGrupoMedForm.getNome());
-		
+
 		return modelMapper.modelMapper().map(grupoMed, GrupoMedicamentoDto.class);
 	}
-
-	
 
 }

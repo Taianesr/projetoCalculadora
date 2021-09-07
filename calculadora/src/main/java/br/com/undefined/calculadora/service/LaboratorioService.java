@@ -19,39 +19,41 @@ import br.com.undefined.calculadora.repository.LaboratorioRepository;
 
 @Service
 public class LaboratorioService {
-	
+
 	@Autowired
 	private LaboratorioRepository laboratorioRepository;
-	
+
 	@Autowired
 	private ModelMapperConfig modelMapper;
-	
-	public List<Laboratorio> listar(){
+
+	public List<Laboratorio> listar() {
 		return laboratorioRepository.findAll();
 	}
-	
-	
-	
-	public Laboratorio criar (LaboratorioForm labForm) throws ServiceException{
-		//classse mapper
+
+	public Laboratorio criar(LaboratorioForm labForm) throws ServiceException {
+		// classse mapper
+
+		 Optional lab= laboratorioRepository.findByNome(labForm.getNome());
+		 
+         if(lab.isEmpty()) {
+        	Laboratorio lab2 = modelMapper.modelMapper().map(labForm, Laboratorio.class);
+     		laboratorioRepository.save(lab2);
+     		return lab2;
+         }else {
+        	 throw new ServiceException("Já existe laboratório com esse nome!");
+         }
 		
-		//Laboratorio lab= laboratorioRepository.findByNome(labForm.getNome()).orElseThrow(() -> new ServiceException("Já existe um objeto laboratório com esse nome"));
 		
-		Laboratorio lab2= modelMapper.modelMapper().map(labForm, Laboratorio.class);
-		laboratorioRepository.save(lab2);
-		return lab2;
+		
 	}
-	
-	
+
 	public LaboratorioDto atualizar(BigInteger id, AtualizacaoLaboratorioForm atLabForm) throws ServiceException {
-		Laboratorio lab = laboratorioRepository.findById(id).orElseThrow(() -> new ServiceException("Não encontrado laboratório com esse id!"));
-		
+		Laboratorio lab = laboratorioRepository.findById(id)
+				.orElseThrow(() -> new ServiceException("Não encontrado laboratório com esse id!"));
+
 		lab.setNome(atLabForm.getNome());
-		
+
 		return modelMapper.modelMapper().map(lab, LaboratorioDto.class);
 	}
 
-
-	
-	
 }

@@ -2,8 +2,7 @@ package br.com.undefined.calculadora.service;
 
 import java.math.BigInteger;
 import java.util.List;
-import java.util.Optional;
-import java.util.function.Supplier;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,8 +18,7 @@ import br.com.undefined.calculadora.modelMapper.ModelMapperConfig;
 import br.com.undefined.calculadora.repository.GrupoMedicamentoRepository;
 import br.com.undefined.calculadora.repository.LaboratorioRepository;
 import br.com.undefined.calculadora.repository.MedicamentoRepository;
-import javassist.NotFoundException;
-import jdk.jshell.spi.ExecutionControl.RunException;
+
 
 @Service
 public class MedicamentoService {
@@ -48,6 +46,7 @@ public class MedicamentoService {
 
 		Grupo_medicamento grupoMed = grupoMedicamentoRepository.findById(medForm.getGrupo_medicamento_id())
 				.orElseThrow(() -> new ServiceException("Não encontrado grupo medicamento com esse id!"));
+		
 
 		Medicamento med = new Medicamento(grupoMed, lab, medForm.getNome());
 		medicamentoRepository.save(med);
