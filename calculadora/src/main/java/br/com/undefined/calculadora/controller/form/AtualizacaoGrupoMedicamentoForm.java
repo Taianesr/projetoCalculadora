@@ -1,18 +1,23 @@
 package br.com.undefined.calculadora.controller.form;
 
-public class LaboratorioForm {
-
+public class AtualizacaoGrupoMedicamentoForm {
+	
 	private String nome;
+	
+	
 
-	public LaboratorioForm() {
+	public AtualizacaoGrupoMedicamentoForm() {
 		super();
-
 	}
 	
-	public LaboratorioForm(String nome) {
+	
+
+	public AtualizacaoGrupoMedicamentoForm(String nome) {
 		super();
 		this.nome = nome;
 	}
+
+
 
 	public String getNome() {
 		return nome;
@@ -21,5 +26,7 @@ public class LaboratorioForm {
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
+	
+	
 
 }

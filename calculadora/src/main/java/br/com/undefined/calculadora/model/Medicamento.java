@@ -26,10 +26,17 @@ public class Medicamento {
 	}
 
 	
-	
 	public Medicamento(BigInteger id, Grupo_medicamento grupo_medicamento, Laboratorio laboratorio, String nome) {
 		super();
 		this.id = id;
+		this.grupo_medicamento = grupo_medicamento;
+		this.laboratorio = laboratorio;
+		this.nome = nome;
+	}
+	
+	
+	public Medicamento(Grupo_medicamento grupo_medicamento, Laboratorio laboratorio, String nome) {
+		super();
 		this.grupo_medicamento = grupo_medicamento;
 		this.laboratorio = laboratorio;
 		this.nome = nome;

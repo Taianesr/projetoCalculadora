@@ -9,6 +9,12 @@ public class GrupoMedicamentoDto {
 	private BigInteger id;
 	private String nome;
 	
+	
+	
+	public GrupoMedicamentoDto() {
+		super();
+	}
+
 	public GrupoMedicamentoDto(Grupo_medicamento grupoMed) {
 		super();
 		this.id=grupoMed.getId();

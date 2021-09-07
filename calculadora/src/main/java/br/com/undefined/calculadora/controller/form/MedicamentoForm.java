@@ -1,39 +1,26 @@
-package br.com.undefined.calculadora.dto;
+package br.com.undefined.calculadora.controller.form;
 
 import java.math.BigInteger;
 
-import br.com.undefined.calculadora.model.Medicamento;
-
-public class MedicamentoDto {
-
-	private BigInteger id;
+public class MedicamentoForm {
+	
 	private BigInteger grupo_medicamento_id;
 	private BigInteger laboratorio_id;
 	private String nome;
 	
-	public MedicamentoDto() {
+	public MedicamentoForm() {
 		super();
 	}
+	
 
-	public MedicamentoDto(Medicamento medicamento) {
+	public MedicamentoForm(BigInteger grupo_medicamento_id, BigInteger laboratorio_id, String nome) {
 		super();
-		this.id = medicamento.getId();
-		this.grupo_medicamento_id = medicamento.getGrupo_medicamento().getId();
-		this.laboratorio_id = medicamento.getLaboratorio().getId();
-		this.nome = medicamento.getNome();
+		this.grupo_medicamento_id = grupo_medicamento_id;
+		this.laboratorio_id = laboratorio_id;
+		this.nome = nome;
 	}
 
-	
-	
-	
-	
-	public BigInteger getId() {
-		return id;
-	}
 
-	public void setId(BigInteger id) {
-		this.id = id;
-	}
 
 	public BigInteger getGrupo_medicamento_id() {
 		return grupo_medicamento_id;
@@ -58,5 +45,9 @@ public class MedicamentoDto {
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
+	
+	
+	
+	
 
 }

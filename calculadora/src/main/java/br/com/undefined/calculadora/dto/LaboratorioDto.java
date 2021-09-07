@@ -8,7 +8,10 @@ public class LaboratorioDto {
 	private BigInteger id;
 	private String nome;
 	
-	
+	public LaboratorioDto() {
+		super();
+	}
+
 	public LaboratorioDto(Laboratorio lab) {
 		this.id=lab.getId();
 		this.nome= lab.getNome();
@@ -30,7 +33,6 @@ public class LaboratorioDto {
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
-	
 	
 	
 	
