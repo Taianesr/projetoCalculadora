@@ -27,18 +27,14 @@ public class GrupoMedicamentoService {
 		return grupoMedicamentoRepository.findAll();
 	}
 
-	public Grupo_medicamento criar(GrupoMedicamentoForm grupoMedForm) throws ServiceException {
+	public GrupoMedicamentoDto criar(GrupoMedicamentoForm grupoMedForm) throws ServiceException {
 
-		// Grupo_medicamento grupoMed=
-		// grupoMedicamentoRepository.findByNome(grupoMedForm.getNome()).orElseThrow(()
-		// -> new ServiceException("Já existe um grupo medicamento com esse nome!"));
-		
 		 Boolean grupoMed= grupoMedicamentoRepository.findByNome(grupoMedForm.getNome()).isEmpty();
 		 
 		 if(grupoMed==true) {
 				Grupo_medicamento grupoMed2 = modelMapper.modelMapper().map(grupoMedForm, Grupo_medicamento.class);
 				grupoMedicamentoRepository.save(grupoMed2);
-				return grupoMed2;
+				return modelMapper.modelMapper().map(grupoMed2, GrupoMedicamentoDto.class);
 		 }else {
 			 throw new ServiceException("Já existe um grupo medicamento cadastrado com esse nome!");
 		 }

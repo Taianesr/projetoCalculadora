@@ -39,11 +39,11 @@ public class MedicamentoController {
 	public ResponseEntity<MedicamentoDto> criar(@RequestBody MedicamentoForm medForm,
 			UriComponentsBuilder uriBuilder) throws Exception {
 
-		Medicamento med = medicamentoService.criar(medForm);
+		MedicamentoDto medDto = medicamentoService.criar(medForm);
 
-		URI uri = uriBuilder.path("/{id}/").buildAndExpand(med.getId()).toUri();
+		URI uri = uriBuilder.path("/{id}/").buildAndExpand(medDto.getId()).toUri();
 
-		return ResponseEntity.created(uri).body(new MedicamentoDto(med));
+		return ResponseEntity.created(uri).body(medDto);
 
 	}
 	

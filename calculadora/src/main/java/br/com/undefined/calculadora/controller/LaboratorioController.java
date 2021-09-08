@@ -24,11 +24,8 @@ import br.com.undefined.calculadora.model.Laboratorio;
 import br.com.undefined.calculadora.service.LaboratorioService;
 
 
-//@CrossOrigin(origins="*")
 @RestController
 @RequestMapping(value = "/laboratorio")
-//@Api(value="API REST DE MEDICAMENTOS")
-
 
 public class LaboratorioController {
 
@@ -37,7 +34,6 @@ public class LaboratorioController {
 
 	
 	@GetMapping("/listar")
-	//@ApiOperation(value="Retorna uma lista de produtos")
 	public List<Laboratorio> listarMedicamentos(){
 		return laboratorioService.listar();
 		
@@ -45,19 +41,18 @@ public class LaboratorioController {
 	
 	
 	@PostMapping("/criar")
-	//@ApiOperation(value="Retorna uma lista de produtos")
 	public ResponseEntity<LaboratorioDto> criar(@RequestBody LaboratorioForm laboratorioForm, UriComponentsBuilder uriBuilder) {
-	    Laboratorio lab = laboratorioService.criar(laboratorioForm);
+		
+	    LaboratorioDto labDto = laboratorioService.criar(laboratorioForm);
 	    
-	    URI uri= uriBuilder.path("/{id}/").buildAndExpand(lab.getId()).toUri();
+	    URI uri= uriBuilder.path("/{id}/").buildAndExpand(labDto.getId()).toUri();
 	    
-		return ResponseEntity.created(uri).body(new LaboratorioDto(lab));
+		return ResponseEntity.created(uri).body(labDto);
 		
 	}
 	
 	
 	@PutMapping("/{id}/atualizar")
-	//@ApiOperation(value="Retorna uma lista de produtos")
 	public ResponseEntity<LaboratorioDto> atualizar(@PathVariable BigInteger id, @RequestBody AtualizacaoLaboratorioForm atlabForm) throws ServiceException{
 		
 		LaboratorioDto labDto =  laboratorioService.atualizar(id, atlabForm);

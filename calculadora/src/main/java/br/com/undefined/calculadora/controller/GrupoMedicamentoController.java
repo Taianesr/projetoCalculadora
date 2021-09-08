@@ -40,11 +40,11 @@ public class GrupoMedicamentoController {
 	public ResponseEntity<GrupoMedicamentoDto> criar(@RequestBody GrupoMedicamentoForm grupoMedForm,
 			UriComponentsBuilder uriBuilder) {
 
-		Grupo_medicamento grupoMed = grupoMedicamentoService.criar(grupoMedForm);
+		GrupoMedicamentoDto grupoMedDto = grupoMedicamentoService.criar(grupoMedForm);
 
-		URI uri = uriBuilder.path("/{id}/").buildAndExpand(grupoMed.getId()).toUri();
+		URI uri = uriBuilder.path("/{id}/").buildAndExpand(grupoMedDto.getId()).toUri();
 
-		return ResponseEntity.created(uri).body(new GrupoMedicamentoDto(grupoMed));
+		return ResponseEntity.created(uri).body(grupoMedDto);
 
 	}
 	

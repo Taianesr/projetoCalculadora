@@ -19,7 +19,6 @@ import br.com.undefined.calculadora.repository.GrupoMedicamentoRepository;
 import br.com.undefined.calculadora.repository.LaboratorioRepository;
 import br.com.undefined.calculadora.repository.MedicamentoRepository;
 
-
 @Service
 public class MedicamentoService {
 
@@ -39,41 +38,40 @@ public class MedicamentoService {
 		return medicamentoRepository.findAll();
 	}
 
-	public Medicamento criar(MedicamentoForm medForm) throws ServiceException {
+	public MedicamentoDto criar(MedicamentoForm medForm) throws ServiceException {
 
 		Laboratorio lab = labRepository.findById(medForm.getLaboratorio_id())
 				.orElseThrow(() -> new ServiceException("Não encontrado o laboratório com esse id!"));
 
 		Grupo_medicamento grupoMed = grupoMedicamentoRepository.findById(medForm.getGrupo_medicamento_id())
 				.orElseThrow(() -> new ServiceException("Não encontrado o grupo medicamento com esse id!"));
-		
-		
-		Optional<Medicamento> med2= medicamentoRepository.findByNomeAndGrupoMedicamentoIdAndLaboratorioId(medForm.getNome(), medForm.getGrupo_medicamento_id(), medForm.getLaboratorio_id());
-		
-		if(med2.isEmpty()) {
+
+		Optional<Medicamento> med2 = medicamentoRepository.findByNomeAndGrupoMedicamentoIdAndLaboratorioId(
+				medForm.getNome(), medForm.getGrupo_medicamento_id(), medForm.getLaboratorio_id());
+
+		if (med2.isEmpty()) {
 			Medicamento med = new Medicamento(grupoMed, lab, medForm.getNome());
 			medicamentoRepository.save(med);
-			return med;
-		}else {
-			   throw new ServiceException("Medicamento já inserido!");
-			
+			return new MedicamentoDto(med);
+		} else {
+			throw new ServiceException("Medicamento já inserido!");
+
 		}
-		
-		//Medicamento med3 = new Medicamento(grupoMed, lab, medForm.getNome());
-		//medicamentoRepository.save(med3);
-		//return med3;
-		
 
 	}
 
 	public MedicamentoDto atualizar(BigInteger id, AtualizacaoMedicamentoForm atMedForm) throws ServiceException {
 		
-		Medicamento med= medicamentoRepository.findById(id).orElseThrow(() -> new ServiceException("Não encontrado o medicamento com esse id!"));
+		Laboratorio lab = labRepository.findById(atMedForm.getLaboratorio_id())
+				.orElseThrow(() -> new ServiceException("Não encontrado o laboratório com esse id!"));
+		
+
+		Medicamento med = medicamentoRepository.findById(id)
+				.orElseThrow(() -> new ServiceException("Não encontrado o medicamento com esse id!"));
 
 		med.setNome(atMedForm.getNome());
 		med.getLaboratorio().setId(atMedForm.getLaboratorio_id());
 
-		// mudar comando
 		return new MedicamentoDto(med);
 	}
 
