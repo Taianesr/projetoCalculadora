@@ -1,4 +1,4 @@
-package br.com.desafioCompasso.controller.dto;
+package br.com.desafioCompasso.calculadora.controller.dto;
 
 import java.math.BigInteger;
 

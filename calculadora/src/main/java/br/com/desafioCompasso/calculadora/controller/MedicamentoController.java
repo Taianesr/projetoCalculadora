@@ -18,12 +18,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import br.com.desafioCompasso.calculadora.controller.dto.MedicamentoDto;
 import br.com.desafioCompasso.calculadora.controller.form.AtualizacaoMedicamentoForm;
 import br.com.desafioCompasso.calculadora.controller.form.MedicamentoForm;
 import br.com.desafioCompasso.calculadora.exceptions.ServiceException;
 import br.com.desafioCompasso.calculadora.model.Medicamento;
 import br.com.desafioCompasso.calculadora.service.MedicamentoService;
-import br.com.desafioCompasso.controller.dto.MedicamentoDto;
 
 @RestController
 @RequestMapping("/medicamento")

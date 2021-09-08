@@ -6,13 +6,13 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import br.com.desafioCompasso.calculadora.controller.dto.GrupoMedicamentoDto;
 import br.com.desafioCompasso.calculadora.controller.form.AtualizacaoGrupoMedicamentoForm;
 import br.com.desafioCompasso.calculadora.controller.form.GrupoMedicamentoForm;
 import br.com.desafioCompasso.calculadora.exceptions.ServiceException;
 import br.com.desafioCompasso.calculadora.model.Grupo_medicamento;
 import br.com.desafioCompasso.calculadora.modelMapper.ModelMapperConfig;
 import br.com.desafioCompasso.calculadora.repository.GrupoMedicamentoRepository;
-import br.com.desafioCompasso.controller.dto.GrupoMedicamentoDto;
 
 @Service
 public class GrupoMedicamentoService {

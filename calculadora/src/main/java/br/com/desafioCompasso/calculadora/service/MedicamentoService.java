@@ -7,6 +7,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import br.com.desafioCompasso.calculadora.controller.dto.MedicamentoDto;
 import br.com.desafioCompasso.calculadora.controller.form.AtualizacaoMedicamentoForm;
 import br.com.desafioCompasso.calculadora.controller.form.MedicamentoForm;
 import br.com.desafioCompasso.calculadora.exceptions.ServiceException;
@@ -17,7 +18,6 @@ import br.com.desafioCompasso.calculadora.modelMapper.ModelMapperConfig;
 import br.com.desafioCompasso.calculadora.repository.GrupoMedicamentoRepository;
 import br.com.desafioCompasso.calculadora.repository.LaboratorioRepository;
 import br.com.desafioCompasso.calculadora.repository.MedicamentoRepository;
-import br.com.desafioCompasso.controller.dto.MedicamentoDto;
 
 @Service
 public class MedicamentoService {
