@@ -15,7 +15,6 @@ import br.com.undefined.calculadora.model.Laboratorio;
 import br.com.undefined.calculadora.modelMapper.ModelMapperConfig;
 import br.com.undefined.calculadora.repository.LaboratorioRepository;
 
-//REVISAR NOMES METODOS 
 
 @Service
 public class LaboratorioService {
@@ -56,5 +55,11 @@ public class LaboratorioService {
 
 		return modelMapper.modelMapper().map(lab, LaboratorioDto.class);
 	}
+	
+	
+	public void excluir(BigInteger id) {
+		laboratorioRepository.deleteById(id);
+	}
+	
 
 }

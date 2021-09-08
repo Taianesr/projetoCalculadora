@@ -74,5 +74,11 @@ public class MedicamentoService {
 
 		return new MedicamentoDto(med);
 	}
+	
+	public void excluir(BigInteger id) {
+		grupoMedicamentoRepository.deleteById(id);
+	}
+	
+	
 
 }

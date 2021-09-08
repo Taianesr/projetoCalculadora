@@ -4,8 +4,11 @@ import java.math.BigInteger;
 import java.net.URI;
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -50,6 +53,7 @@ public class GrupoMedicamentoController {
 	
 
 	@PutMapping("/{id}/atualizar")
+	@Transactional
 	public ResponseEntity<GrupoMedicamentoDto> atualizar(@PathVariable BigInteger id,
 			@RequestBody AtualizacaoGrupoMedicamentoForm atGrupoMedForm) throws ServiceException {
 
@@ -58,5 +62,14 @@ public class GrupoMedicamentoController {
 		return ResponseEntity.ok(grupoMedDto);
 
 	}
+	
+	@DeleteMapping("/{id}")
+	@Transactional
+	public ResponseEntity<?> excluir(@PathVariable BigInteger id){
+		grupoMedicamentoService.excluir(id);
+		return ResponseEntity.ok().build();
+	}
+	
+	
 
 }

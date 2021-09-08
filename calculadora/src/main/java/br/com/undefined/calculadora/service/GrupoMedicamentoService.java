@@ -55,4 +55,10 @@ public class GrupoMedicamentoService {
 		return modelMapper.modelMapper().map(grupoMed, GrupoMedicamentoDto.class);
 	}
 
+	
+	public void excluir(BigInteger id) {
+		grupoMedicamentoRepository.deleteById(id);
+	}
+	
+	
 }
