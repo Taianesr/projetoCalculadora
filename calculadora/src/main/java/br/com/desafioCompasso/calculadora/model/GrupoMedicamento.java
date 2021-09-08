@@ -7,21 +7,23 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 
 @Entity
-public class Grupo_medicamento {
+@Table(name ="grupo_medicamento")
+public class GrupoMedicamento {
 
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private BigInteger id;
 	@Column
 	private String nome;
 
-	public Grupo_medicamento() {
+	public GrupoMedicamento() {
 		super();
 	}
 
-	public Grupo_medicamento(BigInteger id, String nome) {
+	public GrupoMedicamento(BigInteger id, String nome) {
 		super();
 		this.id = id;
 		this.nome = nome;

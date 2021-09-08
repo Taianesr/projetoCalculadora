@@ -2,25 +2,26 @@ package br.com.desafioCompasso.calculadora.model;
 
 import java.math.BigInteger;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 @Entity
+@Table(name ="medicamento")
+
 public class Medicamento {
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private BigInteger id;
 	@ManyToOne
-	@JoinColumn(name="grupo_medicamento_id")
-	private Grupo_medicamento grupoMedicamento;
+	@JoinColumn(name = "grupo_medicamento_id", referencedColumnName = "id" )
+	private GrupoMedicamento grupoMedicamento;
 	@ManyToOne
-	@JoinColumn(name="laboratorio_id")
+	@JoinColumn(name = "laboratorio_id", referencedColumnName = "id")
 	private Laboratorio laboratorio;
 	@Column
 	private String nome;
@@ -30,7 +31,7 @@ public class Medicamento {
 	}
 
 	
-	public Medicamento(BigInteger id, Grupo_medicamento grupo_medicamento, Laboratorio laboratorio, String nome) {
+	public Medicamento(BigInteger id, GrupoMedicamento grupo_medicamento, Laboratorio laboratorio, String nome) {
 		super();
 		this.id = id;
 		this.grupoMedicamento = grupo_medicamento;
@@ -39,7 +40,7 @@ public class Medicamento {
 	}
 	
 	
-	public Medicamento(Grupo_medicamento grupo_medicamento, Laboratorio laboratorio, String nome) {
+	public Medicamento(GrupoMedicamento grupo_medicamento, Laboratorio laboratorio, String nome) {
 		super();
 		this.grupoMedicamento = grupo_medicamento;
 		this.laboratorio = laboratorio;
@@ -56,11 +57,11 @@ public class Medicamento {
 		this.id = id;
 	}
 
-	public Grupo_medicamento getGrupo_medicamento() {
+	public GrupoMedicamento getGrupo_medicamento() {
 		return grupoMedicamento;
 	}
 
-	public void setGrupo_medicamento(Grupo_medicamento grupo_medicamento) {
+	public void setGrupo_medicamento(GrupoMedicamento grupo_medicamento) {
 		this.grupoMedicamento = grupo_medicamento;
 	}
 

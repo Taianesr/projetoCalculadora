@@ -2,7 +2,6 @@ package br.com.desafioCompasso.calculadora.service;
 
 import java.math.BigInteger;
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -10,6 +9,7 @@ import org.springframework.stereotype.Service;
 import br.com.desafioCompasso.calculadora.controller.dto.LaboratorioDto;
 import br.com.desafioCompasso.calculadora.controller.form.AtualizacaoLaboratorioForm;
 import br.com.desafioCompasso.calculadora.controller.form.LaboratorioForm;
+import br.com.desafioCompasso.calculadora.exceptions.NotFoundException;
 import br.com.desafioCompasso.calculadora.exceptions.ServiceException;
 import br.com.desafioCompasso.calculadora.model.Laboratorio;
 import br.com.desafioCompasso.calculadora.modelMapper.ModelMapperConfig;
@@ -30,7 +30,6 @@ public class LaboratorioService {
 	}
 
 	public LaboratorioDto criar(LaboratorioForm labForm) throws ServiceException {
-		// classse mapper
 
 		 Boolean lab= laboratorioRepository.findByNome(labForm.getNome()).isEmpty();		
 				
@@ -42,22 +41,26 @@ public class LaboratorioService {
          }else {
         	 throw new ServiceException("Já existe um laboratório cadastrado com esse nome!");
          }
-		
-		
+			
 		
 	}
 
-	public LaboratorioDto atualizar(BigInteger id, AtualizacaoLaboratorioForm atLabForm) throws ServiceException {
+	public LaboratorioDto atualizar(BigInteger id, AtualizacaoLaboratorioForm atLabForm) throws NotFoundException {
 		Laboratorio lab = laboratorioRepository.findById(id)
-				.orElseThrow(() -> new ServiceException("Não encontrado o laboratório com esse id!"));
-
+				.orElseThrow(() -> new NotFoundException("Não encontrado o laboratório com esse id!"));
+		
 		lab.setNome(atLabForm.getNome());
 
-		return modelMapper.modelMapper().map(lab, LaboratorioDto.class);
+		Laboratorio lb=laboratorioRepository.save(lab);
+		
+		return modelMapper.modelMapper().map(lb, LaboratorioDto.class);
 	}
 	
 	
 	public void excluir(BigInteger id) {
+		Laboratorio lab = laboratorioRepository.findById(id)
+				.orElseThrow(() -> new NotFoundException("Não encontrado o laboratório com esse id!"));
+		
 		laboratorioRepository.deleteById(id);
 	}
 	

@@ -22,7 +22,7 @@ import br.com.desafioCompasso.calculadora.controller.dto.GrupoMedicamentoDto;
 import br.com.desafioCompasso.calculadora.controller.form.AtualizacaoGrupoMedicamentoForm;
 import br.com.desafioCompasso.calculadora.controller.form.GrupoMedicamentoForm;
 import br.com.desafioCompasso.calculadora.exceptions.ServiceException;
-import br.com.desafioCompasso.calculadora.model.Grupo_medicamento;
+import br.com.desafioCompasso.calculadora.model.GrupoMedicamento;
 import br.com.desafioCompasso.calculadora.service.GrupoMedicamentoService;
 
 @RestController
@@ -34,7 +34,7 @@ public class GrupoMedicamentoController {
 	
 
 	@GetMapping("/listar")
-	public List<Grupo_medicamento> listarGrupoMedicamentos() {
+	public List<GrupoMedicamento> listarGrupoMedicamentos() {
 		return grupoMedicamentoService.listar();
 
 	}

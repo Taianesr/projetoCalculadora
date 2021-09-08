@@ -10,8 +10,9 @@ import org.springframework.stereotype.Service;
 import br.com.desafioCompasso.calculadora.controller.dto.MedicamentoDto;
 import br.com.desafioCompasso.calculadora.controller.form.AtualizacaoMedicamentoForm;
 import br.com.desafioCompasso.calculadora.controller.form.MedicamentoForm;
+import br.com.desafioCompasso.calculadora.exceptions.NotFoundException;
 import br.com.desafioCompasso.calculadora.exceptions.ServiceException;
-import br.com.desafioCompasso.calculadora.model.Grupo_medicamento;
+import br.com.desafioCompasso.calculadora.model.GrupoMedicamento;
 import br.com.desafioCompasso.calculadora.model.Laboratorio;
 import br.com.desafioCompasso.calculadora.model.Medicamento;
 import br.com.desafioCompasso.calculadora.modelMapper.ModelMapperConfig;
@@ -38,12 +39,12 @@ public class MedicamentoService {
 		return medicamentoRepository.findAll();
 	}
 
-	public MedicamentoDto criar(MedicamentoForm medForm) throws ServiceException {
+	public MedicamentoDto criar(MedicamentoForm medForm) throws NotFoundException {
 
 		Laboratorio lab = labRepository.findById(medForm.getLaboratorio_id())
 				.orElseThrow(() -> new ServiceException("Não encontrado o laboratório com esse id!"));
 
-		Grupo_medicamento grupoMed = grupoMedicamentoRepository.findById(medForm.getGrupo_medicamento_id())
+		GrupoMedicamento grupoMed = grupoMedicamentoRepository.findById(medForm.getGrupo_medicamento_id())
 				.orElseThrow(() -> new ServiceException("Não encontrado o grupo medicamento com esse id!"));
 
 		Optional<Medicamento> med2 = medicamentoRepository.findByNomeAndGrupoMedicamentoIdAndLaboratorioId(
@@ -60,7 +61,7 @@ public class MedicamentoService {
 
 	}
 
-	public MedicamentoDto atualizar(BigInteger id, AtualizacaoMedicamentoForm atMedForm) throws ServiceException {
+	public MedicamentoDto atualizar(BigInteger id, AtualizacaoMedicamentoForm atMedForm) throws NotFoundException {
 		
 		Laboratorio lab = labRepository.findById(atMedForm.getLaboratorio_id())
 				.orElseThrow(() -> new ServiceException("Não encontrado o laboratório com esse id!"));
@@ -75,8 +76,14 @@ public class MedicamentoService {
 		return new MedicamentoDto(med);
 	}
 	
+	
 	public void excluir(BigInteger id) {
-		grupoMedicamentoRepository.deleteById(id);
+
+		Medicamento med = medicamentoRepository.findById(id)
+				.orElseThrow(() -> new NotFoundException("Não encontrado o medicamento com esse id!"));
+
+		
+		medicamentoRepository.deleteById(id);
 	}
 	
 	

@@ -5,10 +5,10 @@ import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import br.com.desafioCompasso.calculadora.model.Grupo_medicamento;
+import br.com.desafioCompasso.calculadora.model.GrupoMedicamento;
 
 
-public interface GrupoMedicamentoRepository extends JpaRepository<Grupo_medicamento,BigInteger>{
+public interface GrupoMedicamentoRepository extends JpaRepository<GrupoMedicamento,BigInteger>{
 
-	Optional<Grupo_medicamento> findByNome(String nome);
+	Optional<GrupoMedicamento> findByNome(String nome);
 }

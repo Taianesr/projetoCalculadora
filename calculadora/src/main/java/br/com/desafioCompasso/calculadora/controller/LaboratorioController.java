@@ -65,6 +65,8 @@ public class LaboratorioController {
 		
 	}
 	
+	
+	
 	@DeleteMapping("/{id}")
 	@Transactional
 	public ResponseEntity<?> excluir(@PathVariable BigInteger id){
