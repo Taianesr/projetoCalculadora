@@ -18,9 +18,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import br.com.undefined.calculadora.controller.dto.GrupoMedicamentoDto;
 import br.com.undefined.calculadora.controller.form.AtualizacaoGrupoMedicamentoForm;
 import br.com.undefined.calculadora.controller.form.GrupoMedicamentoForm;
-import br.com.undefined.calculadora.dto.GrupoMedicamentoDto;
 import br.com.undefined.calculadora.exceptions.ServiceException;
 import br.com.undefined.calculadora.model.Grupo_medicamento;
 import br.com.undefined.calculadora.service.GrupoMedicamentoService;

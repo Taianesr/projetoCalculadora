@@ -19,9 +19,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import br.com.undefined.calculadora.controller.dto.LaboratorioDto;
 import br.com.undefined.calculadora.controller.form.AtualizacaoLaboratorioForm;
 import br.com.undefined.calculadora.controller.form.LaboratorioForm;
-import br.com.undefined.calculadora.dto.LaboratorioDto;
 import br.com.undefined.calculadora.exceptions.ServiceException;
 import br.com.undefined.calculadora.model.Laboratorio;
 import br.com.undefined.calculadora.service.LaboratorioService;

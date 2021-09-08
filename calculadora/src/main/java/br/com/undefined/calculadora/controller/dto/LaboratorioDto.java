@@ -1,4 +1,4 @@
-package br.com.undefined.calculadora.dto;
+package br.com.undefined.calculadora.controller.dto;
 
 import java.math.BigInteger;
 

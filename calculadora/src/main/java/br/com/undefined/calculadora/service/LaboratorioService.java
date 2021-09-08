@@ -7,9 +7,9 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import br.com.undefined.calculadora.controller.dto.LaboratorioDto;
 import br.com.undefined.calculadora.controller.form.AtualizacaoLaboratorioForm;
 import br.com.undefined.calculadora.controller.form.LaboratorioForm;
-import br.com.undefined.calculadora.dto.LaboratorioDto;
 import br.com.undefined.calculadora.exceptions.ServiceException;
 import br.com.undefined.calculadora.model.Laboratorio;
 import br.com.undefined.calculadora.modelMapper.ModelMapperConfig;

@@ -7,9 +7,9 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import br.com.undefined.calculadora.controller.dto.MedicamentoDto;
 import br.com.undefined.calculadora.controller.form.AtualizacaoMedicamentoForm;
 import br.com.undefined.calculadora.controller.form.MedicamentoForm;
-import br.com.undefined.calculadora.dto.MedicamentoDto;
 import br.com.undefined.calculadora.exceptions.ServiceException;
 import br.com.undefined.calculadora.model.Grupo_medicamento;
 import br.com.undefined.calculadora.model.Laboratorio;
