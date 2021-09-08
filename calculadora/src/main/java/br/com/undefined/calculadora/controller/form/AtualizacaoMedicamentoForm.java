@@ -2,7 +2,6 @@ package br.com.undefined.calculadora.controller.form;
 
 import java.math.BigInteger;
 
-//falta adicionar grupo_medicamentos ?? 
 
 public class AtualizacaoMedicamentoForm {
 

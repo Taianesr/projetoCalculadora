@@ -3,7 +3,6 @@ package br.com.undefined.calculadora.controller.form;
 public class AtualizacaoLaboratorioForm {
 	private String nome;
 
-	//nao sei se devo usar construtores
 	public AtualizacaoLaboratorioForm() {
 		super();
 	}

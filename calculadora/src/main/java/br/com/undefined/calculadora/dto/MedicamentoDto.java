@@ -21,10 +21,7 @@ public class MedicamentoDto {
 		this.grupo_medicamento_id = medicamento.getGrupo_medicamento().getId();
 		this.laboratorio_id = medicamento.getLaboratorio().getId();
 		this.nome = medicamento.getNome();
-	}
-
-	
-	
+	}	
 	
 	
 	public BigInteger getId() {
