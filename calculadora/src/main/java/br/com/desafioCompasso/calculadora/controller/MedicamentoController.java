@@ -60,7 +60,7 @@ public class MedicamentoController {
 		
 	}
 	
-	@DeleteMapping("/{id}")
+	@DeleteMapping("/{id}/remover")
 	@Transactional
 	public ResponseEntity<?> excluir(@PathVariable BigInteger id){
 		medicamentoService.excluir(id);

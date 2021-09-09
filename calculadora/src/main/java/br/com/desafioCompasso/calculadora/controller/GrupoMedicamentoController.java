@@ -63,7 +63,8 @@ public class GrupoMedicamentoController {
 
 	}
 	
-	@DeleteMapping("/{id}")
+	//remover
+	@DeleteMapping("/{id}/remover")
 	@Transactional
 	public ResponseEntity<?> excluir(@PathVariable BigInteger id){
 		grupoMedicamentoService.excluir(id);

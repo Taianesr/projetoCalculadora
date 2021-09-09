@@ -64,11 +64,11 @@ public class MedicamentoService {
 	public MedicamentoDto atualizar(BigInteger id, AtualizacaoMedicamentoForm atMedForm) throws NotFoundException {
 		
 		Laboratorio lab = labRepository.findById(atMedForm.getLaboratorio_id())
-				.orElseThrow(() -> new ServiceException("Não encontrado o laboratório com esse id!"));
+				.orElseThrow(() -> new NotFoundException("Não encontrado o laboratório com esse id!"));
 		
 
 		Medicamento med = medicamentoRepository.findById(id)
-				.orElseThrow(() -> new ServiceException("Não encontrado o medicamento com esse id!"));
+				.orElseThrow(() -> new NotFoundException("Não encontrado o medicamento com esse id!"));
 
 		med.setNome(atMedForm.getNome());
 		med.getLaboratorio().setId(atMedForm.getLaboratorio_id());

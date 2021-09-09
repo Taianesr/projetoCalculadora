@@ -50,10 +50,8 @@ public class LaboratorioService {
 				.orElseThrow(() -> new NotFoundException("Não encontrado o laboratório com esse id!"));
 		
 		lab.setNome(atLabForm.getNome());
-
-		Laboratorio lb=laboratorioRepository.save(lab);
 		
-		return modelMapper.modelMapper().map(lb, LaboratorioDto.class);
+		return modelMapper.modelMapper().map(lab, LaboratorioDto.class);
 	}
 	
 	
