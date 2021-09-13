@@ -15,25 +15,26 @@ import javax.persistence.Table;
 public class GrupoMedicamento {
 
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-	private BigInteger id;
-	@Column
+	private Long id;
 	private String nome;
 
 	public GrupoMedicamento() {
 		super();
 	}
+	
 
-	public GrupoMedicamento(BigInteger id, String nome) {
+	public GrupoMedicamento(Long id, String nome) {
 		super();
 		this.id = id;
 		this.nome = nome;
 	}
 
-	public BigInteger getId() {
+
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(BigInteger id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -45,6 +46,8 @@ public class GrupoMedicamento {
 		this.nome = nome;
 	}
 
+
+   
 
 	
 	

@@ -38,6 +38,10 @@ public class GrupoMedicamentoController {
 		return grupoMedicamentoService.listar();
 
 	}
+	
+
+	//criar metodo listar por id
+	//criar metodo "listar por nome?"
 
 	@PostMapping("/criar")
 	public ResponseEntity<GrupoMedicamentoDto> criar(@RequestBody GrupoMedicamentoForm grupoMedForm,
@@ -52,9 +56,10 @@ public class GrupoMedicamentoController {
 	}
 	
 
-	@PutMapping("/{id}/atualizar")
+	
+	@PutMapping("/atualizar/{id}")
 	@Transactional
-	public ResponseEntity<GrupoMedicamentoDto> atualizar(@PathVariable BigInteger id,
+	public ResponseEntity<GrupoMedicamentoDto> atualizar(@PathVariable Long id,
 			@RequestBody AtualizacaoGrupoMedicamentoForm atGrupoMedForm) throws ServiceException {
 
 		GrupoMedicamentoDto grupoMedDto = grupoMedicamentoService.atualizar(id, atGrupoMedForm);
@@ -64,9 +69,9 @@ public class GrupoMedicamentoController {
 	}
 	
 	//remover
-	@DeleteMapping("/{id}/remover")
+	@DeleteMapping("/remover/{id}")
 	@Transactional
-	public ResponseEntity<?> excluir(@PathVariable BigInteger id){
+	public ResponseEntity<?> excluir(@PathVariable Long id){
 		grupoMedicamentoService.excluir(id);
 		return ResponseEntity.ok().build();
 	}

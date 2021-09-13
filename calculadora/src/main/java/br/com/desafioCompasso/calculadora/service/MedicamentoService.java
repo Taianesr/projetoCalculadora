@@ -61,7 +61,7 @@ public class MedicamentoService {
 
 	}
 
-	public MedicamentoDto atualizar(BigInteger id, AtualizacaoMedicamentoForm atMedForm) throws NotFoundException {
+	public MedicamentoDto atualizar(Long id, AtualizacaoMedicamentoForm atMedForm) throws NotFoundException {
 		
 		Laboratorio lab = labRepository.findById(atMedForm.getLaboratorio_id())
 				.orElseThrow(() -> new NotFoundException("Não encontrado o laboratório com esse id!"));
@@ -77,7 +77,7 @@ public class MedicamentoService {
 	}
 	
 	
-	public void excluir(BigInteger id) {
+	public void excluir(Long id) {
 
 		Medicamento med = medicamentoRepository.findById(id)
 				.orElseThrow(() -> new NotFoundException("Não encontrado o medicamento com esse id!"));

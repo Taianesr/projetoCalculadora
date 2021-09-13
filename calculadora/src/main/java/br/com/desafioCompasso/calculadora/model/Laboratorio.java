@@ -14,25 +14,28 @@ import javax.persistence.Table;
 public class Laboratorio {
 
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-	private BigInteger id;
-	@Column
+	private Long id;
 	private String nome;
 
 	public Laboratorio() {
 		super();
 	}
+	
+	
 
-	public Laboratorio(BigInteger id, String nome) {
+	public Laboratorio(Long id, String nome) {
 		super();
 		this.id = id;
 		this.nome = nome;
 	}
 
-	public BigInteger getId() {
+
+
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(BigInteger id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -43,5 +46,8 @@ public class Laboratorio {
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
+
+	
+
 
 }

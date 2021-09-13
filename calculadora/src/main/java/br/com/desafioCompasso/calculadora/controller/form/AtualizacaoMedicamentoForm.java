@@ -6,17 +6,22 @@ import java.math.BigInteger;
 public class AtualizacaoMedicamentoForm {
 
 	private String nome;
-	private BigInteger laboratorio_id;
+	private Long laboratorio_id;
+	private Long grupoMedicamento_id;
 
 	public AtualizacaoMedicamentoForm() {
 		super();
 	}
 
-	public AtualizacaoMedicamentoForm(String nome, BigInteger laboratorio_id) {
+
+	//errada ordem dos parâmetros
+	public AtualizacaoMedicamentoForm(String nome, Long laboratorio_id, Long grupoMedicamento_id) {
 		super();
 		this.nome = nome;
 		this.laboratorio_id = laboratorio_id;
+		this.grupoMedicamento_id = grupoMedicamento_id;
 	}
+
 
 	public String getNome() {
 		return nome;
@@ -26,12 +31,25 @@ public class AtualizacaoMedicamentoForm {
 		this.nome = nome;
 	}
 
-	public BigInteger getLaboratorio_id() {
+	public Long getLaboratorio_id() {
 		return laboratorio_id;
 	}
 
-	public void setLaboratorio_id(BigInteger laboratorio_id) {
+	public void setLaboratorio_id(Long laboratorio_id) {
 		this.laboratorio_id = laboratorio_id;
 	}
 
+
+	public Long getGrupoMedicamento_id() {
+		return grupoMedicamento_id;
+	}
+
+
+	public void setGrupoMedicamento_id(Long grupoMedicamento_id) {
+		this.grupoMedicamento_id = grupoMedicamento_id;
+	}
+
+	
+	
+	
 }

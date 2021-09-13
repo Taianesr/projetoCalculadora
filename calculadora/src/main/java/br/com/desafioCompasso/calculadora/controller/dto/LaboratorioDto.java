@@ -5,7 +5,7 @@ import java.math.BigInteger;
 import br.com.desafioCompasso.calculadora.model.Laboratorio;
 
 public class LaboratorioDto {
-	private BigInteger id;
+	private Long id;
 	private String nome;
 	
 	public LaboratorioDto() {
@@ -18,11 +18,13 @@ public class LaboratorioDto {
 		
 	}
 
-	public BigInteger getId() {
+
+
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(BigInteger id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 

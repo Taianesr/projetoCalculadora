@@ -12,6 +12,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name ="historico")
 
+//mudar o tipo do id
 public class Historico {
 	
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)

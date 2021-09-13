@@ -4,8 +4,8 @@ import java.math.BigInteger;
 
 public class MedicamentoForm {
 	
-	private BigInteger grupo_medicamento_id;
-	private BigInteger laboratorio_id;
+	private Long grupo_medicamento_id;
+	private Long laboratorio_id;
 	private String nome;
 	
 	public MedicamentoForm() {
@@ -13,30 +13,33 @@ public class MedicamentoForm {
 	}
 	
 
-	public MedicamentoForm(BigInteger grupo_medicamento_id, BigInteger laboratorio_id, String nome) {
+	public MedicamentoForm(Long grupo_medicamento_id, Long laboratorio_id, String nome) {
 		super();
 		this.grupo_medicamento_id = grupo_medicamento_id;
 		this.laboratorio_id = laboratorio_id;
 		this.nome = nome;
-	}
+	}	
+	
 
-
-
-	public BigInteger getGrupo_medicamento_id() {
+	public Long getGrupo_medicamento_id() {
 		return grupo_medicamento_id;
 	}
 
-	public void setGrupo_medicamento_id(BigInteger grupo_medicamento_id) {
+
+	public void setGrupo_medicamento_id(Long grupo_medicamento_id) {
 		this.grupo_medicamento_id = grupo_medicamento_id;
 	}
 
-	public BigInteger getLaboratorio_id() {
+
+	public Long getLaboratorio_id() {
 		return laboratorio_id;
 	}
 
-	public void setLaboratorio_id(BigInteger laboratorio_id) {
+
+	public void setLaboratorio_id(Long laboratorio_id) {
 		this.laboratorio_id = laboratorio_id;
 	}
+
 
 	public String getNome() {
 		return nome;

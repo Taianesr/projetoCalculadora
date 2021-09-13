@@ -50,9 +50,9 @@ public class MedicamentoController {
 
 	}
 	
-	@PutMapping("/{id}/atualizar")
+	@PutMapping("/atualizar/{id}")
 	@Transactional
-	public ResponseEntity<MedicamentoDto> atualizar(@PathVariable BigInteger id, @RequestBody AtualizacaoMedicamentoForm atMedForm) throws ServiceException{
+	public ResponseEntity<MedicamentoDto> atualizar(@PathVariable Long id, @RequestBody AtualizacaoMedicamentoForm atMedForm) throws ServiceException{
 		
 		MedicamentoDto medDto =  medicamentoService.atualizar(id, atMedForm);
 		
@@ -60,9 +60,9 @@ public class MedicamentoController {
 		
 	}
 	
-	@DeleteMapping("/{id}/remover")
+	@DeleteMapping("/remover/{id}")
 	@Transactional
-	public ResponseEntity<?> excluir(@PathVariable BigInteger id){
+	public ResponseEntity<?> excluir(@PathVariable Long id){
 		medicamentoService.excluir(id);
 		return ResponseEntity.ok().build();
 	}

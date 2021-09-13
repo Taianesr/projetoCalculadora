@@ -16,14 +16,13 @@ import javax.persistence.Table;
 
 public class Medicamento {
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-	private BigInteger id;
+	private Long id;
 	@ManyToOne
 	@JoinColumn(name = "grupo_medicamento_id", referencedColumnName = "id" )
 	private GrupoMedicamento grupoMedicamento;
 	@ManyToOne
 	@JoinColumn(name = "laboratorio_id", referencedColumnName = "id")
 	private Laboratorio laboratorio;
-	@Column
 	private String nome;
 
 	public Medicamento() {
@@ -31,7 +30,7 @@ public class Medicamento {
 	}
 
 	
-	public Medicamento(BigInteger id, GrupoMedicamento grupo_medicamento, Laboratorio laboratorio, String nome) {
+	public Medicamento(Long id, GrupoMedicamento grupo_medicamento, Laboratorio laboratorio, String nome) {
 		super();
 		this.id = id;
 		this.grupoMedicamento = grupo_medicamento;
@@ -48,14 +47,27 @@ public class Medicamento {
 	}
 
 
+	
 
-	public BigInteger getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(BigInteger id) {
+
+	public void setId(Long id) {
 		this.id = id;
 	}
+
+
+	public GrupoMedicamento getGrupoMedicamento() {
+		return grupoMedicamento;
+	}
+
+
+	public void setGrupoMedicamento(GrupoMedicamento grupoMedicamento) {
+		this.grupoMedicamento = grupoMedicamento;
+	}
+
 
 	public GrupoMedicamento getGrupo_medicamento() {
 		return grupoMedicamento;

@@ -4,11 +4,12 @@ import java.math.BigInteger;
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
 import br.com.desafioCompasso.calculadora.model.GrupoMedicamento;
 
-
-public interface GrupoMedicamentoRepository extends JpaRepository<GrupoMedicamento,BigInteger>{
+@Repository
+public interface GrupoMedicamentoRepository extends JpaRepository<GrupoMedicamento,Long>{
 
 	Optional<GrupoMedicamento> findByNome(String nome);
 }

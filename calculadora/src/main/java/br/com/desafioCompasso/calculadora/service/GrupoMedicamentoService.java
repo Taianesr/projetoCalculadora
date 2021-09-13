@@ -43,7 +43,7 @@ public class GrupoMedicamentoService {
 		 
 	}
 
-	public GrupoMedicamentoDto atualizar(BigInteger id, AtualizacaoGrupoMedicamentoForm atGrupoMedForm)
+	public GrupoMedicamentoDto atualizar(Long id, AtualizacaoGrupoMedicamentoForm atGrupoMedForm)
 			throws NotFoundException {
 
 		GrupoMedicamento grupoMed = grupoMedicamentoRepository.findById(id)
@@ -55,7 +55,7 @@ public class GrupoMedicamentoService {
 	}
 
 	
-	public void excluir(BigInteger id) {
+	public void excluir(Long id) {
 		GrupoMedicamento grupoMed = grupoMedicamentoRepository.findById(id)
 				.orElseThrow(() -> new NotFoundException("Não encontrado o grupo medicamento com esse id!"));
 		

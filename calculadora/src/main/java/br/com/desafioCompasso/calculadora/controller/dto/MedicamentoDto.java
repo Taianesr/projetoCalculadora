@@ -6,9 +6,9 @@ import br.com.desafioCompasso.calculadora.model.Medicamento;
 
 public class MedicamentoDto {
 
-	private BigInteger id;
-	private BigInteger grupo_medicamento_id;
-	private BigInteger laboratorio_id;
+	private Long id;
+	private Long grupo_medicamento_id;
+	private Long laboratorio_id;
 	private String nome;
 	
 	public MedicamentoDto() {
@@ -24,27 +24,27 @@ public class MedicamentoDto {
 	}	
 	
 	
-	public BigInteger getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(BigInteger id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
-	public BigInteger getGrupo_medicamento_id() {
+	public Long getGrupo_medicamento_id() {
 		return grupo_medicamento_id;
 	}
 
-	public void setGrupo_medicamento_id(BigInteger grupo_medicamento_id) {
+	public void setGrupo_medicamento_id(Long grupo_medicamento_id) {
 		this.grupo_medicamento_id = grupo_medicamento_id;
 	}
 
-	public BigInteger getLaboratorio_id() {
+	public Long getLaboratorio_id() {
 		return laboratorio_id;
 	}
 
-	public void setLaboratorio_id(BigInteger laboratorio_id) {
+	public void setLaboratorio_id(Long laboratorio_id) {
 		this.laboratorio_id = laboratorio_id;
 	}
 
