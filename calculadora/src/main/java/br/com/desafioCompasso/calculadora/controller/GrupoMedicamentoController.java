@@ -42,6 +42,20 @@ public class GrupoMedicamentoController {
 
 	//criar metodo listar por id
 	//criar metodo "listar por nome?"
+	
+	@GetMapping("/listar/{id}")
+	public GrupoMedicamento listarGrupoMedicamentosId(Long id) {
+		return grupoMedicamentoService.listarId(id);
+	}
+	
+	
+	@GetMapping("/listar/{nome}")
+	public GrupoMedicamento listarGrupoMedicamentosNome(String nome) {
+		return grupoMedicamentoService.listarNome(nome);
+	}
+	
+	
+	
 
 	@PostMapping("/criar")
 	public ResponseEntity<GrupoMedicamentoDto> criar(@RequestBody GrupoMedicamentoForm grupoMedForm,

@@ -42,6 +42,21 @@ public class LaboratorioController {
 		
 	}
 	
+	//lista os laboratorios pelo id
+	@GetMapping("/listar/{id}")
+	public Laboratorio listarMedicamentosId(Long id){
+		return laboratorioService.listarId(id);
+		
+	}
+	
+	
+	//lista os laboratorios pelo nome
+		@GetMapping("/listar/{nome}")
+		public Laboratorio listarMedicamentosNome(String nome){
+			return laboratorioService.listarNome(nome);
+			
+		}
+		
 	
 	@PostMapping("/criar")
 	public ResponseEntity<LaboratorioDto> criar(@RequestBody LaboratorioForm laboratorioForm, UriComponentsBuilder uriBuilder) {

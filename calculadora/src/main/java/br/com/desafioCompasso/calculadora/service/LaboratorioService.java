@@ -2,6 +2,7 @@ package br.com.desafioCompasso.calculadora.service;
 
 import java.math.BigInteger;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,6 +29,22 @@ public class LaboratorioService {
 	public List<Laboratorio> listar() {
 		return laboratorioRepository.findAll();
 	}
+	
+	public Laboratorio listarId(Long id) throws NotFoundException {
+		Laboratorio lab = laboratorioRepository.findById(id)
+				.orElseThrow(() -> new NotFoundException("Não encontrado o laboratório com esse id!"));
+		
+		return lab;
+	}
+	
+	public Laboratorio listarNome(String nome) throws NotFoundException {
+		Laboratorio lab = laboratorioRepository.findByNome(nome)
+				.orElseThrow(() -> new NotFoundException("Não encontrado o laboratório com esse nome!"));
+		
+		return lab;
+	}
+	
+	
 
 	public LaboratorioDto criar(LaboratorioForm labForm) throws ServiceException {
 
