@@ -12,6 +12,7 @@ import br.com.desafioCompasso.calculadora.controller.form.GrupoMedicamentoForm;
 import br.com.desafioCompasso.calculadora.exceptions.NotFoundException;
 import br.com.desafioCompasso.calculadora.exceptions.ServiceException;
 import br.com.desafioCompasso.calculadora.model.GrupoMedicamentoEntity;
+import br.com.desafioCompasso.calculadora.model.MedicamentoEntity;
 import br.com.desafioCompasso.calculadora.modelMapper.ModelMapperConfig;
 import br.com.desafioCompasso.calculadora.repository.GrupoMedicamentoRepository;
 
@@ -28,7 +29,8 @@ public class GrupoMedicamentoService {
 		return grupoMedicamentoRepository.findAll();
 	}
 	
-	public GrupoMedicamentoEntity listarId(Long id) throws NotFoundException {
+
+	public GrupoMedicamentoEntity listarId(Long id) {
 		GrupoMedicamentoEntity grupoMed = grupoMedicamentoRepository.findById(id)
 				.orElseThrow(() -> new NotFoundException("Não encontrado o grupo medicamento com esse id!"));
 		
@@ -36,8 +38,8 @@ public class GrupoMedicamentoService {
 		
 	}
 	
-
-	public GrupoMedicamentoEntity listarNome(String nome) throws NotFoundException {
+	
+	public GrupoMedicamentoEntity listarNome(String nome) {
 		GrupoMedicamentoEntity grupoMed = grupoMedicamentoRepository.findByNome(nome)
 				.orElseThrow(() -> new NotFoundException("Não encontrado o grupo medicamento com esse nome!"));
 		

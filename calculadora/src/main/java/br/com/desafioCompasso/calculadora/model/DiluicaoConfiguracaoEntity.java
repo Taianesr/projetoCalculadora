@@ -2,9 +2,20 @@ package br.com.desafioCompasso.calculadora.model;
 
 import java.math.BigDecimal;
 
-public class DiluicaoConfiguracaoEntity {
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
+@Entity
+@Table(name ="diluicao_configuracao")
+public class DiluicaoConfiguracaoEntity {
+    
+
+	//ou guardar o objeto medicamento
 	private Long medicamentoId;
+	//guardar objeto via administracao
 	private Long viaAdministracaoId;
 	private int sequencia;
 	private BigDecimal quantidadeAspirada;
@@ -17,7 +28,8 @@ public class DiluicaoConfiguracaoEntity {
 		super();
 	}
 
-	public DiluicaoConfiguracaoEntity(Long medicamentoId, Long viaAdministracaoId, int sequencia,
+
+	public DiluicaoConfiguracaoEntity( Long medicamentoId, Long viaAdministracaoId, int sequencia,
 			BigDecimal quantidadeAspirada, BigDecimal quantidadeAdicionada, BigDecimal concentracao, String diluente,
 			String modoPreparo) {
 		super();
@@ -30,6 +42,8 @@ public class DiluicaoConfiguracaoEntity {
 		this.diluente = diluente;
 		this.modoPreparo = modoPreparo;
 	}
+
+
 
 	public Long getMedicamentoId() {
 		return medicamentoId;
@@ -94,5 +108,8 @@ public class DiluicaoConfiguracaoEntity {
 	public void setModoPreparo(String modoPreparo) {
 		this.modoPreparo = modoPreparo;
 	}
+
+
+
 
 }
