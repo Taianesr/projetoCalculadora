@@ -11,7 +11,7 @@ import br.com.desafioCompasso.calculadora.controller.form.AtualizacaoGrupoMedica
 import br.com.desafioCompasso.calculadora.controller.form.GrupoMedicamentoForm;
 import br.com.desafioCompasso.calculadora.exceptions.NotFoundException;
 import br.com.desafioCompasso.calculadora.exceptions.ServiceException;
-import br.com.desafioCompasso.calculadora.model.GrupoMedicamento;
+import br.com.desafioCompasso.calculadora.model.GrupoMedicamentoEntity;
 import br.com.desafioCompasso.calculadora.modelMapper.ModelMapperConfig;
 import br.com.desafioCompasso.calculadora.repository.GrupoMedicamentoRepository;
 
@@ -24,9 +24,28 @@ public class GrupoMedicamentoService {
 	@Autowired
 	private ModelMapperConfig modelMapper;
 
-	public List<GrupoMedicamento> listar() {
+	public List<GrupoMedicamentoEntity> listar() {
 		return grupoMedicamentoRepository.findAll();
 	}
+	
+	public GrupoMedicamentoEntity listarId(Long id) throws NotFoundException {
+		GrupoMedicamentoEntity grupoMed = grupoMedicamentoRepository.findById(id)
+				.orElseThrow(() -> new NotFoundException("Não encontrado o grupo medicamento com esse id!"));
+		
+		return grupoMed;
+		
+	}
+	
+
+	public GrupoMedicamentoEntity listarNome(String nome) throws NotFoundException {
+		GrupoMedicamentoEntity grupoMed = grupoMedicamentoRepository.findByNome(nome)
+				.orElseThrow(() -> new NotFoundException("Não encontrado o grupo medicamento com esse nome!"));
+		
+		return grupoMed;
+		
+	}
+	
+	
 
 	//mudar a classe de exception
 	public GrupoMedicamentoDto criar(GrupoMedicamentoForm grupoMedForm) throws ServiceException {
@@ -34,7 +53,7 @@ public class GrupoMedicamentoService {
 		 Boolean grupoMed= grupoMedicamentoRepository.findByNome(grupoMedForm.getNome()).isEmpty();
 		 
 		 if(grupoMed==true) {
-				GrupoMedicamento grupoMed2 = modelMapper.modelMapper().map(grupoMedForm, GrupoMedicamento.class);
+				GrupoMedicamentoEntity grupoMed2 = modelMapper.modelMapper().map(grupoMedForm, GrupoMedicamentoEntity.class);
 				grupoMedicamentoRepository.save(grupoMed2);
 				return modelMapper.modelMapper().map(grupoMed2, GrupoMedicamentoDto.class);
 		 }else {
@@ -46,7 +65,7 @@ public class GrupoMedicamentoService {
 	public GrupoMedicamentoDto atualizar(Long id, AtualizacaoGrupoMedicamentoForm atGrupoMedForm)
 			throws NotFoundException {
 
-		GrupoMedicamento grupoMed = grupoMedicamentoRepository.findById(id)
+		GrupoMedicamentoEntity grupoMed = grupoMedicamentoRepository.findById(id)
 				.orElseThrow(() -> new NotFoundException("Não encontrado o grupo medicamento com esse id!"));
 
 		grupoMed.setNome(atGrupoMedForm.getNome());
@@ -56,7 +75,7 @@ public class GrupoMedicamentoService {
 
 	
 	public void excluir(Long id) {
-		GrupoMedicamento grupoMed = grupoMedicamentoRepository.findById(id)
+		GrupoMedicamentoEntity grupoMed = grupoMedicamentoRepository.findById(id)
 				.orElseThrow(() -> new NotFoundException("Não encontrado o grupo medicamento com esse id!"));
 		
 		grupoMedicamentoRepository.deleteById(id);

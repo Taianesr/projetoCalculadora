@@ -12,18 +12,18 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name ="grupo_medicamento")
-public class GrupoMedicamento {
+public class GrupoMedicamentoEntity {
 
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String nome;
 
-	public GrupoMedicamento() {
+	public GrupoMedicamentoEntity() {
 		super();
 	}
 	
 
-	public GrupoMedicamento(Long id, String nome) {
+	public GrupoMedicamentoEntity(Long id, String nome) {
 		super();
 		this.id = id;
 		this.nome = nome;

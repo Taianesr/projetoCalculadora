@@ -22,7 +22,8 @@ import br.com.desafioCompasso.calculadora.controller.dto.MedicamentoDto;
 import br.com.desafioCompasso.calculadora.controller.form.AtualizacaoMedicamentoForm;
 import br.com.desafioCompasso.calculadora.controller.form.MedicamentoForm;
 import br.com.desafioCompasso.calculadora.exceptions.ServiceException;
-import br.com.desafioCompasso.calculadora.model.Medicamento;
+import br.com.desafioCompasso.calculadora.model.LaboratorioEntity;
+import br.com.desafioCompasso.calculadora.model.MedicamentoEntity;
 import br.com.desafioCompasso.calculadora.service.MedicamentoService;
 
 @RestController
@@ -33,9 +34,21 @@ public class MedicamentoController {
 	private MedicamentoService medicamentoService;
 	
 	@GetMapping("/listar")
-	public List<Medicamento> listarMedicamentos() {
+	public List<MedicamentoEntity> listarMedicamentos() {
 		return medicamentoService.listar();
 
+	}
+	
+	@GetMapping("/listar/{id}")
+	public MedicamentoEntity listarMedicamentoId(Long id) {
+		return medicamentoService.listarId(id);
+
+	}
+	
+	@GetMapping("/listar/{nome}")
+	public MedicamentoEntity listarMedicamentoNome(String nome){
+		return medicamentoService.listarNome(nome);
+		
 	}
 	
 	@PostMapping("/criar")

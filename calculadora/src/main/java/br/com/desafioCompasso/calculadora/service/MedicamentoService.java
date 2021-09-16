@@ -1,6 +1,5 @@
 package br.com.desafioCompasso.calculadora.service;
 
-import java.math.BigInteger;
 import java.util.List;
 import java.util.Optional;
 
@@ -12,9 +11,9 @@ import br.com.desafioCompasso.calculadora.controller.form.AtualizacaoMedicamento
 import br.com.desafioCompasso.calculadora.controller.form.MedicamentoForm;
 import br.com.desafioCompasso.calculadora.exceptions.NotFoundException;
 import br.com.desafioCompasso.calculadora.exceptions.ServiceException;
-import br.com.desafioCompasso.calculadora.model.GrupoMedicamento;
-import br.com.desafioCompasso.calculadora.model.Laboratorio;
-import br.com.desafioCompasso.calculadora.model.Medicamento;
+import br.com.desafioCompasso.calculadora.model.GrupoMedicamentoEntity;
+import br.com.desafioCompasso.calculadora.model.LaboratorioEntity;
+import br.com.desafioCompasso.calculadora.model.MedicamentoEntity;
 import br.com.desafioCompasso.calculadora.modelMapper.ModelMapperConfig;
 import br.com.desafioCompasso.calculadora.repository.GrupoMedicamentoRepository;
 import br.com.desafioCompasso.calculadora.repository.LaboratorioRepository;
@@ -35,23 +34,39 @@ public class MedicamentoService {
 	@Autowired
 	private ModelMapperConfig modelMapper;
 
-	public List<Medicamento> listar() {
+	public List<MedicamentoEntity> listar() {
 		return medicamentoRepository.findAll();
 	}
+	
+	public MedicamentoEntity listarId(Long id) throws NotFoundException {
+		MedicamentoEntity med = medicamentoRepository.findById(id)
+				.orElseThrow(() -> new NotFoundException("Não encontrado o medicamento com esse id!"));
+		
+		return med;
+	}
+	
+	public MedicamentoEntity listarNome(String nome) throws NotFoundException {
+		MedicamentoEntity med = medicamentoRepository.findByNome(nome)
+				.orElseThrow(() -> new NotFoundException("Não encontrado o medicamento com esse nome!"));
+		
+		return med;
+	}
+	
+	
 
 	public MedicamentoDto criar(MedicamentoForm medForm) throws NotFoundException {
 
-		Laboratorio lab = labRepository.findById(medForm.getLaboratorio_id())
+		LaboratorioEntity lab = labRepository.findById(medForm.getLaboratorio_id())
 				.orElseThrow(() -> new ServiceException("Não encontrado o laboratório com esse id!"));
 
-		GrupoMedicamento grupoMed = grupoMedicamentoRepository.findById(medForm.getGrupo_medicamento_id())
+		GrupoMedicamentoEntity grupoMed = grupoMedicamentoRepository.findById(medForm.getGrupo_medicamento_id())
 				.orElseThrow(() -> new ServiceException("Não encontrado o grupo medicamento com esse id!"));
 
-		Optional<Medicamento> med2 = medicamentoRepository.findByNomeAndGrupoMedicamentoIdAndLaboratorioId(
+		Optional<MedicamentoEntity> med2 = medicamentoRepository.findByNomeAndGrupoMedicamentoIdAndLaboratorioId(
 				medForm.getNome(), medForm.getGrupo_medicamento_id(), medForm.getLaboratorio_id());
 
 		if (med2.isEmpty()) {
-			Medicamento med = new Medicamento(grupoMed, lab, medForm.getNome());
+			MedicamentoEntity med = new MedicamentoEntity(grupoMed, lab, medForm.getNome());
 			medicamentoRepository.save(med);
 			return new MedicamentoDto(med);
 		} else {
@@ -63,11 +78,11 @@ public class MedicamentoService {
 
 	public MedicamentoDto atualizar(Long id, AtualizacaoMedicamentoForm atMedForm) throws NotFoundException {
 		
-		Laboratorio lab = labRepository.findById(atMedForm.getLaboratorio_id())
+		LaboratorioEntity lab = labRepository.findById(atMedForm.getLaboratorio_id())
 				.orElseThrow(() -> new NotFoundException("Não encontrado o laboratório com esse id!"));
 		
 
-		Medicamento med = medicamentoRepository.findById(id)
+		MedicamentoEntity med = medicamentoRepository.findById(id)
 				.orElseThrow(() -> new NotFoundException("Não encontrado o medicamento com esse id!"));
 
 		med.setNome(atMedForm.getNome());
@@ -79,7 +94,7 @@ public class MedicamentoService {
 	
 	public void excluir(Long id) {
 
-		Medicamento med = medicamentoRepository.findById(id)
+		MedicamentoEntity med = medicamentoRepository.findById(id)
 				.orElseThrow(() -> new NotFoundException("Não encontrado o medicamento com esse id!"));
 
 		

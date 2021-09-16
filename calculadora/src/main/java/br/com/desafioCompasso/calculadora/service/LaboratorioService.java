@@ -1,8 +1,6 @@
 package br.com.desafioCompasso.calculadora.service;
 
-import java.math.BigInteger;
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,7 +10,7 @@ import br.com.desafioCompasso.calculadora.controller.form.AtualizacaoLaboratorio
 import br.com.desafioCompasso.calculadora.controller.form.LaboratorioForm;
 import br.com.desafioCompasso.calculadora.exceptions.NotFoundException;
 import br.com.desafioCompasso.calculadora.exceptions.ServiceException;
-import br.com.desafioCompasso.calculadora.model.Laboratorio;
+import br.com.desafioCompasso.calculadora.model.LaboratorioEntity;
 import br.com.desafioCompasso.calculadora.modelMapper.ModelMapperConfig;
 import br.com.desafioCompasso.calculadora.repository.LaboratorioRepository;
 
@@ -26,19 +24,19 @@ public class LaboratorioService {
 	@Autowired
 	private ModelMapperConfig modelMapper;
 
-	public List<Laboratorio> listar() {
+	public List<LaboratorioEntity> listar() {
 		return laboratorioRepository.findAll();
 	}
 	
-	public Laboratorio listarId(Long id) throws NotFoundException {
-		Laboratorio lab = laboratorioRepository.findById(id)
+	public LaboratorioEntity listarId(Long id) throws NotFoundException {
+		LaboratorioEntity lab = laboratorioRepository.findById(id)
 				.orElseThrow(() -> new NotFoundException("Não encontrado o laboratório com esse id!"));
 		
 		return lab;
 	}
 	
-	public Laboratorio listarNome(String nome) throws NotFoundException {
-		Laboratorio lab = laboratorioRepository.findByNome(nome)
+	public LaboratorioEntity listarNome(String nome) throws NotFoundException {
+		LaboratorioEntity lab = laboratorioRepository.findByNome(nome)
 				.orElseThrow(() -> new NotFoundException("Não encontrado o laboratório com esse nome!"));
 		
 		return lab;
@@ -51,7 +49,7 @@ public class LaboratorioService {
 		 Boolean lab= laboratorioRepository.findByNome(labForm.getNome()).isEmpty();		
 				
          if(lab==true) {
-        	Laboratorio lab2 = modelMapper.modelMapper().map(labForm, Laboratorio.class);
+        	LaboratorioEntity lab2 = modelMapper.modelMapper().map(labForm, LaboratorioEntity.class);
      		laboratorioRepository.save(lab2);
      		
      		return modelMapper.modelMapper().map(lab2, LaboratorioDto.class);
@@ -63,7 +61,7 @@ public class LaboratorioService {
 	}
 
 	public LaboratorioDto atualizar(Long id, AtualizacaoLaboratorioForm atLabForm) throws NotFoundException {
-		Laboratorio lab = laboratorioRepository.findById(id)
+		LaboratorioEntity lab = laboratorioRepository.findById(id)
 				.orElseThrow(() -> new NotFoundException("Não encontrado o laboratório com esse id!"));
 		
 		lab.setNome(atLabForm.getNome());
@@ -73,7 +71,7 @@ public class LaboratorioService {
 	
 	
 	public void excluir(Long  id) {
-		Laboratorio lab = laboratorioRepository.findById(id)
+		LaboratorioEntity lab = laboratorioRepository.findById(id)
 				.orElseThrow(() -> new NotFoundException("Não encontrado o laboratório com esse id!"));
 		
 		laboratorioRepository.deleteById(id);

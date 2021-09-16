@@ -14,23 +14,23 @@ import javax.persistence.Table;
 @Entity
 @Table(name ="medicamento")
 
-public class Medicamento {
+public class MedicamentoEntity {
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	@ManyToOne
 	@JoinColumn(name = "grupo_medicamento_id", referencedColumnName = "id" )
-	private GrupoMedicamento grupoMedicamento;
+	private GrupoMedicamentoEntity grupoMedicamento;
 	@ManyToOne
 	@JoinColumn(name = "laboratorio_id", referencedColumnName = "id")
-	private Laboratorio laboratorio;
+	private LaboratorioEntity laboratorio;
 	private String nome;
 
-	public Medicamento() {
+	public MedicamentoEntity() {
 		super();
 	}
 
 	
-	public Medicamento(Long id, GrupoMedicamento grupo_medicamento, Laboratorio laboratorio, String nome) {
+	public MedicamentoEntity(Long id, GrupoMedicamentoEntity grupo_medicamento, LaboratorioEntity laboratorio, String nome) {
 		super();
 		this.id = id;
 		this.grupoMedicamento = grupo_medicamento;
@@ -39,7 +39,7 @@ public class Medicamento {
 	}
 	
 	
-	public Medicamento(GrupoMedicamento grupo_medicamento, Laboratorio laboratorio, String nome) {
+	public MedicamentoEntity(GrupoMedicamentoEntity grupo_medicamento, LaboratorioEntity laboratorio, String nome) {
 		super();
 		this.grupoMedicamento = grupo_medicamento;
 		this.laboratorio = laboratorio;
@@ -59,29 +59,29 @@ public class Medicamento {
 	}
 
 
-	public GrupoMedicamento getGrupoMedicamento() {
+	public GrupoMedicamentoEntity getGrupoMedicamento() {
 		return grupoMedicamento;
 	}
 
 
-	public void setGrupoMedicamento(GrupoMedicamento grupoMedicamento) {
+	public void setGrupoMedicamento(GrupoMedicamentoEntity grupoMedicamento) {
 		this.grupoMedicamento = grupoMedicamento;
 	}
 
 
-	public GrupoMedicamento getGrupo_medicamento() {
+	public GrupoMedicamentoEntity getGrupo_medicamento() {
 		return grupoMedicamento;
 	}
 
-	public void setGrupo_medicamento(GrupoMedicamento grupo_medicamento) {
+	public void setGrupo_medicamento(GrupoMedicamentoEntity grupo_medicamento) {
 		this.grupoMedicamento = grupo_medicamento;
 	}
 
-	public Laboratorio getLaboratorio() {
+	public LaboratorioEntity getLaboratorio() {
 		return laboratorio;
 	}
 
-	public void setLaboratorio(Laboratorio laboratorio) {
+	public void setLaboratorio(LaboratorioEntity laboratorio) {
 		this.laboratorio = laboratorio;
 	}
 

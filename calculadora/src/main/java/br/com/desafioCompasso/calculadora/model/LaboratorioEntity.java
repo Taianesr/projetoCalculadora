@@ -1,8 +1,5 @@
 package br.com.desafioCompasso.calculadora.model;
 
-import java.math.BigInteger;
-
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -11,17 +8,17 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name ="laboratorio")
-public class Laboratorio {
+public class LaboratorioEntity {
 
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String nome;
 
-	public Laboratorio() {
+	public LaboratorioEntity() {
 		super();
 	}
 	
-	public Laboratorio(Long id, String nome) {
+	public LaboratorioEntity(Long id, String nome) {
 		super();
 		this.id = id;
 		this.nome = nome;

@@ -2,7 +2,7 @@ package br.com.desafioCompasso.calculadora.controller.dto;
 
 import java.math.BigInteger;
 
-import br.com.desafioCompasso.calculadora.model.Laboratorio;
+import br.com.desafioCompasso.calculadora.model.LaboratorioEntity;
 
 public class LaboratorioDto {
 	private Long id;
@@ -12,7 +12,7 @@ public class LaboratorioDto {
 		super();
 	}
 
-	public LaboratorioDto(Laboratorio lab) {
+	public LaboratorioDto(LaboratorioEntity lab) {
 		this.id=lab.getId();
 		this.nome= lab.getNome();
 		

@@ -1,3 +1,4 @@
+package br.com.desafioCompasso.calculadora.model;
 /*
  * package br.com.desafioCompasso.calculadora.model;
  * 

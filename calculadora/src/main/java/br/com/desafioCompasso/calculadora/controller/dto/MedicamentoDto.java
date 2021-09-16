@@ -2,7 +2,7 @@ package br.com.desafioCompasso.calculadora.controller.dto;
 
 import java.math.BigInteger;
 
-import br.com.desafioCompasso.calculadora.model.Medicamento;
+import br.com.desafioCompasso.calculadora.model.MedicamentoEntity;
 
 public class MedicamentoDto {
 
@@ -15,7 +15,7 @@ public class MedicamentoDto {
 		super();
 	}
 
-	public MedicamentoDto(Medicamento medicamento) {
+	public MedicamentoDto(MedicamentoEntity medicamento) {
 		super();
 		this.id = medicamento.getId();
 		this.grupo_medicamento_id = medicamento.getGrupo_medicamento().getId();

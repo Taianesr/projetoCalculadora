@@ -1,23 +1,22 @@
 package br.com.desafioCompasso.calculadora.controller.dto;
 
-import br.com.desafioCompasso.calculadora.model.GrupoMedicamentoEntity;
-
-public class GrupoMedicamentoDto {
+public class ViaAdministracaoDto {
 	
 	private Long id;
 	private String nome;
 	
-	public GrupoMedicamentoDto() {
+	public ViaAdministracaoDto() {
 		super();
+	}
+	
+	//nao passei a viaAdm por parametro
+	public ViaAdministracaoDto(Long id, String nome) {
+		super();
+		this.id = id;
+		this.nome = nome;
 	}
 
-	public GrupoMedicamentoDto(GrupoMedicamentoEntity grupoMed) {
-		super();
-		this.id=grupoMed.getId();
-		this.nome= grupoMed.getNome();
-	}
-	
-	
+
 	public Long getId() {
 		return id;
 	}
@@ -29,10 +28,11 @@ public class GrupoMedicamentoDto {
 	public String getNome() {
 		return nome;
 	}
-	
+
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
+	
 	
 	
 	

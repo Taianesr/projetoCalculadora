@@ -1,6 +1,5 @@
 package br.com.desafioCompasso.calculadora.controller;
 
-import java.math.BigInteger;
 import java.net.URI;
 import java.util.List;
 
@@ -22,7 +21,7 @@ import br.com.desafioCompasso.calculadora.controller.dto.GrupoMedicamentoDto;
 import br.com.desafioCompasso.calculadora.controller.form.AtualizacaoGrupoMedicamentoForm;
 import br.com.desafioCompasso.calculadora.controller.form.GrupoMedicamentoForm;
 import br.com.desafioCompasso.calculadora.exceptions.ServiceException;
-import br.com.desafioCompasso.calculadora.model.GrupoMedicamento;
+import br.com.desafioCompasso.calculadora.model.GrupoMedicamentoEntity;
 import br.com.desafioCompasso.calculadora.service.GrupoMedicamentoService;
 
 @RestController
@@ -34,7 +33,7 @@ public class GrupoMedicamentoController {
 	
 
 	@GetMapping("/listar")
-	public List<GrupoMedicamento> listarGrupoMedicamentos() {
+	public List<GrupoMedicamentoEntity> listarGrupoMedicamentos() {
 		return grupoMedicamentoService.listar();
 
 	}
@@ -44,13 +43,13 @@ public class GrupoMedicamentoController {
 	//criar metodo "listar por nome?"
 	
 	@GetMapping("/listar/{id}")
-	public GrupoMedicamento listarGrupoMedicamentosId(Long id) {
+	public GrupoMedicamentoEntity listarGrupoMedicamentosId(Long id) {
 		return grupoMedicamentoService.listarId(id);
 	}
 	
 	
 	@GetMapping("/listar/{nome}")
-	public GrupoMedicamento listarGrupoMedicamentosNome(String nome) {
+	public GrupoMedicamentoEntity listarGrupoMedicamentosNome(String nome) {
 		return grupoMedicamentoService.listarNome(nome);
 	}
 	

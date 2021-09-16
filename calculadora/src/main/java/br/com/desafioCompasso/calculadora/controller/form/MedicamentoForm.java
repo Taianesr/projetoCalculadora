@@ -1,12 +1,13 @@
 package br.com.desafioCompasso.calculadora.controller.form;
 
-import java.math.BigInteger;
+import java.util.List;
 
 public class MedicamentoForm {
 	
 	private Long grupo_medicamento_id;
 	private Long laboratorio_id;
 	private String nome;
+	private List<DiluicaoConfiguracaoForm> diluicaoConfiguracaoForms; 
 	
 	public MedicamentoForm() {
 		super();
@@ -20,6 +21,17 @@ public class MedicamentoForm {
 		this.nome = nome;
 	}	
 	
+
+	
+	public List<DiluicaoConfiguracaoForm> getDiluicaoConfiguracaoForms() {
+		return diluicaoConfiguracaoForms;
+	}
+
+
+	public void setDiluicaoConfiguracaoForms(List<DiluicaoConfiguracaoForm> diluicaoConfiguracaoForms) {
+		this.diluicaoConfiguracaoForms = diluicaoConfiguracaoForms;
+	}
+
 
 	public Long getGrupo_medicamento_id() {
 		return grupo_medicamento_id;

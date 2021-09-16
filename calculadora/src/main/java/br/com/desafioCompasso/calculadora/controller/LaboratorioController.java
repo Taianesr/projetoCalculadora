@@ -1,6 +1,5 @@
 package br.com.desafioCompasso.calculadora.controller;
 
-import java.math.BigInteger;
 import java.net.URI;
 import java.util.List;
 
@@ -8,7 +7,6 @@ import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,7 +21,7 @@ import br.com.desafioCompasso.calculadora.controller.dto.LaboratorioDto;
 import br.com.desafioCompasso.calculadora.controller.form.AtualizacaoLaboratorioForm;
 import br.com.desafioCompasso.calculadora.controller.form.LaboratorioForm;
 import br.com.desafioCompasso.calculadora.exceptions.ServiceException;
-import br.com.desafioCompasso.calculadora.model.Laboratorio;
+import br.com.desafioCompasso.calculadora.model.LaboratorioEntity;
 import br.com.desafioCompasso.calculadora.service.LaboratorioService;
 
 
@@ -37,14 +35,14 @@ public class LaboratorioController {
 
 	
 	@GetMapping("/listar")
-	public List<Laboratorio> listarMedicamentos(){
+	public List<LaboratorioEntity> listarLaboratorios(){
 		return laboratorioService.listar();
 		
 	}
 	
 	//lista os laboratorios pelo id
 	@GetMapping("/listar/{id}")
-	public Laboratorio listarMedicamentosId(Long id){
+	public LaboratorioEntity listarLaboratorioId(Long id){
 		return laboratorioService.listarId(id);
 		
 	}
@@ -52,7 +50,7 @@ public class LaboratorioController {
 	
 	//lista os laboratorios pelo nome
 		@GetMapping("/listar/{nome}")
-		public Laboratorio listarMedicamentosNome(String nome){
+		public LaboratorioEntity listarLaboratorioNome(String nome){
 			return laboratorioService.listarNome(nome);
 			
 		}
