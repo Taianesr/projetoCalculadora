@@ -14,7 +14,7 @@ import br.com.desafioCompasso.calculadora.exceptions.ServiceException;
 import br.com.desafioCompasso.calculadora.model.GrupoMedicamentoEntity;
 import br.com.desafioCompasso.calculadora.model.LaboratorioEntity;
 import br.com.desafioCompasso.calculadora.model.MedicamentoEntity;
-import br.com.desafioCompasso.calculadora.modelMapper.ModelMapperConfig;
+import br.com.desafioCompasso.calculadora.modelMapper.ModelMapperConfigMedicamento;
 import br.com.desafioCompasso.calculadora.repository.GrupoMedicamentoRepository;
 import br.com.desafioCompasso.calculadora.repository.LaboratorioRepository;
 import br.com.desafioCompasso.calculadora.repository.MedicamentoRepository;
@@ -32,7 +32,7 @@ public class MedicamentoService {
 	private LaboratorioRepository labRepository;
 
 	@Autowired
-	private ModelMapperConfig modelMapper;
+	private ModelMapperConfigMedicamento modelMapperConfigMedicamento;
 
 	public List<MedicamentoEntity> listar() {
 		return medicamentoRepository.findAll();
@@ -56,25 +56,28 @@ public class MedicamentoService {
 
 	public MedicamentoDto criar(MedicamentoForm medForm) throws NotFoundException {
 
-		LaboratorioEntity lab = labRepository.findById(medForm.getLaboratorio_id())
-				.orElseThrow(() -> new ServiceException("Não encontrado o laboratório com esse id!"));
+		LaboratorioEntity lab = labRepository.findById(medForm.getIdLaboratorio())
+				.orElseThrow(() -> new NotFoundException("Não encontrado o laboratório com esse id!"));
 
-		GrupoMedicamentoEntity grupoMed = grupoMedicamentoRepository.findById(medForm.getGrupo_medicamento_id())
-				.orElseThrow(() -> new ServiceException("Não encontrado o grupo medicamento com esse id!"));
+		GrupoMedicamentoEntity grupoMed = grupoMedicamentoRepository.findById(medForm.getIdGrupoMedicamento())
+				.orElseThrow(() -> new NotFoundException("Não encontrado o grupo medicamento com esse id!"));
 
 		Optional<MedicamentoEntity> med2 = medicamentoRepository.findByNomeAndGrupoMedicamentoIdAndLaboratorioId(
-				medForm.getNome(), medForm.getGrupo_medicamento_id(), medForm.getLaboratorio_id());
+				medForm.getNome(), medForm.getIdGrupoMedicamento(), medForm.getIdLaboratorio());
 
 		if (med2.isEmpty()) {
 			MedicamentoEntity med = new MedicamentoEntity(grupoMed, lab, medForm.getNome());
 			medicamentoRepository.save(med);
-			return new MedicamentoDto(med);
+		    
+			return modelMapperConfigMedicamento.modelMapper2().map(med, MedicamentoDto.class);
+			
 		} else {
 			throw new ServiceException("Medicamento já inserido!");
 
 		}
 
 	}
+	
 
 	public MedicamentoDto atualizar(Long id, AtualizacaoMedicamentoForm atMedForm) throws NotFoundException {
 		
@@ -87,8 +90,9 @@ public class MedicamentoService {
 
 		med.setNome(atMedForm.getNome());
 		med.getLaboratorio().setId(atMedForm.getLaboratorio_id());
-
-		return new MedicamentoDto(med);
+		
+		return modelMapperConfigMedicamento.modelMapper2().map(med, MedicamentoDto.class);
+	
 	}
 	
 	

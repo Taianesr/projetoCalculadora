@@ -18,8 +18,6 @@ public class LaboratorioDto {
 		
 	}
 
-
-
 	public Long getId() {
 		return id;
 	}

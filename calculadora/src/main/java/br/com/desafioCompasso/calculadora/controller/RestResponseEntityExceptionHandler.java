@@ -18,7 +18,7 @@ public class RestResponseEntityExceptionHandler
       = { ServiceException.class })
     protected ResponseEntity<Object> handleConflict(
       RuntimeException ex) {
-        String bodyOfResponse = "pegamos a exception ServiceException " + ex.getLocalizedMessage();
+        String bodyOfResponse = "" + ex.getLocalizedMessage();
         return handleExceptionInternal(ex, bodyOfResponse, 
           new HttpHeaders(), HttpStatus.FAILED_DEPENDENCY, null);
     }

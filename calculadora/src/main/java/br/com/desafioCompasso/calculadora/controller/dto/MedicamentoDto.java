@@ -1,59 +1,221 @@
 package br.com.desafioCompasso.calculadora.controller.dto;
 
-import java.math.BigInteger;
+import java.math.BigDecimal;
 
 import br.com.desafioCompasso.calculadora.model.MedicamentoEntity;
 
 public class MedicamentoDto {
 
 	private Long id;
-	private Long grupo_medicamento_id;
-	private Long laboratorio_id;
 	private String nome;
-	
+	private Long idGrupoMedicamento;
+	private Long idLaboratorio;
+	private BigDecimal concentracaoInicial;
+	private String embalagemApresentada;
+	private String infoObservacao;
+	private String infoSobra;
+	private String infoTempoAdministracao;
+	private BigDecimal quantidadeApresentacao;
+	private String unidadeMedida;
+
 	public MedicamentoDto() {
 		super();
 	}
 
-	public MedicamentoDto(MedicamentoEntity medicamento) {
+	
+	public MedicamentoDto(Long id, String nome, Long idGrupoMedicamento, Long idLaboratorio,
+			BigDecimal concentracaoInicial, String embalagemApresentada, String infoObservacao, String infoSobra,
+			String infoTempoAdmistracao, BigDecimal quantidadeApresentacao, String unidadeMedida) {
 		super();
-		this.id = medicamento.getId();
-		this.grupo_medicamento_id = medicamento.getGrupo_medicamento().getId();
-		this.laboratorio_id = medicamento.getLaboratorio().getId();
-		this.nome = medicamento.getNome();
-	}	
+		this.id = id;
+		this.nome = nome;
+		this.idGrupoMedicamento = idGrupoMedicamento;
+		this.idLaboratorio = idLaboratorio;
+		this.concentracaoInicial = concentracaoInicial;
+		this.embalagemApresentada = embalagemApresentada;
+		this.infoObservacao = infoObservacao;
+		this.infoSobra = infoSobra;
+		this.infoTempoAdministracao = infoTempoAdmistracao;
+		this.quantidadeApresentacao = quantidadeApresentacao;
+		this.unidadeMedida = unidadeMedida;
+	}
 	
+
 	
+
 	public Long getId() {
 		return id;
 	}
+
+
+
 
 	public void setId(Long id) {
 		this.id = id;
 	}
 
-	public Long getGrupo_medicamento_id() {
-		return grupo_medicamento_id;
-	}
 
-	public void setGrupo_medicamento_id(Long grupo_medicamento_id) {
-		this.grupo_medicamento_id = grupo_medicamento_id;
-	}
 
-	public Long getLaboratorio_id() {
-		return laboratorio_id;
-	}
-
-	public void setLaboratorio_id(Long laboratorio_id) {
-		this.laboratorio_id = laboratorio_id;
-	}
 
 	public String getNome() {
 		return nome;
 	}
 
+
+
+
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
 
+
+
+
+	public Long getIdGrupoMedicamento() {
+		return idGrupoMedicamento;
+	}
+
+
+
+
+	public void setIdGrupoMedicamento(Long idGrupoMedicamento) {
+		this.idGrupoMedicamento = idGrupoMedicamento;
+	}
+
+
+
+
+	public Long getIdLaboratorio() {
+		return idLaboratorio;
+	}
+
+
+
+
+	public void setIdLaboratorio(Long idLaboratorio) {
+		this.idLaboratorio = idLaboratorio;
+	}
+
+
+
+
+	public BigDecimal getConcentracaoInicial() {
+		return concentracaoInicial;
+	}
+
+
+
+
+	public void setConcentracaoInicial(BigDecimal concentracaoInicial) {
+		this.concentracaoInicial = concentracaoInicial;
+	}
+
+
+
+
+	public String getEmbalagemApresentada() {
+		return embalagemApresentada;
+	}
+
+
+
+
+	public void setEmbalagemApresentada(String embalagemApresentada) {
+		this.embalagemApresentada = embalagemApresentada;
+	}
+
+
+
+
+	public String getInfoObservacao() {
+		return infoObservacao;
+	}
+
+
+
+
+	public void setInfoObservacao(String infoObservacao) {
+		this.infoObservacao = infoObservacao;
+	}
+
+
+
+
+	public String getInfoSobra() {
+		return infoSobra;
+	}
+
+
+
+
+	public void setInfoSobra(String infoSobra) {
+		this.infoSobra = infoSobra;
+	}
+
+
+
+
+	
+
+
+	public String getInfoTempoAdministracao() {
+		return infoTempoAdministracao;
+	}
+
+
+
+
+	public void setInfoTempoAdministracao(String infoTempoAdministracao) {
+		this.infoTempoAdministracao = infoTempoAdministracao;
+	}
+
+
+
+
+	public BigDecimal getQuantidadeApresentacao() {
+		return quantidadeApresentacao;
+	}
+
+
+
+
+	public void setQuantidadeApresentacao(BigDecimal quantidadeApresentacao) {
+		this.quantidadeApresentacao = quantidadeApresentacao;
+	}
+
+
+
+
+	public String getUnidadeMedida() {
+		return unidadeMedida;
+	}
+
+
+
+
+	public void setUnidadeMedida(String unidadeMedida) {
+		this.unidadeMedida = unidadeMedida;
+	}
+
+
+
+
+	public void Converte(MedicamentoEntity medicamentoEntity) {
+		this.id = medicamentoEntity.getId();
+		this.idGrupoMedicamento = medicamentoEntity.getGrupo_medicamento().getId();
+		this.idLaboratorio = medicamentoEntity.getLaboratorio().getId();
+		this.nome = medicamentoEntity.getNome();
+		this.concentracaoInicial = medicamentoEntity.getConcentracaoInicial();
+		this.embalagemApresentada = medicamentoEntity.getEmbalagemApresentada();
+		this.infoObservacao = medicamentoEntity.getInfoObservacao();
+		this.infoSobra = medicamentoEntity.getInfoSobra();
+		this.infoTempoAdministracao = medicamentoEntity.getInfoTempoAdministracao();
+		this.quantidadeApresentacao = medicamentoEntity.getQuantidadeApresentacao();
+		this.unidadeMedida = medicamentoEntity.getUnidadeMedida();
+
+
+	}
+
+	
+	
 }

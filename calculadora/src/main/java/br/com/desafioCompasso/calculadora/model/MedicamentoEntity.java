@@ -1,7 +1,6 @@
 package br.com.desafioCompasso.calculadora.model;
 
 import java.math.BigDecimal;
-import java.math.BigInteger;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -24,19 +23,27 @@ public class MedicamentoEntity {
 	@ManyToOne
 	@JoinColumn(name = "laboratorio_id", referencedColumnName = "id")
 	private LaboratorioEntity laboratorio;
+	
 	private String nome;
+	
 	
 	private BigDecimal concentracaoInicial;
 	
+	
 	private String embalagemApresentada;
 	
+
 	private BigDecimal quantidadeApresentacao;
+	
 	
 	private String unidadeMedida;
 	
+	
 	private String infoObservacao;
 	
+	
 	private String infoSobra;
+	
 	
 	private String infoTempoAdministracao;
 	
@@ -44,6 +51,50 @@ public class MedicamentoEntity {
 	public MedicamentoEntity() {
 		super();
 	}
+	
+
+	public MedicamentoEntity(GrupoMedicamentoEntity grupoMedicamento, LaboratorioEntity laboratorio, String nome) {
+		super();
+		this.grupoMedicamento = grupoMedicamento;
+		this.laboratorio = laboratorio;
+		this.nome = nome;
+	}
+
+
+	public MedicamentoEntity(Long id, GrupoMedicamentoEntity grupoMedicamento, LaboratorioEntity laboratorio,
+			String nome, BigDecimal concentracaoInicial, String embalagemApresentada, BigDecimal quantidadeApresentacao,
+			String unidadeMedida, String infoObservacao, String infoSobra, String infoTempoAdministracao) {
+		super();
+		this.id = id;
+		this.grupoMedicamento = grupoMedicamento;
+		this.laboratorio = laboratorio;
+		this.nome = nome;
+		this.concentracaoInicial = concentracaoInicial;
+		this.embalagemApresentada = embalagemApresentada;
+		this.quantidadeApresentacao = quantidadeApresentacao;
+		this.unidadeMedida = unidadeMedida;
+		this.infoObservacao = infoObservacao;
+		this.infoSobra = infoSobra;
+		this.infoTempoAdministracao = infoTempoAdministracao;
+	}
+	
+
+	public MedicamentoEntity( GrupoMedicamentoEntity grupoMedicamento, LaboratorioEntity laboratorio,
+			String nome, BigDecimal concentracaoInicial, String embalagemApresentada, BigDecimal quantidadeApresentacao,
+			String unidadeMedida, String infoObservacao, String infoSobra, String infoTempoAdministracao) {
+		super();
+		this.grupoMedicamento = grupoMedicamento;
+		this.laboratorio = laboratorio;
+		this.nome = nome;
+		this.concentracaoInicial = concentracaoInicial;
+		this.embalagemApresentada = embalagemApresentada;
+		this.quantidadeApresentacao = quantidadeApresentacao;
+		this.unidadeMedida = unidadeMedida;
+		this.infoObservacao = infoObservacao;
+		this.infoSobra = infoSobra;
+		this.infoTempoAdministracao = infoTempoAdministracao;
+	}
+
 
 
 	public Long getId() {
