@@ -42,7 +42,7 @@ public class LaboratorioController {
 	
 	//lista os laboratorios pelo id
 	@GetMapping("/listar/{id}")
-	public LaboratorioEntity listarLaboratorioId(Long id){
+	public LaboratorioDto listarLaboratorioId(Long id){
 		return laboratorioService.listarId(id);
 		
 	}
@@ -50,7 +50,7 @@ public class LaboratorioController {
 	
 	//lista os laboratorios pelo nome
 		@GetMapping("/listar/{nome}")
-		public LaboratorioEntity listarLaboratorioNome(String nome){
+		public LaboratorioDto listarLaboratorioNome(String nome){
 			return laboratorioService.listarNome(nome);
 			
 		}

@@ -1,39 +1,51 @@
-package br.com.desafioCompasso.calculadora.controller.form;
+package br.com.desafioCompasso.calculadora.controller.dto;
 
 import java.math.BigDecimal;
 
-import br.com.desafioCompasso.calculadora.model.DiluicaoConfiguracaoEntityPK;
-
-public class DiluicaoConfiguracaoForm {
+public class DiluicaoConfiguracaoDto {
 	
-	private int sequencia;
-	private Long idMedicamento;
+	
 	private Long idViaAdministracao;
-	private String modoPreparo;
+	private Long idMedicamento;
+	private int sequencia;
 	private BigDecimal quantidadeAspirada;
 	private BigDecimal quantidadeAdicionada;
 	private BigDecimal concentracao;
 	private String diluente;
+	private String modoPreparo;
 	
 	
-	public DiluicaoConfiguracaoForm() {
+	
+	
+	public DiluicaoConfiguracaoDto() {
 		super();
 	}
-	
+
+
+
 
 	
-	public DiluicaoConfiguracaoForm(int sequencia, Long idMedicamento, Long idViaAdministracao, String modoPreparo,
-			BigDecimal quantidadeAspirada, BigDecimal quantidadeAdicionada, BigDecimal concentracao, String diluente) {
+
+
+
+	public DiluicaoConfiguracaoDto(Long idViaAdministracao, Long idMedicamento, int sequencia,
+			BigDecimal quantidadeAspirada, BigDecimal quantidadeAdicionada, BigDecimal concentracao, String diluente,
+			String modoPreparo) {
 		super();
-		this.sequencia = sequencia;
-		this.idMedicamento = idMedicamento;
 		this.idViaAdministracao = idViaAdministracao;
-		this.modoPreparo = modoPreparo;
+		this.idMedicamento = idMedicamento;
+		this.sequencia = sequencia;
 		this.quantidadeAspirada = quantidadeAspirada;
 		this.quantidadeAdicionada = quantidadeAdicionada;
 		this.concentracao = concentracao;
 		this.diluente = diluente;
+		this.modoPreparo = modoPreparo;
 	}
+
+
+
+
+
 
 
 
@@ -43,9 +55,25 @@ public class DiluicaoConfiguracaoForm {
 
 
 
+
 	public void setSequencia(int sequencia) {
 		this.sequencia = sequencia;
 	}
+
+
+
+
+	public Long getIdViaAdministracao() {
+		return idViaAdministracao;
+	}
+
+
+
+
+	public void setIdViaAdministracao(Long idViaAdministracao) {
+		this.idViaAdministracao = idViaAdministracao;
+	}
+
 
 
 
@@ -55,9 +83,11 @@ public class DiluicaoConfiguracaoForm {
 
 
 
+
 	public void setModoPreparo(String modoPreparo) {
 		this.modoPreparo = modoPreparo;
 	}
+
 
 
 
@@ -67,9 +97,11 @@ public class DiluicaoConfiguracaoForm {
 
 
 
+
 	public void setQuantidadeAspirada(BigDecimal quantidadeAspirada) {
 		this.quantidadeAspirada = quantidadeAspirada;
 	}
+
 
 
 
@@ -79,9 +111,11 @@ public class DiluicaoConfiguracaoForm {
 
 
 
+
 	public void setQuantidadeAdicionada(BigDecimal quantidadeAdicionada) {
 		this.quantidadeAdicionada = quantidadeAdicionada;
 	}
+
 
 
 
@@ -91,15 +125,18 @@ public class DiluicaoConfiguracaoForm {
 
 
 
+
 	public void setConcentracao(BigDecimal concentracao) {
 		this.concentracao = concentracao;
 	}
 
 
 
+
 	public String getDiluente() {
 		return diluente;
 	}
+
 
 
 
@@ -112,19 +149,6 @@ public class DiluicaoConfiguracaoForm {
 
 
 
-	public Long getIdViaAdministracao() {
-		return idViaAdministracao;
-	}
-
-
-
-
-
-
-	public void setIdViaAdministracao(Long idViaAdministracao) {
-		this.idViaAdministracao = idViaAdministracao;
-	}
-
 
 
 	public Long getIdMedicamento() {
@@ -133,12 +157,14 @@ public class DiluicaoConfiguracaoForm {
 
 
 
+
+
+
+
+
 	public void setIdMedicamento(Long idMedicamento) {
 		this.idMedicamento = idMedicamento;
 	}
-
-
-
 	
 	
 	

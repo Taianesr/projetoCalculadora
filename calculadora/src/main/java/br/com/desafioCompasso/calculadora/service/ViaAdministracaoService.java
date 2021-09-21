@@ -15,7 +15,7 @@ import br.com.desafioCompasso.calculadora.exceptions.NotFoundException;
 import br.com.desafioCompasso.calculadora.exceptions.ServiceException;
 import br.com.desafioCompasso.calculadora.model.LaboratorioEntity;
 import br.com.desafioCompasso.calculadora.model.ViaAdministracaoEntity;
-import br.com.desafioCompasso.calculadora.modelMapper.ModelMapperConfig;
+import br.com.desafioCompasso.calculadora.modelMapper.ModelMapperConfigViaAdm;
 import br.com.desafioCompasso.calculadora.repository.ViaAdministracaoRepository;
 
 @Service
@@ -25,25 +25,27 @@ public class ViaAdministracaoService {
 	private ViaAdministracaoRepository viaAdministracaoRepository;
 
 	@Autowired
-	private ModelMapperConfig modelMapper;
+	private ModelMapperConfigViaAdm modelMapper;
 	
 
 	public List<ViaAdministracaoEntity> listar(){
-		return viaAdministracaoRepository.findAll();
+		List<ViaAdministracaoEntity> lst= viaAdministracaoRepository.findAll();
+	
+		return lst;
 	}
 	
-	public ViaAdministracaoEntity listarId(Long id) throws NotFoundException {
+	public ViaAdministracaoDto listarId(Long id) throws NotFoundException {
 		ViaAdministracaoEntity viaAdm = viaAdministracaoRepository.findById(id)
 				.orElseThrow(() -> new NotFoundException("Não encontrado a via administração com esse id!"));
 		
-		return viaAdm;
+		return modelMapper.modelMapperViaAdm().map(viaAdm, ViaAdministracaoDto.class);
 	}
 	
-	public ViaAdministracaoEntity listarNome(String nome) throws NotFoundException {
+	public ViaAdministracaoDto listarNome(String nome) throws NotFoundException {
 		ViaAdministracaoEntity viaAdm = viaAdministracaoRepository.findByNome(nome)
 				.orElseThrow(() -> new NotFoundException("Não encontrado a via administração com esse nome!"));
 		
-		return viaAdm;
+		return modelMapper.modelMapperViaAdm().map(viaAdm, ViaAdministracaoDto.class);
 	}
 	
 	public ViaAdministracaoDto criar(ViaAdministracaoForm viaAdmForm) throws ServiceException {
@@ -51,10 +53,10 @@ public class ViaAdministracaoService {
 		 Boolean lab= viaAdministracaoRepository.findByNome(viaAdmForm.getNome()).isEmpty();		
 				
        if(lab==true) {
-      	ViaAdministracaoEntity viaAdm = modelMapper.modelMapper().map(viaAdmForm, ViaAdministracaoEntity.class);
+      	ViaAdministracaoEntity viaAdm = modelMapper.modelMapperViaAdm().map(viaAdmForm, ViaAdministracaoEntity.class);
       	viaAdministracaoRepository.save(viaAdm);
    		
-   		return modelMapper.modelMapper().map(viaAdm, ViaAdministracaoDto.class);
+   		return modelMapper.modelMapperViaAdm().map(viaAdm, ViaAdministracaoDto.class);
        }else {
       	 throw new ServiceException("Já existe uma viaAdministracao cadastrada com esse nome!");
        }
@@ -68,7 +70,7 @@ public class ViaAdministracaoService {
 		
 		viaAdm.setNome(atViaAdmForm.getNome());
 		
-		return modelMapper.modelMapper().map(viaAdm, ViaAdministracaoDto.class);
+		return modelMapper.modelMapperViaAdm().map(viaAdm, ViaAdministracaoDto.class);
 	}
 	
 	

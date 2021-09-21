@@ -1,13 +1,21 @@
 package br.com.desafioCompasso.calculadora.controller;
 
+import java.net.URI;
 import java.sql.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import br.com.desafioCompasso.calculadora.controller.dto.CalculoHistoricoDto;
+import br.com.desafioCompasso.calculadora.controller.dto.LaboratorioDto;
+import br.com.desafioCompasso.calculadora.controller.form.CalculoHistoricoForm;
+import br.com.desafioCompasso.calculadora.controller.form.LaboratorioForm;
 import br.com.desafioCompasso.calculadora.model.CalculoHistoricoEntity;
 import br.com.desafioCompasso.calculadora.service.CalculoHistoricoService;
 
@@ -26,7 +34,16 @@ public class CalculoHistoricoController {
 	}
 	
 	
-	
+	@PostMapping("/criar")
+	public ResponseEntity<CalculoHistoricoDto> criar(@RequestBody CalculoHistoricoForm calculoHistoricoForm , UriComponentsBuilder uriBuilder) {
+		
+		CalculoHistoricoDto calcHistDto = calculoHistoricoService.criar(calculoHistoricoForm);
+	    
+	    URI uri= uriBuilder.path("/{id}/").buildAndExpand(calcHistDto.getId()).toUri();
+	    
+		return ResponseEntity.created(uri).body(calcHistDto);
+		
+	}
 	
 	
 	

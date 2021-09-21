@@ -39,7 +39,7 @@ public class ViaAdministracaoController {
 	
 	//lista os laboratorios pelo id
 	@GetMapping("/listar/{id}")
-	public ViaAdministracaoEntity listarViaAdmsId(Long id){
+	public ViaAdministracaoDto listarViaAdmsId(Long id){
 		return viaAdministracaoService.listarId(id);
 		
 	}
@@ -47,7 +47,7 @@ public class ViaAdministracaoController {
 	
 	//lista os laboratorios pelo nome
 		@GetMapping("/listar/{nome}")
-		public ViaAdministracaoEntity listarViaAdmsId(String nome){
+		public ViaAdministracaoDto listarViaAdmsId(String nome){
 			return viaAdministracaoService.listarNome(nome);
 			
 		}

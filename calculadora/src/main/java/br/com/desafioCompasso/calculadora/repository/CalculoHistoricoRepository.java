@@ -1,6 +1,8 @@
 package br.com.desafioCompasso.calculadora.repository;
 
+import java.math.BigDecimal;
 import java.sql.Date;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -12,5 +14,11 @@ public interface CalculoHistoricoRepository extends JpaRepository<CalculoHistori
 	
 	@Query(value = "SELECT * FROM calculo_historico c WHERE c.id >= :id BETWEEN :dataIni AND :dataFim ", nativeQuery= true)
 	Optional <CalculoHistoricoEntity> findDataIniDataFim(Long id, Date dataIni, Date dataFim);
+	
+	Optional <CalculoHistoricoEntity> findByMedEntityNome(String nome);
+	
+
+	Optional<CalculoHistoricoEntity> findByQuantidadePrescrita(BigDecimal quantidadePrescrita);
+	
 
 }

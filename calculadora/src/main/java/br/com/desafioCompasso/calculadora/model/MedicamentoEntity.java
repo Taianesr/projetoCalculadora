@@ -23,25 +23,25 @@ public class MedicamentoEntity {
 	@ManyToOne
 	@JoinColumn(name = "laboratorio_id", referencedColumnName = "id")
 	private LaboratorioEntity laboratorio;
-	
+	@Column(name ="nome")
 	private String nome;
 	
-	
+	@Column(name ="concentracao_inicial")
 	private BigDecimal concentracaoInicial;
 	
-	
+	@Column(name ="embalagem_apresentada")
 	private String embalagemApresentada;
 	
-
+	@Column(name ="quantidade_apresentacao")
 	private BigDecimal quantidadeApresentacao;
 	
-	
+	@Column(name ="unidade_medida")
 	private String unidadeMedida;
 	
-	
+	@Column(name ="info_observacao")
 	private String infoObservacao;
 	
-	
+	@Column(name="info_sobra")
 	private String infoSobra;
 	
 	
@@ -52,14 +52,6 @@ public class MedicamentoEntity {
 		super();
 	}
 	
-
-	public MedicamentoEntity(GrupoMedicamentoEntity grupoMedicamento, LaboratorioEntity laboratorio, String nome) {
-		super();
-		this.grupoMedicamento = grupoMedicamento;
-		this.laboratorio = laboratorio;
-		this.nome = nome;
-	}
-
 
 	public MedicamentoEntity(Long id, GrupoMedicamentoEntity grupoMedicamento, LaboratorioEntity laboratorio,
 			String nome, BigDecimal concentracaoInicial, String embalagemApresentada, BigDecimal quantidadeApresentacao,

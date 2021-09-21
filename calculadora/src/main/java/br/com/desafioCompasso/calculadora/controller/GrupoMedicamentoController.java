@@ -43,13 +43,13 @@ public class GrupoMedicamentoController {
 	//criar metodo "listar por nome?"
 	
 	@GetMapping("/listar/{id}")
-	public GrupoMedicamentoEntity listarGrupoMedicamentosId(Long id) {
+	public GrupoMedicamentoDto listarGrupoMedicamentosId(Long id) {
 		return grupoMedicamentoService.listarId(id);
 	}
 	
 	
 	@GetMapping("/listar/{nome}")
-	public GrupoMedicamentoEntity listarGrupoMedicamentosNome(String nome) {
+	public GrupoMedicamentoDto listarGrupoMedicamentosNome(String nome) {
 		return grupoMedicamentoService.listarNome(nome);
 	}
 	

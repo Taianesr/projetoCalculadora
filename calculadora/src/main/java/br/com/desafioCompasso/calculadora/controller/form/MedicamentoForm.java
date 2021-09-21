@@ -3,6 +3,8 @@ package br.com.desafioCompasso.calculadora.controller.form;
 import java.math.BigDecimal;
 import java.util.List;
 
+import br.com.desafioCompasso.calculadora.model.DiluicaoConfiguracaoEntity;
+
 public class MedicamentoForm {
 	
 	private String nome;
@@ -25,7 +27,6 @@ public class MedicamentoForm {
 	
 	
 
-
 	public MedicamentoForm(String nome, BigDecimal concentracaoInicial, String embalagemApresentada,
 			Long idGrupoMedicamento, Long idLaboratorio, String infoObs, String infoSobra, String infoTempoAdm,
 			BigDecimal quantidadeApresentacao, String unidadeMedida,
@@ -43,6 +44,9 @@ public class MedicamentoForm {
 		this.unidadeMedida = unidadeMedida;
 		this.diluicaoConfiguracaoForm = diluicaoConfiguracaoForm;
 	}
+
+	
+	
 
 
 
@@ -131,9 +135,6 @@ public class MedicamentoForm {
 		return diluicaoConfiguracaoForm;
 	}
 
-	public void setDiluicaoConfiguracaoForm(List<DiluicaoConfiguracaoForm> diluicaoConfiguracaoForm) {
-		this.diluicaoConfiguracaoForm = diluicaoConfiguracaoForm;
-	}
 	
 	
 	

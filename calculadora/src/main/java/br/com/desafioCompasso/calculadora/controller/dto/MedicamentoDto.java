@@ -1,6 +1,7 @@
 package br.com.desafioCompasso.calculadora.controller.dto;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 import br.com.desafioCompasso.calculadora.model.MedicamentoEntity;
 
@@ -17,15 +18,19 @@ public class MedicamentoDto {
 	private String infoTempoAdministracao;
 	private BigDecimal quantidadeApresentacao;
 	private String unidadeMedida;
+	private List<DiluicaoConfiguracaoDto> lstDiluicao;
 
 	public MedicamentoDto() {
 		super();
 	}
 
 	
+	
+
 	public MedicamentoDto(Long id, String nome, Long idGrupoMedicamento, Long idLaboratorio,
 			BigDecimal concentracaoInicial, String embalagemApresentada, String infoObservacao, String infoSobra,
-			String infoTempoAdmistracao, BigDecimal quantidadeApresentacao, String unidadeMedida) {
+			String infoTempoAdministracao, BigDecimal quantidadeApresentacao, String unidadeMedida,
+			List<DiluicaoConfiguracaoDto> lstDiluicao) {
 		super();
 		this.id = id;
 		this.nome = nome;
@@ -35,13 +40,14 @@ public class MedicamentoDto {
 		this.embalagemApresentada = embalagemApresentada;
 		this.infoObservacao = infoObservacao;
 		this.infoSobra = infoSobra;
-		this.infoTempoAdministracao = infoTempoAdmistracao;
+		this.infoTempoAdministracao = infoTempoAdministracao;
 		this.quantidadeApresentacao = quantidadeApresentacao;
 		this.unidadeMedida = unidadeMedida;
+		this.lstDiluicao = lstDiluicao;
 	}
-	
 
-	
+
+
 
 	public Long getId() {
 		return id;
@@ -199,8 +205,24 @@ public class MedicamentoDto {
 
 
 
+	
+	
 
-	public void Converte(MedicamentoEntity medicamentoEntity) {
+	public List<DiluicaoConfiguracaoDto> getLstDiluicao() {
+		return lstDiluicao;
+	}
+
+
+
+
+	public void setLstDiluicao(List<DiluicaoConfiguracaoDto> lstDiluicao) {
+		this.lstDiluicao = lstDiluicao;
+	}
+
+
+
+
+	public void Converte(MedicamentoEntity medicamentoEntity, List<DiluicaoConfiguracaoDto> lstDiluicaoConfDto) {
 		this.id = medicamentoEntity.getId();
 		this.idGrupoMedicamento = medicamentoEntity.getGrupo_medicamento().getId();
 		this.idLaboratorio = medicamentoEntity.getLaboratorio().getId();
@@ -212,6 +234,7 @@ public class MedicamentoDto {
 		this.infoTempoAdministracao = medicamentoEntity.getInfoTempoAdministracao();
 		this.quantidadeApresentacao = medicamentoEntity.getQuantidadeApresentacao();
 		this.unidadeMedida = medicamentoEntity.getUnidadeMedida();
+		this.lstDiluicao= lstDiluicaoConfDto;
 
 
 	}

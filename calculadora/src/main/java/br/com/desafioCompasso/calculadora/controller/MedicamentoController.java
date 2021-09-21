@@ -40,13 +40,13 @@ public class MedicamentoController {
 	}
 	
 	@GetMapping("/listar/{id}")
-	public MedicamentoEntity listarMedicamentoId(Long id) {
+	public MedicamentoDto listarMedicamentoId(Long id) {
 		return medicamentoService.listarId(id);
 
 	}
 	
 	@GetMapping("/listar/{nome}")
-	public MedicamentoEntity listarMedicamentoNome(String nome){
+	public MedicamentoDto listarMedicamentoNome(String nome){
 		return medicamentoService.listarNome(nome);
 		
 	}
