@@ -10,6 +10,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "via_administracao")
 public class ViaAdministracaoEntity {
+	
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	@Column(name ="nome")

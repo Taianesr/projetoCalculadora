@@ -6,34 +6,40 @@ import br.com.desafioCompasso.calculadora.model.DiluicaoConfiguracaoEntityPK;
 
 public class DiluicaoConfiguracaoForm {
 	
-	private int sequencia;
 	private Long idMedicamento;
 	private Long idViaAdministracao;
-	private String modoPreparo;
+	private int sequencia;
 	private BigDecimal quantidadeAspirada;
 	private BigDecimal quantidadeAdicionada;
 	private BigDecimal concentracao;
 	private String diluente;
+	private String modoPreparo;
+
 	
 	
 	public DiluicaoConfiguracaoForm() {
 		super();
 	}
 	
-
 	
-	public DiluicaoConfiguracaoForm(int sequencia, Long idMedicamento, Long idViaAdministracao, String modoPreparo,
-			BigDecimal quantidadeAspirada, BigDecimal quantidadeAdicionada, BigDecimal concentracao, String diluente) {
+
+
+
+	public DiluicaoConfiguracaoForm(Long idMedicamento, Long idViaAdministracao, int sequencia,
+			BigDecimal quantidadeAspirada, BigDecimal quantidadeAdicionada, BigDecimal concentracao, String diluente,
+			String modoPreparo) {
 		super();
-		this.sequencia = sequencia;
 		this.idMedicamento = idMedicamento;
 		this.idViaAdministracao = idViaAdministracao;
-		this.modoPreparo = modoPreparo;
+		this.sequencia = sequencia;
 		this.quantidadeAspirada = quantidadeAspirada;
 		this.quantidadeAdicionada = quantidadeAdicionada;
 		this.concentracao = concentracao;
 		this.diluente = diluente;
+		this.modoPreparo = modoPreparo;
 	}
+
+
 
 
 

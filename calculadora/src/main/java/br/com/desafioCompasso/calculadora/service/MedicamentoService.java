@@ -1,5 +1,6 @@
 package br.com.desafioCompasso.calculadora.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -86,49 +87,54 @@ public class MedicamentoService {
 
 	
 		
-		Optional<MedicamentoEntity> med2 = medicamentoRepository.findByNomeAndGrupoMedicamentoIdAndLaboratorioId(
-				medForm.getNome(), medForm.getIdGrupoMedicamento(), medForm.getIdLaboratorio());
+		Boolean med2 = medicamentoRepository.findByNomeAndGrupoMedicamentoIdAndLaboratorioId(
+				medForm.getNome(), medForm.getIdGrupoMedicamento(), medForm.getIdLaboratorio()).isEmpty();
 		
 		
-		if (med2.isEmpty()) {
+		if (med2==true) {
 			//cria o objeto medicamento com os dados recebidos do form
 			
 			MedicamentoEntity med = new MedicamentoEntity(grupoMed, lab, medForm.getNome(), medForm.getConcentracaoInicial(), medForm.getEmbalagemApresentada(), medForm.getQuantidadeApresentacao()
 					, medForm.getUnidadeMedida(), medForm.getInfoObs(), medForm.getInfoSobra(), medForm.getInfoTempoAdm());
 			
 			
-			List <DiluicaoConfiguracaoEntity> lstDiluicao = null;
+			List <DiluicaoConfiguracaoEntity> lstDiluicao = new ArrayList<DiluicaoConfiguracaoEntity>();
 			
 			
 			//salva as diluicoes configurações no repository
 			for (int i=0; i< medForm.getDiluicaoConfiguracaoForm().size(); i++) {
-			
+				
 				
 				ViaAdministracaoEntity viaAdm = viaAdmRepository.findById(medForm.getDiluicaoConfiguracaoForm().get(i).getIdViaAdministracao())
 						.orElseThrow(() -> new NotFoundException("Não encontrado a via administração com esse id!"));
 				
+				//erro
+				 DiluicaoConfiguracaoEntityPK diluicaoConfPK= new DiluicaoConfiguracaoEntityPK (med, viaAdm, medForm.getDiluicaoConfiguracaoForm().get(i).getSequencia());
 				
-				DiluicaoConfiguracaoEntityPK diluicaoConfPK= new DiluicaoConfiguracaoEntityPK (med, viaAdm, medForm.getDiluicaoConfiguracaoForm().get(i).getSequencia() );
+				DiluicaoConfiguracaoEntity diluicaoConf= diluicaoConfRepository.findByDiluicaoConfPK(diluicaoConfPK)
+						.orElseThrow(() -> new NotFoundException("Não encontrada a chave primaria da diluicao configuracao com esse id!"));;
 				
-				DiluicaoConfiguracaoEntity diluicaoConf= new DiluicaoConfiguracaoEntity(diluicaoConfPK,  medForm.getDiluicaoConfiguracaoForm().get(i).getQuantidadeAspirada(), 
+				
+				
+				        diluicaoConf= new DiluicaoConfiguracaoEntity(diluicaoConfPK,  medForm.getDiluicaoConfiguracaoForm().get(i).getQuantidadeAspirada(), 
 						medForm.getDiluicaoConfiguracaoForm().get(i).getQuantidadeAdicionada(), medForm.getDiluicaoConfiguracaoForm().get(i).getConcentracao(), 
 						medForm.getDiluicaoConfiguracaoForm().get(i).getDiluente(), medForm.getDiluicaoConfiguracaoForm().get(i).getModoPreparo());
 				
+				diluicaoConfRepository.save(diluicaoConf);
 				
 				lstDiluicao.add(diluicaoConf);
 				
-				diluicaoConfRepository.save(diluicaoConf);
 			
 				
 			}
 			
 
 			
-			List<DiluicaoConfiguracaoDto> lstDiluicaoConfDto= null;
+			List<DiluicaoConfiguracaoDto> lstDiluicaoConfDto= new ArrayList<DiluicaoConfiguracaoDto>();
 			
 
             //trasnforma a lista de diluicoes configuracoes em dtos			
-			for (int i=0; i< lstDiluicao.size() ; i++) {
+			for (int i=0; i<lstDiluicao.size() ; i++) {
 				DiluicaoConfiguracaoDto diluicaoConfDto=  modelMapperConfigDiluicaoConf.modelMapperDiluicaoConf().map(lstDiluicao.get(i), DiluicaoConfiguracaoDto.class);
 				
 				lstDiluicaoConfDto.add(diluicaoConfDto);
@@ -136,12 +142,16 @@ public class MedicamentoService {
 			
 
 			
+			
+			
+			
+			
 			MedicamentoDto medDto = new MedicamentoDto();
 	
+			medicamentoRepository.save(med);
+			
             medDto.Converte(med, lstDiluicaoConfDto);
 			
-			
-			medicamentoRepository.save(med);
 		    
 			return medDto;
 		

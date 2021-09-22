@@ -2,18 +2,22 @@ package br.com.desafioCompasso.calculadora.model;
 
 import java.io.Serializable;
 
+import javax.persistence.Column;
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 public class DiluicaoConfiguracaoEntityPK implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	@ManyToOne
+	
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "medicamento_id", referencedColumnName = "id")
 	private MedicamentoEntity medicamento;
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "via_administracao_id", referencedColumnName = "id")
 	private ViaAdministracaoEntity viaAdministracao;
+	@Column(name="sequencia")
 	private int sequencia;
 
 	public DiluicaoConfiguracaoEntityPK() {

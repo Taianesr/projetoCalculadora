@@ -23,6 +23,7 @@ public class MedicamentoEntity {
 	@ManyToOne
 	@JoinColumn(name = "laboratorio_id", referencedColumnName = "id")
 	private LaboratorioEntity laboratorio;
+	
 	@Column(name ="nome")
 	private String nome;
 	

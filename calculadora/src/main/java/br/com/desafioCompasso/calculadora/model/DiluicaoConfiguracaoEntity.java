@@ -7,12 +7,14 @@ import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
+import lombok.EqualsAndHashCode;
+
 @Entity
 @Table(name ="diluicao_configuracao")
 public class DiluicaoConfiguracaoEntity {
    
 	@EmbeddedId
-	//@EqualsAndHashCode.Include
+	@EqualsAndHashCode.Include
 	private DiluicaoConfiguracaoEntityPK diluicaoConfPK;
 	@Column(name ="quantidade_aspirada")
 	private BigDecimal quantidadeAspirada;
@@ -43,7 +45,21 @@ public class DiluicaoConfiguracaoEntity {
 		this.diluente = diluente;
 		this.modoPreparo = modoPreparo;
 	}
+	
+	
+	
 
+	public DiluicaoConfiguracaoEntity(BigDecimal quantidadeAspirada,
+			BigDecimal quantidadeAdicionada, BigDecimal concentracao, String diluente, String modoPreparo) {
+		super();
+		this.quantidadeAspirada = quantidadeAspirada;
+		this.quantidadeAdicionada = quantidadeAdicionada;
+		this.concentracao = concentracao;
+		this.diluente = diluente;
+		this.modoPreparo = modoPreparo;
+	}
+	
+	
 
 
 	public DiluicaoConfiguracaoEntityPK getDiluicaoConfPK() {

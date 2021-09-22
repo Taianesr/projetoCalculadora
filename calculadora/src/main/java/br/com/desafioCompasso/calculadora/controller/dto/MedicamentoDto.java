@@ -1,6 +1,7 @@
 package br.com.desafioCompasso.calculadora.controller.dto;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 import br.com.desafioCompasso.calculadora.model.MedicamentoEntity;
@@ -43,7 +44,7 @@ public class MedicamentoDto {
 		this.infoTempoAdministracao = infoTempoAdministracao;
 		this.quantidadeApresentacao = quantidadeApresentacao;
 		this.unidadeMedida = unidadeMedida;
-		this.lstDiluicao = lstDiluicao;
+		this.lstDiluicao= new ArrayList<DiluicaoConfiguracaoDto>(lstDiluicao);
 	}
 
 
@@ -224,9 +225,9 @@ public class MedicamentoDto {
 
 	public void Converte(MedicamentoEntity medicamentoEntity, List<DiluicaoConfiguracaoDto> lstDiluicaoConfDto) {
 		this.id = medicamentoEntity.getId();
+		this.nome = medicamentoEntity.getNome();
 		this.idGrupoMedicamento = medicamentoEntity.getGrupo_medicamento().getId();
 		this.idLaboratorio = medicamentoEntity.getLaboratorio().getId();
-		this.nome = medicamentoEntity.getNome();
 		this.concentracaoInicial = medicamentoEntity.getConcentracaoInicial();
 		this.embalagemApresentada = medicamentoEntity.getEmbalagemApresentada();
 		this.infoObservacao = medicamentoEntity.getInfoObservacao();

@@ -7,9 +7,11 @@ import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.stereotype.Repository;
 
 import br.com.desafioCompasso.calculadora.model.CalculoHistoricoEntity;
 
+@Repository
 public interface CalculoHistoricoRepository extends JpaRepository<CalculoHistoricoEntity,Long>{
 	
 	@Query(value = "SELECT * FROM calculo_historico c WHERE c.id >= :id BETWEEN :dataIni AND :dataFim ", nativeQuery= true)

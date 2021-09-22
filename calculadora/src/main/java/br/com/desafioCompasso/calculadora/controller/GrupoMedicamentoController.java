@@ -81,7 +81,7 @@ public class GrupoMedicamentoController {
 
 	}
 	
-	//remover
+
 	@DeleteMapping("/remover/{id}")
 	@Transactional
 	public ResponseEntity<?> excluir(@PathVariable Long id){

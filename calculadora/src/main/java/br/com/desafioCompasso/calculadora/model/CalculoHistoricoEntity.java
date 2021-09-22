@@ -17,10 +17,13 @@ import javax.persistence.TemporalType;
 
 import org.hibernate.annotations.UpdateTimestamp;
 
+
+
 @Entity
 @Table(name = "calculo_historico")
 public class CalculoHistoricoEntity {
 
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
@@ -85,6 +88,20 @@ public class CalculoHistoricoEntity {
 		this.medEntity = medEntity;
 		this.viaAdmEntity = viaAdmEntity;
 		this.quantidadePrescrita = quantidadePrescrita;
+	}
+	
+	
+	public CalculoHistoricoEntity(Date dataCalculo, String nomeUsuario, MedicamentoEntity medEntity,
+			ViaAdministracaoEntity viaAdmEntity, BigDecimal quantidadePrescrita, BigDecimal quantidadeApresentada,
+			String resultadosJson) {
+		super();
+		this.nomeUsuario = nomeUsuario;
+		this.dataCalculo = dataCalculo;
+		this.medEntity = medEntity;
+		this.viaAdmEntity = viaAdmEntity;
+		this.quantidadePrescrita = quantidadePrescrita;
+		this.quantidadeApresentada = quantidadeApresentada;
+		this.resultadosJson = resultadosJson;
 	}
 
 	public Long getId() {
