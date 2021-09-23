@@ -7,15 +7,26 @@ import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
+import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name ="diluicao_configuracao")
+
+@Data
+@NoArgsConstructor
+@Table(name = "diluicao_configuracao")
 public class DiluicaoConfiguracaoEntity {
    
 	@EmbeddedId
 	@EqualsAndHashCode.Include
 	private DiluicaoConfiguracaoEntityPK diluicaoConfPK;
+	@Column(name = "medicamento_id", nullable = false, insertable = false, updatable = false)
+    private Long medicamentoId;
+    @Column(name = "via_administracao_id", nullable = false, insertable = false, updatable = false)
+    private Long viaAdministracaoId;
+    @Column(name="sequencia", nullable = false, insertable = false, updatable = false)  
+    private int sequencia;
 	@Column(name ="quantidade_aspirada")
 	private BigDecimal quantidadeAspirada;
 	@Column(name ="quantidade_adicionada")
@@ -27,12 +38,6 @@ public class DiluicaoConfiguracaoEntity {
 	@Column(name ="modo_preparo")
 	private String modoPreparo;
 	
-	
-	
-	public DiluicaoConfiguracaoEntity() {
-		super();
-	}
-
 
 
 	public DiluicaoConfiguracaoEntity(DiluicaoConfiguracaoEntityPK diluicaoConfPK, BigDecimal quantidadeAspirada,
@@ -58,81 +63,28 @@ public class DiluicaoConfiguracaoEntity {
 		this.diluente = diluente;
 		this.modoPreparo = modoPreparo;
 	}
+
+
+
+
+	public DiluicaoConfiguracaoEntity(Long medicamentoId, Long viaAdministracaoId, int sequencia) {
+		super();
+		this.medicamentoId = medicamentoId;
+		this.viaAdministracaoId = viaAdministracaoId;
+		this.sequencia = sequencia;
+	}
+
 	
+
+
+
+
+
 	
 
 
-	public DiluicaoConfiguracaoEntityPK getDiluicaoConfPK() {
-		return diluicaoConfPK;
-	}
 
-
-
-	public void setDiluicaoConfPK(DiluicaoConfiguracaoEntityPK diluicaoConfPK) {
-		this.diluicaoConfPK = diluicaoConfPK;
-	}
-
-
-
-	public BigDecimal getQuantidadeAspirada() {
-		return quantidadeAspirada;
-	}
-
-
-
-	public void setQuantidadeAspirada(BigDecimal quantidadeAspirada) {
-		this.quantidadeAspirada = quantidadeAspirada;
-	}
-
-
-
-	public BigDecimal getQuantidadeAdicionada() {
-		return quantidadeAdicionada;
-	}
-
-
-
-	public void setQuantidadeAdicionada(BigDecimal quantidadeAdicionada) {
-		this.quantidadeAdicionada = quantidadeAdicionada;
-	}
-
-
-
-	public BigDecimal getConcentracao() {
-		return concentracao;
-	}
-
-
-
-	public void setConcentracao(BigDecimal concentracao) {
-		this.concentracao = concentracao;
-	}
-
-
-
-	public String getDiluente() {
-		return diluente;
-	}
-
-
-
-	public void setDiluente(String diluente) {
-		this.diluente = diluente;
-	}
-
-
-
-	public String getModoPreparo() {
-		return modoPreparo;
-	}
-
-
-
-	public void setModoPreparo(String modoPreparo) {
-		this.modoPreparo = modoPreparo;
-	}
-
-
+	
 
 
 }

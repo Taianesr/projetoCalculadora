@@ -13,11 +13,12 @@ import br.com.desafioCompasso.calculadora.model.DiluicaoConfiguracaoEntityPK;
 @Repository
 public interface DiluicaoConfiguracaoRepository extends JpaRepository <DiluicaoConfiguracaoEntity, DiluicaoConfiguracaoEntityPK>  {
 	
-	List<DiluicaoConfiguracaoEntity> findByDiluicaoConfPKMedicamentoId(Long medicamentoId);
+	List<DiluicaoConfiguracaoEntity> findByMedicamentoIdAndViaAdministracaoIdOrderBySequenciaAsc(Long medicamentoId, Long viaAdministracaoId);
 	
-	Optional <DiluicaoConfiguracaoEntity> findByDiluicaoConfPK(DiluicaoConfiguracaoEntityPK pk);
+	Optional<DiluicaoConfiguracaoEntity> findByMedicamentoIdAndViaAdministracaoIdAndSequencia(Long medicamentoId, Long viaAdministracaoId, int sequencia);
+	
 
-	
-	//Optional <DiluicaoConfiguracaoEntity> findByDiluicaoConfPK(MedicamentoEntity med, ViaAdministracaoEntity viaAdm, int sequencia);
+
+
 	
 }

@@ -11,7 +11,13 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 @Entity
+
+@Data
+@NoArgsConstructor
 @Table(name ="medicamento")
 
 public class MedicamentoEntity {
@@ -45,14 +51,10 @@ public class MedicamentoEntity {
 	@Column(name="info_sobra")
 	private String infoSobra;
 	
-	
+	@Column(name="info_tempo_administracao")
 	private String infoTempoAdministracao;
 	
 
-	public MedicamentoEntity() {
-		super();
-	}
-	
 
 	public MedicamentoEntity(Long id, GrupoMedicamentoEntity grupoMedicamento, LaboratorioEntity laboratorio,
 			String nome, BigDecimal concentracaoInicial, String embalagemApresentada, BigDecimal quantidadeApresentacao,
@@ -89,122 +91,6 @@ public class MedicamentoEntity {
 	}
 
 
-
-	public Long getId() {
-		return id;
-	}
-
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-
-	public GrupoMedicamentoEntity getGrupoMedicamento() {
-		return grupoMedicamento;
-	}
-
-
-	public void setGrupoMedicamento(GrupoMedicamentoEntity grupoMedicamento) {
-		this.grupoMedicamento = grupoMedicamento;
-	}
-
-
-	public GrupoMedicamentoEntity getGrupo_medicamento() {
-		return grupoMedicamento;
-	}
-
-	public void setGrupo_medicamento(GrupoMedicamentoEntity grupo_medicamento) {
-		this.grupoMedicamento = grupo_medicamento;
-	}
-
-	public LaboratorioEntity getLaboratorio() {
-		return laboratorio;
-	}
-
-	public void setLaboratorio(LaboratorioEntity laboratorio) {
-		this.laboratorio = laboratorio;
-	}
-
-	public String getNome() {
-		return nome;
-	}
-
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
-
-
-	public BigDecimal getConcentracaoInicial() {
-		return concentracaoInicial;
-	}
-
-
-	public void setConcentracaoInicial(BigDecimal concentracaoInicial) {
-		this.concentracaoInicial = concentracaoInicial;
-	}
-
-
-	public String getEmbalagemApresentada() {
-		return embalagemApresentada;
-	}
-
-
-	public void setEmbalagemApresentada(String embalagemApresentada) {
-		this.embalagemApresentada = embalagemApresentada;
-	}
-
-
-	public BigDecimal getQuantidadeApresentacao() {
-		return quantidadeApresentacao;
-	}
-
-
-	public void setQuantidadeApresentacao(BigDecimal quantidadeApresentacao) {
-		this.quantidadeApresentacao = quantidadeApresentacao;
-	}
-
-
-	public String getUnidadeMedida() {
-		return unidadeMedida;
-	}
-
-
-	public void setUnidadeMedida(String unidadeMedida) {
-		this.unidadeMedida = unidadeMedida;
-	}
-
-
-	public String getInfoObservacao() {
-		return infoObservacao;
-	}
-
-
-	public void setInfoObservacao(String infoObservacao) {
-		this.infoObservacao = infoObservacao;
-	}
-
-
-	public String getInfoSobra() {
-		return infoSobra;
-	}
-
-
-	public void setInfoSobra(String infoSobra) {
-		this.infoSobra = infoSobra;
-	}
-
-
-	public String getInfoTempoAdministracao() {
-		return infoTempoAdministracao;
-	}
-
-
-	public void setInfoTempoAdministracao(String infoTempoAdministracao) {
-		this.infoTempoAdministracao = infoTempoAdministracao;
-	}
-	
-	
 
 
 	

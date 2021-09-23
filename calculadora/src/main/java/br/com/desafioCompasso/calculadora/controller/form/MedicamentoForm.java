@@ -5,6 +5,11 @@ import java.util.List;
 
 import br.com.desafioCompasso.calculadora.model.DiluicaoConfiguracaoEntity;
 
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@NoArgsConstructor
 public class MedicamentoForm {
 	
 	private String nome;
@@ -21,11 +26,7 @@ public class MedicamentoForm {
 	
 	private List<DiluicaoConfiguracaoForm> diluicaoConfiguracaoForm; 
 	
-	public MedicamentoForm() {
-		super();
-	}
-	
-	
+
 
 	public MedicamentoForm(String nome, BigDecimal concentracaoInicial, String embalagemApresentada,
 			Long idGrupoMedicamento, Long idLaboratorio, String infoObs, String infoSobra, String infoTempoAdm,
@@ -45,98 +46,7 @@ public class MedicamentoForm {
 		this.diluicaoConfiguracaoForm = diluicaoConfiguracaoForm;
 	}
 
-	
-	
 
-
-
-
-	public String getNome() {
-		return nome;
-	}
-
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
-
-	public BigDecimal getConcentracaoInicial() {
-		return concentracaoInicial;
-	}
-
-	public void setConcentracaoInicial(BigDecimal concentracaoInicial) {
-		this.concentracaoInicial = concentracaoInicial;
-	}
-
-	public String getEmbalagemApresentada() {
-		return embalagemApresentada;
-	}
-
-	public void setEmbalagemApresentada(String embalagemApresentada) {
-		this.embalagemApresentada = embalagemApresentada;
-	}
-
-	public Long getIdGrupoMedicamento() {
-		return idGrupoMedicamento;
-	}
-
-	public void setIdGrupoMedicamento(Long idGrupoMedicamento) {
-		this.idGrupoMedicamento = idGrupoMedicamento;
-	}
-
-	public Long getIdLaboratorio() {
-		return idLaboratorio;
-	}
-
-	public void setIdLaboratorio(Long idLaboratorio) {
-		this.idLaboratorio = idLaboratorio;
-	}
-
-	public String getInfoObs() {
-		return infoObs;
-	}
-
-	public void setInfoObs(String infoObs) {
-		this.infoObs = infoObs;
-	}
-
-	public String getInfoSobra() {
-		return infoSobra;
-	}
-
-	public void setInfoSobra(String infoSobra) {
-		this.infoSobra = infoSobra;
-	}
-
-	public String getInfoTempoAdm() {
-		return infoTempoAdm;
-	}
-
-	public void setInfoTempoAdm(String infoTempoAdm) {
-		this.infoTempoAdm = infoTempoAdm;
-	}
-
-	public BigDecimal getQuantidadeApresentacao() {
-		return quantidadeApresentacao;
-	}
-
-	public void setQuantidadeApresentacao(BigDecimal quantidadeApresentacao) {
-		this.quantidadeApresentacao = quantidadeApresentacao;
-	}
-
-	public String getUnidadeMedida() {
-		return unidadeMedida;
-	}
-
-	public void setUnidadeMedida(String unidadeMedida) {
-		this.unidadeMedida = unidadeMedida;
-	}
-
-	public List<DiluicaoConfiguracaoForm> getDiluicaoConfiguracaoForm() {
-		return diluicaoConfiguracaoForm;
-	}
 
 	
-	
-	
-
 }

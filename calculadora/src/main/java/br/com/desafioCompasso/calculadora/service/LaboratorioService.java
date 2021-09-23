@@ -9,6 +9,8 @@ import br.com.desafioCompasso.calculadora.controller.dto.LaboratorioDto;
 import br.com.desafioCompasso.calculadora.controller.form.AtualizacaoLaboratorioForm;
 import br.com.desafioCompasso.calculadora.controller.form.LaboratorioForm;
 import br.com.desafioCompasso.calculadora.exceptions.NotFoundException;
+import br.com.desafioCompasso.calculadora.exceptions.NotFoundIdException;
+import br.com.desafioCompasso.calculadora.exceptions.NotFoundNameException;
 import br.com.desafioCompasso.calculadora.exceptions.ServiceException;
 import br.com.desafioCompasso.calculadora.model.LaboratorioEntity;
 import br.com.desafioCompasso.calculadora.modelMapper.ModelMapperConfigLaboratorio;
@@ -28,14 +30,14 @@ public class LaboratorioService {
 		return laboratorioRepository.findAll();
 	}
 	
-	public LaboratorioDto listarId(Long id) throws NotFoundException {
+	public LaboratorioDto listarId(Long id) throws NotFoundIdException {
 		LaboratorioEntity lab = laboratorioRepository.findById(id)
-				.orElseThrow(() -> new NotFoundException("Não encontrado o laboratório com esse id!"));
+				.orElseThrow(() -> new NotFoundIdException("Não encontrado o laboratório com esse id!"));
 		
 		return modelMapper.modelMapperLab().map(lab, LaboratorioDto.class);
 	}
 	
-	public LaboratorioDto listarNome(String nome) throws NotFoundException {
+	public LaboratorioDto listarNome(String nome) throws NotFoundNameException {
 		LaboratorioEntity lab = laboratorioRepository.findByNome(nome)
 				.orElseThrow(() -> new NotFoundException("Não encontrado o laboratório com esse nome!"));
 		
@@ -60,9 +62,10 @@ public class LaboratorioService {
 		
 	}
 
-	public LaboratorioDto atualizar(Long id, AtualizacaoLaboratorioForm atLabForm) throws NotFoundException {
+	
+	public LaboratorioDto atualizar(Long id, AtualizacaoLaboratorioForm atLabForm) throws NotFoundIdException {
 		LaboratorioEntity lab = laboratorioRepository.findById(id)
-				.orElseThrow(() -> new NotFoundException("Não encontrado o laboratório com esse id!"));
+				.orElseThrow(() -> new NotFoundIdException("Não encontrado o laboratório com esse id!"));
 		
 		lab.setNome(atLabForm.getNome());
 		
@@ -70,9 +73,9 @@ public class LaboratorioService {
 	}
 	
 	
-	public void excluir(Long  id) {
+	public void excluir(Long  id) throws NotFoundIdException{
 		LaboratorioEntity lab = laboratorioRepository.findById(id)
-				.orElseThrow(() -> new NotFoundException("Não encontrado o laboratório com esse id!"));
+				.orElseThrow(() -> new NotFoundIdException("Não encontrado o laboratório com esse id!"));
 		
 		laboratorioRepository.deleteById(id);
 	}

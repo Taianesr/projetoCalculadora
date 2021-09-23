@@ -19,9 +19,9 @@ public class ModelMapperConfigDiluicao {
 		
 		
 		modelMapper.createTypeMap(DiluicaoConfiguracaoEntity.class, DiluicaoConfiguracaoDto.class).addMappings(mapper -> {
-			 mapper.map(src -> src.getDiluicaoConfPK().getMedicamento().getId(),   DiluicaoConfiguracaoDto::setIdMedicamento);
-			  mapper.map(src -> src.getDiluicaoConfPK().getViaAdministracao().getId(),   DiluicaoConfiguracaoDto::setIdViaAdministracao);
-			  mapper.map(src -> src.getDiluicaoConfPK().getSequencia(),   DiluicaoConfiguracaoDto::setSequencia);
+			 // mapper.map(src -> src.getDiluicaoConfPK().getMedicamento().getId(),   DiluicaoConfiguracaoDto::setIdMedicamento);
+			 // mapper.map(src -> src.getDiluicaoConfPK().getViaAdministracao().getId(),   DiluicaoConfiguracaoDto::setIdViaAdministracao);
+			 // mapper.map(src -> src.getDiluicaoConfPK().getSequencia(),   DiluicaoConfiguracaoDto::setSequencia);
 			  
 			  
 			});

@@ -3,6 +3,14 @@ package br.com.desafioCompasso.calculadora.controller.dto;
 import java.math.BigDecimal;
 import java.sql.Date;
 
+import br.com.desafioCompasso.calculadora.model.CalculoHistoricoEntity;
+import br.com.desafioCompasso.calculadora.model.MedicamentoEntity;
+import br.com.desafioCompasso.calculadora.model.ViaAdministracaoEntity;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@NoArgsConstructor
 public class CalculoHistoricoDto {
 	
 	private Date dataCalculo;
@@ -14,9 +22,6 @@ public class CalculoHistoricoDto {
 	private String viaAdministracao;
 	
 	
-	public CalculoHistoricoDto() {
-		super();
-	}
 
 	public CalculoHistoricoDto( Long id,Date dataCalculo, String nomeMedicamento, BigDecimal quantidadeApresentada,
 			BigDecimal quantidadePrescrita, String resultadosJson, String viaAdministracao) {
@@ -29,111 +34,6 @@ public class CalculoHistoricoDto {
 		this.resultadosJson = resultadosJson;
 		this.viaAdministracao = viaAdministracao;
 	}
-
-
-
-
-	public Date getDataCalculo() {
-		return dataCalculo;
-	}
-
-
-
-
-	public void setDataCalculo(Date dataCalculo) {
-		this.dataCalculo = dataCalculo;
-	}
-
-
-
-
-	public Long getId() {
-		return id;
-	}
-
-
-
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-
-
-
-	public String getNomeMedicamento() {
-		return nomeMedicamento;
-	}
-
-
-
-
-	public void setNomeMedicamento(String nomeMedicamento) {
-		this.nomeMedicamento = nomeMedicamento;
-	}
-
-
-
-
-	public BigDecimal getQuantidadeApresentada() {
-		return quantidadeApresentada;
-	}
-
-
-
-
-	public void setQuantidadeApresentada(BigDecimal quantidadeApresentada) {
-		this.quantidadeApresentada = quantidadeApresentada;
-	}
-
-
-
-
-	public BigDecimal getQuantidadePrescrita() {
-		return quantidadePrescrita;
-	}
-
-
-
-
-	public void setQuantidadePrescrita(BigDecimal quantidadePrescrita) {
-		this.quantidadePrescrita = quantidadePrescrita;
-	}
-
-
-
-
-	public String getResultadosJson() {
-		return resultadosJson;
-	}
-
-
-
-
-	public void setResultadosJson(String resultadosJson) {
-		this.resultadosJson = resultadosJson;
-	}
-
-
-
-
-	public String getViaAdministracao() {
-		return viaAdministracao;
-	}
-
-
-
-
-	public void setViaAdministracao(String viaAdministracao) {
-		this.viaAdministracao = viaAdministracao;
-	}
-	
-	
-	
-	
-	
-	
-	
 	
 	
 	

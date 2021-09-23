@@ -17,9 +17,15 @@ import javax.persistence.TemporalType;
 
 import org.hibernate.annotations.UpdateTimestamp;
 
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 
 
 @Entity
+
+@Data
+@NoArgsConstructor
 @Table(name = "calculo_historico")
 public class CalculoHistoricoEntity {
 
@@ -52,9 +58,7 @@ public class CalculoHistoricoEntity {
 	@Column(name = "resultados_json")
 	private String resultadosJson;
 
-	public CalculoHistoricoEntity() {
-		super();
-	}
+
 
 	public CalculoHistoricoEntity(Long id, Date dataCalculo, String nomeUsuario, MedicamentoEntity medEntity,
 			ViaAdministracaoEntity viaAdmEntity, BigDecimal quantidadePrescrita, BigDecimal quantidadeApresentada,
@@ -104,68 +108,5 @@ public class CalculoHistoricoEntity {
 		this.resultadosJson = resultadosJson;
 	}
 
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public Date getDataCalculo() {
-		return dataCalculo;
-	}
-
-	public void setDataCalculo(Date dataCalculo) {
-		this.dataCalculo = dataCalculo;
-	}
-
-	public String getNomeUsuario() {
-		return nomeUsuario;
-	}
-
-	public void setNomeUsuario(String nomeUsuario) {
-		this.nomeUsuario = nomeUsuario;
-	}
-
-	public MedicamentoEntity getMedEntity() {
-		return medEntity;
-	}
-
-	public void setMedEntity(MedicamentoEntity medEntity) {
-		this.medEntity = medEntity;
-	}
-
-	public ViaAdministracaoEntity getViaAdmEntity() {
-		return viaAdmEntity;
-	}
-
-	public void setViaAdmEntity(ViaAdministracaoEntity viaAdmEntity) {
-		this.viaAdmEntity = viaAdmEntity;
-	}
-
-	public BigDecimal getQuantidadePrescrita() {
-		return quantidadePrescrita;
-	}
-
-	public void setQuantidadePrescrita(BigDecimal quantidadePrescrita) {
-		this.quantidadePrescrita = quantidadePrescrita;
-	}
-
-	public String getResultadosJson() {
-		return resultadosJson;
-	}
-
-	public void setResultadosJson(String resultadosJson) {
-		this.resultadosJson = resultadosJson;
-	}
-
-	public BigDecimal getQuantidadeApresentada() {
-		return quantidadeApresentada;
-	}
-
-	public void setQuantidadeApresentada(BigDecimal quantidadeApresentada) {
-		this.quantidadeApresentada = quantidadeApresentada;
-	}
 
 }

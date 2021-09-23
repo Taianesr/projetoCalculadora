@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import br.com.desafioCompasso.calculadora.controller.dto.CalculoDto;
 import br.com.desafioCompasso.calculadora.controller.dto.CalculoHistoricoDto;
 import br.com.desafioCompasso.calculadora.controller.dto.LaboratorioDto;
 import br.com.desafioCompasso.calculadora.controller.form.CalculoHistoricoForm;
@@ -35,11 +36,11 @@ public class CalculoHistoricoController {
 	
 	
 	@PostMapping("/criar")
-	public ResponseEntity<CalculoHistoricoDto> criar(@RequestBody CalculoHistoricoForm calculoHistoricoForm , UriComponentsBuilder uriBuilder) {
+	public ResponseEntity<CalculoDto> criar(@RequestBody CalculoHistoricoForm calculoHistoricoForm , UriComponentsBuilder uriBuilder) {
 		
-		CalculoHistoricoDto calcHistDto = calculoHistoricoService.criar(calculoHistoricoForm);
+		CalculoDto calcHistDto = calculoHistoricoService.criar(calculoHistoricoForm);
 	    
-	    URI uri= uriBuilder.path("/{id}/").buildAndExpand(calcHistDto.getId()).toUri();
+	    URI uri= uriBuilder.path("/{id}/").buildAndExpand(calcHistDto).toUri();
 	    
 		return ResponseEntity.created(uri).body(calcHistDto);
 		

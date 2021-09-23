@@ -12,6 +12,8 @@ import br.com.desafioCompasso.calculadora.controller.form.AtualizacaoViaAdminist
 import br.com.desafioCompasso.calculadora.controller.form.LaboratorioForm;
 import br.com.desafioCompasso.calculadora.controller.form.ViaAdministracaoForm;
 import br.com.desafioCompasso.calculadora.exceptions.NotFoundException;
+import br.com.desafioCompasso.calculadora.exceptions.NotFoundIdException;
+import br.com.desafioCompasso.calculadora.exceptions.NotFoundNameException;
 import br.com.desafioCompasso.calculadora.exceptions.ServiceException;
 import br.com.desafioCompasso.calculadora.model.LaboratorioEntity;
 import br.com.desafioCompasso.calculadora.model.ViaAdministracaoEntity;
@@ -34,16 +36,16 @@ public class ViaAdministracaoService {
 		return lst;
 	}
 	
-	public ViaAdministracaoDto listarId(Long id) throws NotFoundException {
+	public ViaAdministracaoDto listarId(Long id) throws NotFoundIdException {
 		ViaAdministracaoEntity viaAdm = viaAdministracaoRepository.findById(id)
-				.orElseThrow(() -> new NotFoundException("Não encontrado a via administração com esse id!"));
+				.orElseThrow(() -> new NotFoundIdException("Não encontrado a via administração com esse id!"));
 		
 		return modelMapper.modelMapperViaAdm().map(viaAdm, ViaAdministracaoDto.class);
 	}
 	
-	public ViaAdministracaoDto listarNome(String nome) throws NotFoundException {
+	public ViaAdministracaoDto listarNome(String nome) throws NotFoundNameException {
 		ViaAdministracaoEntity viaAdm = viaAdministracaoRepository.findByNome(nome)
-				.orElseThrow(() -> new NotFoundException("Não encontrado a via administração com esse nome!"));
+				.orElseThrow(() -> new NotFoundNameException("Não encontrado a via administração com esse nome!"));
 		
 		return modelMapper.modelMapperViaAdm().map(viaAdm, ViaAdministracaoDto.class);
 	}
@@ -64,9 +66,9 @@ public class ViaAdministracaoService {
 		
 	}
 	
-	public ViaAdministracaoDto atualizar(Long id, AtualizacaoViaAdministracaoForm atViaAdmForm) throws NotFoundException {
+	public ViaAdministracaoDto atualizar(Long id, AtualizacaoViaAdministracaoForm atViaAdmForm) throws NotFoundIdException {
 		ViaAdministracaoEntity viaAdm = viaAdministracaoRepository.findById(id)
-				.orElseThrow(() -> new NotFoundException("Não encontrada a viaAdministracao com esse id!"));
+				.orElseThrow(() -> new NotFoundIdException("Não encontrada a viaAdministracao com esse id!"));
 		
 		viaAdm.setNome(atViaAdmForm.getNome());
 		
@@ -74,9 +76,9 @@ public class ViaAdministracaoService {
 	}
 	
 	
-	public void excluir(Long  id) {
+	public void excluir(Long  id)throws NotFoundIdException {
 		ViaAdministracaoEntity viaAdm = viaAdministracaoRepository.findById(id)
-				.orElseThrow(() -> new NotFoundException("Não encontrada a viaAdministracao com esse id!"));
+				.orElseThrow(() -> new NotFoundIdException("Não encontrada a viaAdministracao com esse id!"));
 		
 		viaAdministracaoRepository.deleteById(id);
 	}

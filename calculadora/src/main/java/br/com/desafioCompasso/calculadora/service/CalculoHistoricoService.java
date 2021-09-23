@@ -1,10 +1,10 @@
 package br.com.desafioCompasso.calculadora.service;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,10 +13,9 @@ import br.com.desafioCompasso.calculadora.controller.dto.CalculoDto;
 import br.com.desafioCompasso.calculadora.controller.dto.CalculoHistoricoDto;
 import br.com.desafioCompasso.calculadora.controller.form.CalculoHistoricoForm;
 import br.com.desafioCompasso.calculadora.exceptions.NotFoundException;
-import br.com.desafioCompasso.calculadora.exceptions.ServiceException;
+import br.com.desafioCompasso.calculadora.exceptions.NotFoundIdException;
 import br.com.desafioCompasso.calculadora.model.CalculoHistoricoEntity;
 import br.com.desafioCompasso.calculadora.model.DiluicaoConfiguracaoEntity;
-import br.com.desafioCompasso.calculadora.model.DiluicaoConfiguracaoEntityPK;
 import br.com.desafioCompasso.calculadora.model.MedicamentoEntity;
 import br.com.desafioCompasso.calculadora.model.ViaAdministracaoEntity;
 import br.com.desafioCompasso.calculadora.modelMapper.ModelMapperConfigCalcHistorico;
@@ -45,34 +44,31 @@ public class CalculoHistoricoService {
 
 	// revisar metodo
 
-	public CalculoHistoricoDto criar(CalculoHistoricoForm calcHistoricoForm) throws NotFoundException {
+	public CalculoDto criar(CalculoHistoricoForm calcHistoricoForm) throws NotFoundIdException {
 
 		MedicamentoEntity med = medRepository.findById(calcHistoricoForm.getIdMedicamento())
-				.orElseThrow(() -> new NotFoundException("Não encontrado o medicamento pelo id!"));
+				.orElseThrow(() -> new NotFoundIdException("Não encontrado o medicamento pelo id!"));
 
 		ViaAdministracaoEntity viaAdm = viaAdmRepository.findById(calcHistoricoForm.getIdViaAdministracao())
-				.orElseThrow(() -> new NotFoundException("Não encontrado a via administracao pelo id!"));
-
+				.orElseThrow(() -> new NotFoundIdException("Não encontrado a via administracao pelo id!"));
 
 		CalculoHistoricoEntity calcHistorico = new CalculoHistoricoEntity(calcHistoricoForm.getNomeUsuario(), med,
 				viaAdm, calcHistoricoForm.getQuantidadePrescrita());
-		
-		CalculoHistoricoDto dto= modelMapper.modelMapperCalcHistorico().map(calcHistorico, CalculoHistoricoDto.class);
-		
-		StringBuilder calcDto = listarInfo(med, viaAdm, calcHistorico);
-		
-		String calcDto2= calcDto.toString();
-		
-		calcHistorico.setResultadosJson(calcDto2);
-		
-		
-		calculoHistoricoRepository.save(calcHistorico);
 
-		return dto;
+		
+
+		CalculoDto calcDto = listarInfo(med, viaAdm, calcHistorico);
+
+
+		calculoHistoricoRepository.save(calcHistorico);
+		
+
+		return calcDto;
 
 	}
-	
 
+	
+	
 	// retorna somente um dto
 
 	public CalculoHistoricoDto listar(Long id, Date dataIni, Date dataFim) throws NotFoundException {
@@ -87,101 +83,57 @@ public class CalculoHistoricoService {
 	
 
 	// resultados json
-	public StringBuilder listarInfo(MedicamentoEntity med, ViaAdministracaoEntity viaAdm, CalculoHistoricoEntity calcHistorico) {
+	public CalculoDto listarInfo(MedicamentoEntity med, ViaAdministracaoEntity viaAdm,
+			CalculoHistoricoEntity calcHistorico) {
 
 		List<DiluicaoConfiguracaoEntity> lstDiluicaoConf = diluicaoConfRepository
-				.findByDiluicaoConfPKMedicamentoId(med.getId());
+				.findByMedicamentoIdAndViaAdministracaoIdOrderBySequenciaAsc(med.getId(), viaAdm.getId());
+		
+		
+		List<String> msgPassosAdministracao = new ArrayList<String>();
+		List<String> infoList = new ArrayList<String>();
+		String infoAdministracao= "";
+		
+		BigDecimal concentracaoFinal = BigDecimal.ZERO;
 
-		List<Integer> lstSequencias = new ArrayList<>();
+		
+		
+		// Pegar a concentracao do medicamento e atribuir a concentracao atual
+		// (concentracaoAtual) TODO
 
-		for (int i = 0; i < lstDiluicaoConf.size(); i++) {
-			lstSequencias.add(lstDiluicaoConf.get(i).getDiluicaoConfPK().getSequencia());
+		// BigDecimal concentracaoInicial = BigDecimal.ZERO;
+
+		for (DiluicaoConfiguracaoEntity diluicaoConfiguracaoEntity : lstDiluicaoConf) {
+			 msgPassosAdministracao.add(diluicaoConfiguracaoEntity.getModoPreparo());
+			 concentracaoFinal= diluicaoConfiguracaoEntity.getConcentracao();
 		}
 		
-		
-
-		DiluicaoConfiguracaoEntityPK diluicaoConfEntityPK = new DiluicaoConfiguracaoEntityPK(med, viaAdm,
-				lstSequencias.get(0));
-		DiluicaoConfiguracaoEntityPK diluicaoConfEntityPK2 = new DiluicaoConfiguracaoEntityPK(med, viaAdm,
-				lstSequencias.get(1));
-		
-		
-
-		DiluicaoConfiguracaoEntity diluicao = diluicaoConfRepository.findByDiluicaoConfPK(diluicaoConfEntityPK)
-				.orElseThrow(() -> new NotFoundException("Não encontrado a diluicao configuracao pelo id!"));
-
-		DiluicaoConfiguracaoEntity rediluicao = diluicaoConfRepository.findByDiluicaoConfPK(diluicaoConfEntityPK2)
-				.orElseThrow(() -> new NotFoundException("Não encontrado a diluicao configuracao pelo id!"));
-		
-		
-		       //calculo 
-		  
-		       BigDecimal var1= calcHistorico.getQuantidadeApresentada();
-		        
-		     
-		        
-		        
-		        BigDecimal var2= diluicao.getQuantidadeAdicionada();
-		        
-				BigDecimal resultadoPrimeiraDiluicao= var1.divide(var2);
-				
-				
-				
-				BigDecimal ml = BigDecimal.valueOf(1.0);
 	
-				
-				BigDecimal p1= var1.multiply(ml);
-				
-				
-				BigDecimal result= p1.divide(rediluicao.getConcentracao());
-				
-				
-				
 		
-
-		String infoAdministracao= "Resultado da aspiração " + result;
-		//List<String> lstMensagem = new ArrayList<>();
-		List<String> infoList = new ArrayList<>();
-		
-		StringBuilder msg= new StringBuilder();
-		
-		
-
-		msg.append("Diluir pó com " + diluicao.getQuantidadeAdicionada() + "e misturar");
-		
-		if (diluicao.getQuantidadeAdicionada()== null) {
-			msg.append("Pronto para uso");
-			
-		}
-		
-		
-
-		if (rediluicao.getQuantidadeAspirada()==null && rediluicao.getQuantidadeAdicionada()!=null) {
-			msg.append("completar com " + rediluicao.getQuantidadeAdicionada());
-
-		} else {
-			if (rediluicao.getQuantidadeAspirada() !=null && rediluicao.getQuantidadeAdicionada() != null) {
-				msg.append("Em seringa de 20 ml aspirar" + rediluicao.getQuantidadeAspirada()
-						+ "do pó diluido e completar com " + rediluicao.getQuantidadeAdicionada());
-			}
-			if (rediluicao.getQuantidadeAspirada() == null && rediluicao.getQuantidadeAdicionada() == null) {
-				msg.append("pronto para uso");
-			}
-
+		if (lstDiluicaoConf.isEmpty()) {
+			msgPassosAdministracao.add("Pronto para uso");
+			concentracaoFinal = med.getQuantidadeApresentacao();
 		}
 
-		infoList.add("É necessario adicionar permeabilização ao resultado");
+		
+		infoList.add("Sobra "+ med.getInfoSobra() );
+		infoList.add("Tempo de administracao: "+ med.getInfoTempoAdministracao());
+		infoList.add( med.getInfoObservacao());
+		
+		
+		// quando chegar aqui tu tenhga a concentracao do medicamento, ou da ultima
+		// configuracao
 
-		CalculoDto calcDto = new CalculoDto();
-		//calcDto.setPassosAdministracao(lstMensagem);
-		calcDto.setInfoList(infoList);
-		calcDto.setInfoAdministracao(infoAdministracao);
-
-		return msg;
+		BigDecimal result = calcHistorico.getQuantidadePrescrita().divide(concentracaoFinal, 2, RoundingMode.HALF_UP);
+		
+		infoAdministracao = "Resultado da aspiração é" + result;
+		
+		
+		
+		CalculoDto calcDto= new CalculoDto(infoAdministracao, msgPassosAdministracao ,infoList);
+		
+		return calcDto;
 
 	}
-	
-	
-
 
 }

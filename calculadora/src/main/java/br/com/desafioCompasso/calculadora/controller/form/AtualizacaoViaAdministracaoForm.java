@@ -1,27 +1,21 @@
 package br.com.desafioCompasso.calculadora.controller.form;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+@Data
+@NoArgsConstructor
 public class AtualizacaoViaAdministracaoForm {
 	private String nome;
 	
 
-	public AtualizacaoViaAdministracaoForm() {
-		super();
-	}
+
 
 	public AtualizacaoViaAdministracaoForm(String nome) {
 		super();
 		this.nome = nome;
 	}
 
-	public String getNome() {
-		return nome;
-	}
 
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
-	
-	
-	
+
 
 }
