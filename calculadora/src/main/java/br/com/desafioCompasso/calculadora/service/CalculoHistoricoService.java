@@ -42,8 +42,7 @@ public class CalculoHistoricoService {
 	@Autowired
 	private ModelMapperConfigCalcHistorico modelMapper;
 
-	// revisar metodo
-
+	
 	public CalculoDto criar(CalculoHistoricoForm calcHistoricoForm) throws NotFoundIdException {
 
 		MedicamentoEntity med = medRepository.findById(calcHistoricoForm.getIdMedicamento())
@@ -68,8 +67,6 @@ public class CalculoHistoricoService {
 	}
 
 	
-	
-	// retorna somente um dto
 
 	public CalculoHistoricoDto listar(Long id, Date dataIni, Date dataFim) throws NotFoundException {
 
@@ -82,7 +79,6 @@ public class CalculoHistoricoService {
 	
 	
 
-	// resultados json
 	public CalculoDto listarInfo(MedicamentoEntity med, ViaAdministracaoEntity viaAdm,
 			CalculoHistoricoEntity calcHistorico) {
 
@@ -96,12 +92,7 @@ public class CalculoHistoricoService {
 		
 		BigDecimal concentracaoFinal = BigDecimal.ZERO;
 
-		
-		
-		// Pegar a concentracao do medicamento e atribuir a concentracao atual
-		// (concentracaoAtual) TODO
 
-		// BigDecimal concentracaoInicial = BigDecimal.ZERO;
 
 		for (DiluicaoConfiguracaoEntity diluicaoConfiguracaoEntity : lstDiluicaoConf) {
 			 msgPassosAdministracao.add(diluicaoConfiguracaoEntity.getModoPreparo());
@@ -111,22 +102,20 @@ public class CalculoHistoricoService {
 	
 		
 		if (lstDiluicaoConf.isEmpty()) {
-			msgPassosAdministracao.add("Pronto para uso");
-			concentracaoFinal = med.getQuantidadeApresentacao();
+			 msgPassosAdministracao.add("Pronto para uso");
+			 concentracaoFinal = med.getConcentracaoInicial();
 		}
 
 		
-		infoList.add("Sobra "+ med.getInfoSobra() );
+		infoList.add("Info Sobra: "+ med.getInfoSobra());
 		infoList.add("Tempo de administracao: "+ med.getInfoTempoAdministracao());
-		infoList.add( med.getInfoObservacao());
+		infoList.add("Observação: "+ med.getInfoObservacao());
 		
-		
-		// quando chegar aqui tu tenhga a concentracao do medicamento, ou da ultima
-		// configuracao
+
 
 		BigDecimal result = calcHistorico.getQuantidadePrescrita().divide(concentracaoFinal, 2, RoundingMode.HALF_UP);
 		
-		infoAdministracao = "Resultado da aspiração é" + result;
+		infoAdministracao = "Resultado da aspiração é " + result;
 		
 		
 		
@@ -135,5 +124,7 @@ public class CalculoHistoricoService {
 		return calcDto;
 
 	}
+	
+	
 
 }

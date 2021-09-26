@@ -2,12 +2,9 @@ package br.com.desafioCompasso.calculadora.controller.dto;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
-import br.com.desafioCompasso.calculadora.model.CalculoHistoricoEntity;
 import br.com.desafioCompasso.calculadora.model.MedicamentoEntity;
-import br.com.desafioCompasso.calculadora.model.ViaAdministracaoEntity;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -69,6 +66,7 @@ public class MedicamentoDto {
 
 	}
 
-	
+
+
 	
 }

@@ -6,6 +6,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import br.com.desafioCompasso.calculadora.controller.dto.DiluicaoConfiguracaoDto;
 import br.com.desafioCompasso.calculadora.controller.dto.MedicamentoDto;
 import br.com.desafioCompasso.calculadora.model.MedicamentoEntity;
 
@@ -16,7 +17,6 @@ public class ModelMapperConfigMedicamento {
 	public ModelMapper modelMapperMed() {
 		var modelMapper = new ModelMapper();
 		modelMapper.createTypeMap(MedicamentoEntity.class, MedicamentoDto.class).addMappings(mapper -> {
-			//nao sei se devo usar 
 			mapper.map(src -> src.getInfoSobra(), MedicamentoDto::setInfoSobra);
 			mapper.map(src -> src.getConcentracaoInicial(), MedicamentoDto::setConcentracaoInicial);
 			mapper.map(src -> src.getGrupoMedicamento().getId(), MedicamentoDto::setIdGrupoMedicamento);
@@ -28,8 +28,6 @@ public class ModelMapperConfigMedicamento {
 			mapper.map(src -> src.getInfoObservacao(), MedicamentoDto::setInfoObservacao);
 			mapper.map(src -> src.getInfoSobra(), MedicamentoDto::setInfoSobra);
 			mapper.map(src -> src.getInfoTempoAdministracao(), MedicamentoDto::setInfoTempoAdministracao);
-	
-			
 		});
 
    return modelMapper;

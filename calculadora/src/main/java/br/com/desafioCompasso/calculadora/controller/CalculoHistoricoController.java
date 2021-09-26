@@ -28,6 +28,7 @@ public class CalculoHistoricoController {
 	@Autowired
 	private CalculoHistoricoService calculoHistoricoService;
 	
+	//listar pelo medicamento id 
 	@GetMapping("/listar/{id}/{dataInicial}/{dataFinal}")
 	public CalculoHistoricoDto listarLaboratorioId(Long id, Date dataInicial, Date dataFinal){
 		return calculoHistoricoService.listar(id, dataInicial, dataFinal);

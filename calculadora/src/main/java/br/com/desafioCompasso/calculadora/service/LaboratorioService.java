@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import aj.org.objectweb.asm.Type;
 import br.com.desafioCompasso.calculadora.controller.dto.LaboratorioDto;
 import br.com.desafioCompasso.calculadora.controller.form.AtualizacaoLaboratorioForm;
 import br.com.desafioCompasso.calculadora.controller.form.LaboratorioForm;
@@ -27,6 +28,7 @@ public class LaboratorioService {
 	private ModelMapperConfigLaboratorio modelMapper;
 
 	public List<LaboratorioEntity> listar() {
+		List<LaboratorioEntity> lstLab= laboratorioRepository.findAll();
 		return laboratorioRepository.findAll();
 	}
 	
@@ -39,7 +41,7 @@ public class LaboratorioService {
 	
 	public LaboratorioDto listarNome(String nome) throws NotFoundNameException {
 		LaboratorioEntity lab = laboratorioRepository.findByNome(nome)
-				.orElseThrow(() -> new NotFoundException("Não encontrado o laboratório com esse nome!"));
+				.orElseThrow(() -> new NotFoundNameException("Não encontrado o laboratório com esse nome!"));
 		
 		return modelMapper.modelMapperLab().map(lab, LaboratorioDto.class);
 	}

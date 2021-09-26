@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import br.com.desafioCompasso.calculadora.controller.dto.DiluicaoConfiguracaoDto;
 import br.com.desafioCompasso.calculadora.controller.dto.MedicamentoDto;
 import br.com.desafioCompasso.calculadora.controller.form.AtualizacaoMedicamentoForm;
+import br.com.desafioCompasso.calculadora.controller.form.DiluicaoConfiguracaoForm;
 import br.com.desafioCompasso.calculadora.controller.form.MedicamentoForm;
 import br.com.desafioCompasso.calculadora.exceptions.NotFoundException;
 import br.com.desafioCompasso.calculadora.exceptions.NotFoundIdException;
@@ -20,6 +21,7 @@ import br.com.desafioCompasso.calculadora.model.GrupoMedicamentoEntity;
 import br.com.desafioCompasso.calculadora.model.LaboratorioEntity;
 import br.com.desafioCompasso.calculadora.model.MedicamentoEntity;
 import br.com.desafioCompasso.calculadora.model.ViaAdministracaoEntity;
+import br.com.desafioCompasso.calculadora.modelMapper.ModelMapperConfig2;
 import br.com.desafioCompasso.calculadora.modelMapper.ModelMapperConfigDiluicao;
 import br.com.desafioCompasso.calculadora.modelMapper.ModelMapperConfigMedicamento;
 import br.com.desafioCompasso.calculadora.repository.DiluicaoConfiguracaoRepository;
@@ -52,6 +54,9 @@ public class MedicamentoService {
 	@Autowired
 	private ModelMapperConfigDiluicao modelMapperConfigDiluicaoConf;
 
+	@Autowired
+	private ModelMapperConfig2 modelMapper2;
+
 	public List<MedicamentoEntity> listar() {
 		return medicamentoRepository.findAll();
 	}
@@ -78,11 +83,9 @@ public class MedicamentoService {
 		GrupoMedicamentoEntity grupoMed = grupoMedicamentoRepository.findById(medForm.getIdGrupoMedicamento())
 				.orElseThrow(() -> new NotFoundException("Não encontrado o grupo medicamento com esse id!"));
 
-		// revisar
 		Boolean med2 = medicamentoRepository.findByNomeAndGrupoMedicamentoIdAndLaboratorioId(medForm.getNome(),
 				medForm.getIdGrupoMedicamento(), medForm.getIdLaboratorio()).isEmpty();
 
-		
 		List<DiluicaoConfiguracaoEntity> lstDiluicaoConfiguracao = new ArrayList<DiluicaoConfiguracaoEntity>();
 
 		if (med2 == true) {
@@ -93,50 +96,64 @@ public class MedicamentoService {
 					medForm.getQuantidadeApresentacao(), medForm.getUnidadeMedida(), medForm.getInfoObs(),
 					medForm.getInfoSobra(), medForm.getInfoTempoAdm());
 
-			List<DiluicaoConfiguracaoEntity> lstDiluicao = new ArrayList<DiluicaoConfiguracaoEntity>();
-
-			// salva as diluicoes configurações no repository
-			for (int i = 0; i < medForm.getDiluicaoConfiguracaoForm().size(); i++) {
+			med = medicamentoRepository.save(med);
+			
+			
+			for (DiluicaoConfiguracaoForm diluicaoConf2:  medForm.getDiluicaoConfiguracaoForm()) {
 
 				ViaAdministracaoEntity viaAdm = viaAdmRepository
-						.findById(medForm.getDiluicaoConfiguracaoForm().get(i).getIdViaAdministracao())
+						.findById(diluicaoConf2.getIdViaAdministracao())
 						.orElseThrow(() -> new NotFoundIdException("Não encontrado a via administração com esse id!"));
 
 				lstDiluicaoConfiguracao = diluicaoConfRepository
 						.findByMedicamentoIdAndViaAdministracaoIdOrderBySequenciaAsc(med.getId(), viaAdm.getId());
 
-				DiluicaoConfiguracaoEntity conf3 = new DiluicaoConfiguracaoEntity();
-				conf3.setMedicamentoId(med.getId());
-				conf3.setViaAdministracaoId(viaAdm.getId());
-				conf3.setSequencia(medForm.getDiluicaoConfiguracaoForm().get(i).getSequencia());
-				conf3.setQuantidadeAdicionada(medForm.getDiluicaoConfiguracaoForm().get(i).getQuantidadeAdicionada());
-				conf3.setQuantidadeAspirada(medForm.getDiluicaoConfiguracaoForm().get(i).getQuantidadeAspirada());
-				conf3.setConcentracao(medForm.getDiluicaoConfiguracaoForm().get(i).getConcentracao());
-				conf3.setDiluente(medForm.getDiluicaoConfiguracaoForm().get(i).getDiluente());
-				conf3.setModoPreparo(medForm.getDiluicaoConfiguracaoForm().get(i).getModoPreparo());
+				DiluicaoConfiguracaoEntity diluicaoConf = new DiluicaoConfiguracaoEntity();
+				diluicaoConf.setMedicamentoId(med.getId());
+				diluicaoConf.setViaAdministracaoId(viaAdm.getId());
+				diluicaoConf.setSequencia(diluicaoConf2.getSequencia());
+				
+				DiluicaoConfiguracaoEntityPK diluicaoConfPK = new DiluicaoConfiguracaoEntityPK(med, viaAdm,
+					diluicaoConf2.getSequencia());
+				
+				diluicaoConf.setDiluicaoConfPK(diluicaoConfPK);
+				
+				diluicaoConf.setConcentracao(diluicaoConf2.getConcentracao());
 
-				lstDiluicaoConfiguracao.add(conf3);
+				diluicaoConfRepository.save(diluicaoConf);
+				
+				diluicaoConf.setQuantidadeAdicionada(diluicaoConf2.getQuantidadeAdicionada());
+				diluicaoConf.setQuantidadeAspirada(diluicaoConf2.getQuantidadeAspirada());
 
-				diluicaoConfRepository.save(lstDiluicaoConfiguracao.get(i));
+				diluicaoConf.setDiluente(diluicaoConf2.getDiluente());
+				diluicaoConf.setModoPreparo(diluicaoConf2.getModoPreparo());
 
+				lstDiluicaoConfiguracao.add(diluicaoConf);
+				
 			}
+			
+			
+			
+		
 
 			List<DiluicaoConfiguracaoDto> lstDiluicaoConfDto = new ArrayList<DiluicaoConfiguracaoDto>();
 
-			// trasnforma a lista de diluicoes configuracoes em dtos
-			for (int i = 0; i < lstDiluicaoConfiguracao.size(); i++) {
+		
+			
+			for (DiluicaoConfiguracaoEntity diluicaoConf3:lstDiluicaoConfiguracao ) {
 				DiluicaoConfiguracaoDto diluicaoConfDto = modelMapperConfigDiluicaoConf.modelMapperDiluicaoConf()
-						.map(lstDiluicaoConfiguracao.get(i), DiluicaoConfiguracaoDto.class);
+						.map(diluicaoConf3, DiluicaoConfiguracaoDto.class);
 
 				lstDiluicaoConfDto.add(diluicaoConfDto);
 			}
 
-			MedicamentoDto medDto = new MedicamentoDto();
+			// adicionar metodo diluicaoConfigDto/medDto
 
-			medicamentoRepository.save(med);
+			MedicamentoDto medDto2 = modelMapper2.modelMapper2().map(lstDiluicaoConfDto, MedicamentoDto.class);
 
-			medDto.Converte(med, lstDiluicaoConfDto);
-
+			MedicamentoDto medDto = modelMapperConfigMedicamento.modelMapperMed().map(med, MedicamentoDto.class);
+            medDto.setLstDiluicao(lstDiluicaoConfDto);
+			
 			return medDto;
 
 		} else {
@@ -145,8 +162,8 @@ public class MedicamentoService {
 		}
 
 	}
-
 	
+
 	public MedicamentoDto atualizar(Long id, AtualizacaoMedicamentoForm atMedForm) throws NotFoundIdException {
 
 		LaboratorioEntity lab = labRepository.findById(atMedForm.getLaboratorio_id())
@@ -162,7 +179,6 @@ public class MedicamentoService {
 
 	}
 
-	
 	public void excluir(Long id) throws NotFoundIdException {
 
 		MedicamentoEntity med = medicamentoRepository.findById(id)
