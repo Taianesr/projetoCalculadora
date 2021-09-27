@@ -1,4 +1,5 @@
 package br.com.desafioCompasso.calculadora.controller.form;
+
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -6,16 +7,10 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class AtualizacaoViaAdministracaoForm {
 	private String nome;
-	
-
-
 
 	public AtualizacaoViaAdministracaoForm(String nome) {
 		super();
 		this.nome = nome;
 	}
-
-
-
 
 }

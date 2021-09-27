@@ -1,6 +1,6 @@
 package br.com.desafioCompasso.calculadora.repository;
 
-import java.math.BigInteger;
+import java.math.BigDecimal;
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -18,6 +18,9 @@ public interface MedicamentoRepository extends JpaRepository<MedicamentoEntity,L
 	
 	
 	Optional<MedicamentoEntity> findByNomeAndGrupoMedicamentoIdAndLaboratorioId(String nome,Long grupo_medicamento_id , Long laboratorio_id);
+	
+	Optional<MedicamentoEntity> findByNomeAndGrupoMedicamentoIdAndLaboratorioIdAndQuantidadeApresentacao(String nome,Long grupo_medicamento_id , Long laboratorio_id, 
+			BigDecimal quanteApresentacao);
 
     
 	

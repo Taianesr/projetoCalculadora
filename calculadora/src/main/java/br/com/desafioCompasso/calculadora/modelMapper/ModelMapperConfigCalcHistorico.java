@@ -20,8 +20,7 @@ public class ModelMapperConfigCalcHistorico {
 			mapper.map(src -> src.getViaAdmEntity().getNome(), CalculoHistoricoDto::setViaAdministracao);
 			mapper.map(src -> src.getMedEntity().getQuantidadeApresentacao(),
 					CalculoHistoricoDto::setQuantidadeApresentada);
-			mapper.map(src -> src.getResultadosJson(),
-					CalculoHistoricoDto::setResultadosJson);
+			mapper.map(src -> src.getResultadosJson(), CalculoHistoricoDto::setResultadosJson);
 
 		});
 

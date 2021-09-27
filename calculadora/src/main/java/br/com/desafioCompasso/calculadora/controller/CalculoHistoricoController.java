@@ -2,6 +2,7 @@ package br.com.desafioCompasso.calculadora.controller;
 
 import java.net.URI;
 import java.sql.Date;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -14,40 +15,32 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import br.com.desafioCompasso.calculadora.controller.dto.CalculoDto;
 import br.com.desafioCompasso.calculadora.controller.dto.CalculoHistoricoDto;
-import br.com.desafioCompasso.calculadora.controller.dto.LaboratorioDto;
 import br.com.desafioCompasso.calculadora.controller.form.CalculoHistoricoForm;
-import br.com.desafioCompasso.calculadora.controller.form.LaboratorioForm;
-import br.com.desafioCompasso.calculadora.model.CalculoHistoricoEntity;
 import br.com.desafioCompasso.calculadora.service.CalculoHistoricoService;
-
 
 @RestController
 @RequestMapping("/calculo_historico")
 public class CalculoHistoricoController {
-	
+
 	@Autowired
 	private CalculoHistoricoService calculoHistoricoService;
-	
-	//listar pelo medicamento id 
+
 	@GetMapping("/listar/{id}/{dataInicial}/{dataFinal}")
-	public CalculoHistoricoDto listarLaboratorioId(Long id, Date dataInicial, Date dataFinal){
+	public List<CalculoHistoricoDto> listarLaboratorioId(Long id, Date dataInicial, Date dataFinal) {
 		return calculoHistoricoService.listar(id, dataInicial, dataFinal);
-		
+	
 	}
-	
-	
+
 	@PostMapping("/criar")
-	public ResponseEntity<CalculoDto> criar(@RequestBody CalculoHistoricoForm calculoHistoricoForm , UriComponentsBuilder uriBuilder) {
-		
+	public ResponseEntity<CalculoDto> criar(@RequestBody CalculoHistoricoForm calculoHistoricoForm,
+			UriComponentsBuilder uriBuilder) {
+
 		CalculoDto calcHistDto = calculoHistoricoService.criar(calculoHistoricoForm);
-	    
-	    URI uri= uriBuilder.path("/{id}/").buildAndExpand(calcHistDto).toUri();
-	    
+
+		URI uri = uriBuilder.path("/{id}/").buildAndExpand(calcHistDto).toUri();
+
 		return ResponseEntity.created(uri).body(calcHistDto);
-		
+
 	}
-	
-	
-	
 
 }

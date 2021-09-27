@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 public class DiluicaoConfiguracaoForm {
-	
+
 	private Long idViaAdministracao;
 	private int sequencia;
 	private BigDecimal quantidadeAspirada;
@@ -18,9 +18,6 @@ public class DiluicaoConfiguracaoForm {
 	private BigDecimal concentracao;
 	private String diluente;
 	private String modoPreparo;
-
-	
-	
 
 	public DiluicaoConfiguracaoForm(Long idMedicamento, Long idViaAdministracao, int sequencia,
 			BigDecimal quantidadeAspirada, BigDecimal quantidadeAdicionada, BigDecimal concentracao, String diluente,
@@ -34,15 +31,5 @@ public class DiluicaoConfiguracaoForm {
 		this.diluente = diluente;
 		this.modoPreparo = modoPreparo;
 	}
-
-
-
-
-
-
-	
-	
-	
-	
 
 }

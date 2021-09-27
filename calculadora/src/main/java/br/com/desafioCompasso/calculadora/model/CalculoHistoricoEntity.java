@@ -20,8 +20,6 @@ import org.hibernate.annotations.UpdateTimestamp;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-
-
 @Entity
 
 @Data
@@ -29,7 +27,6 @@ import lombok.NoArgsConstructor;
 @Table(name = "calculo_historico")
 public class CalculoHistoricoEntity {
 
-	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
@@ -37,7 +34,7 @@ public class CalculoHistoricoEntity {
 	@UpdateTimestamp
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date dataCalculo;
-	
+
 	@Column(name = "nome_usuario")
 	private String nomeUsuario;
 
@@ -46,7 +43,7 @@ public class CalculoHistoricoEntity {
 	private MedicamentoEntity medEntity;
 
 	@OneToOne
-	@JoinColumn(name = "via_administracao_id", referencedColumnName = "id")
+	@JoinColumn(name = "via_administracao_id")
 	private ViaAdministracaoEntity viaAdmEntity;
 
 	@Column(name = "quantidade_prescrita")
@@ -57,8 +54,6 @@ public class CalculoHistoricoEntity {
 
 	@Column(name = "resultados_json")
 	private String resultadosJson;
-
-
 
 	public CalculoHistoricoEntity(Long id, Date dataCalculo, String nomeUsuario, MedicamentoEntity medEntity,
 			ViaAdministracaoEntity viaAdmEntity, BigDecimal quantidadePrescrita, BigDecimal quantidadeApresentada,
@@ -93,8 +88,7 @@ public class CalculoHistoricoEntity {
 		this.viaAdmEntity = viaAdmEntity;
 		this.quantidadePrescrita = quantidadePrescrita;
 	}
-	
-	
+
 	public CalculoHistoricoEntity(Date dataCalculo, String nomeUsuario, MedicamentoEntity medEntity,
 			ViaAdministracaoEntity viaAdmEntity, BigDecimal quantidadePrescrita, BigDecimal quantidadeApresentada,
 			String resultadosJson) {
@@ -107,6 +101,5 @@ public class CalculoHistoricoEntity {
 		this.quantidadeApresentada = quantidadeApresentada;
 		this.resultadosJson = resultadosJson;
 	}
-
 
 }

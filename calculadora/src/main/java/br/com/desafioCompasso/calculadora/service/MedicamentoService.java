@@ -3,6 +3,7 @@ package br.com.desafioCompasso.calculadora.service;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -57,8 +58,16 @@ public class MedicamentoService {
 	@Autowired
 	private ModelMapperConfig2 modelMapper2;
 
-	public List<MedicamentoEntity> listar() {
-		return medicamentoRepository.findAll();
+	public List<MedicamentoDto> listar() {
+		
+		List<MedicamentoEntity> lstMed= medicamentoRepository.findAll();
+		
+		TypeToken<List<MedicamentoDto>> typeToken = new TypeToken<>() {};
+
+		List<MedicamentoDto> medicamentoDtos = modelMapperConfigMedicamento.modelMapperMed().map(lstMed, typeToken.getType());
+		
+		return medicamentoDtos;
+		
 	}
 
 	public MedicamentoDto listarId(Long id) throws NotFoundIdException {
@@ -166,14 +175,22 @@ public class MedicamentoService {
 
 	public MedicamentoDto atualizar(Long id, AtualizacaoMedicamentoForm atMedForm) throws NotFoundIdException {
 
-		LaboratorioEntity lab = labRepository.findById(atMedForm.getLaboratorio_id())
+		LaboratorioEntity lab = labRepository.findById(atMedForm.getIdLaboratorio())
 				.orElseThrow(() -> new NotFoundIdException("Não encontrado o laboratório com esse id!"));
 
 		MedicamentoEntity med = medicamentoRepository.findById(id)
 				.orElseThrow(() -> new NotFoundIdException("Não encontrado o medicamento com esse id!"));
 
 		med.setNome(atMedForm.getNome());
-		med.getLaboratorio().setId(atMedForm.getLaboratorio_id());
+		med.setConcentracaoInicial(atMedForm.getConcentracaoInicial());
+		med.setEmbalagemApresentada(atMedForm.getEmbalagemApresentada());
+		med.getGrupoMedicamento().setId(atMedForm.getIdGrupoMedicamento());
+		med.getLaboratorio().setId(atMedForm.getIdLaboratorio());
+		med.setInfoObservacao(atMedForm.getInfoObs());
+		med.setInfoSobra(atMedForm.getInfoSobra());
+		med.setInfoTempoAdministracao(atMedForm.getInfoTempoAdm());
+		med.setQuantidadeApresentacao(atMedForm.getQuantidadeApresentacao());
+		med.setUnidadeMedida(atMedForm.getUnidadeMedida());
 
 		return modelMapperConfigMedicamento.modelMapperMed().map(med, MedicamentoDto.class);
 

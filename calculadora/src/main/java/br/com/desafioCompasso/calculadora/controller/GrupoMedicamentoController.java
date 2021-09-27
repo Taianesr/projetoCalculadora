@@ -21,7 +21,6 @@ import br.com.desafioCompasso.calculadora.controller.dto.GrupoMedicamentoDto;
 import br.com.desafioCompasso.calculadora.controller.form.AtualizacaoGrupoMedicamentoForm;
 import br.com.desafioCompasso.calculadora.controller.form.GrupoMedicamentoForm;
 import br.com.desafioCompasso.calculadora.exceptions.ServiceException;
-import br.com.desafioCompasso.calculadora.model.GrupoMedicamentoEntity;
 import br.com.desafioCompasso.calculadora.service.GrupoMedicamentoService;
 
 @RestController
@@ -30,31 +29,22 @@ public class GrupoMedicamentoController {
 
 	@Autowired
 	private GrupoMedicamentoService grupoMedicamentoService;
-	
 
 	@GetMapping("/listar")
-	public List<GrupoMedicamentoEntity> listarGrupoMedicamentos() {
+	public List<GrupoMedicamentoDto> listarGrupoMedicamentos() {
 		return grupoMedicamentoService.listar();
 
 	}
-	
 
-	//criar metodo listar por id
-	//criar metodo "listar por nome?"
-	
 	@GetMapping("/listar/{id}")
 	public GrupoMedicamentoDto listarGrupoMedicamentosId(Long id) {
 		return grupoMedicamentoService.listarId(id);
 	}
-	
-	
+
 	@GetMapping("/listar/{nome}")
 	public GrupoMedicamentoDto listarGrupoMedicamentosNome(String nome) {
 		return grupoMedicamentoService.listarNome(nome);
 	}
-	
-	
-	
 
 	@PostMapping("/criar")
 	public ResponseEntity<GrupoMedicamentoDto> criar(@RequestBody GrupoMedicamentoForm grupoMedForm,
@@ -67,9 +57,7 @@ public class GrupoMedicamentoController {
 		return ResponseEntity.created(uri).body(grupoMedDto);
 
 	}
-	
 
-	
 	@PutMapping("/atualizar/{id}")
 	@Transactional
 	public ResponseEntity<GrupoMedicamentoDto> atualizar(@PathVariable Long id,
@@ -80,15 +68,12 @@ public class GrupoMedicamentoController {
 		return ResponseEntity.ok(grupoMedDto);
 
 	}
-	
 
 	@DeleteMapping("/remover/{id}")
 	@Transactional
-	public ResponseEntity<?> excluir(@PathVariable Long id){
+	public ResponseEntity<?> excluir(@PathVariable Long id) {
 		grupoMedicamentoService.excluir(id);
 		return ResponseEntity.ok().build();
 	}
-	
-	
 
 }

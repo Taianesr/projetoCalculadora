@@ -1,20 +1,18 @@
 package br.com.desafioCompasso.calculadora.service;
 
-import java.math.BigInteger;
 import java.util.List;
 
+import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.com.desafioCompasso.calculadora.controller.dto.GrupoMedicamentoDto;
 import br.com.desafioCompasso.calculadora.controller.form.AtualizacaoGrupoMedicamentoForm;
 import br.com.desafioCompasso.calculadora.controller.form.GrupoMedicamentoForm;
-import br.com.desafioCompasso.calculadora.exceptions.NotFoundException;
 import br.com.desafioCompasso.calculadora.exceptions.NotFoundIdException;
 import br.com.desafioCompasso.calculadora.exceptions.NotFoundNameException;
 import br.com.desafioCompasso.calculadora.exceptions.ServiceException;
 import br.com.desafioCompasso.calculadora.model.GrupoMedicamentoEntity;
-import br.com.desafioCompasso.calculadora.model.MedicamentoEntity;
 import br.com.desafioCompasso.calculadora.modelMapper.ModelMapperConfigGrupoMed;
 import br.com.desafioCompasso.calculadora.repository.GrupoMedicamentoRepository;
 
@@ -27,8 +25,15 @@ public class GrupoMedicamentoService {
 	@Autowired
 	private ModelMapperConfigGrupoMed modelMapper;
 
-	public List<GrupoMedicamentoEntity> listar() {
-		return grupoMedicamentoRepository.findAll();
+	public List<GrupoMedicamentoDto> listar() {
+		List<GrupoMedicamentoEntity> lstGrupoMed= grupoMedicamentoRepository.findAll();
+		
+		TypeToken<List<GrupoMedicamentoDto>> typeToken = new TypeToken<>() {};
+
+		List<GrupoMedicamentoDto> grupoMedicamentoDtos = modelMapper.modelMapperGrupoMed().map(lstGrupoMed, typeToken.getType());
+		
+		return grupoMedicamentoDtos;
+		
 	}
 	
 

@@ -16,8 +16,9 @@ public interface DiluicaoConfiguracaoRepository extends JpaRepository <DiluicaoC
 	List<DiluicaoConfiguracaoEntity> findByMedicamentoIdAndViaAdministracaoIdOrderBySequenciaAsc(Long medicamentoId, Long viaAdministracaoId);
 	
 	Optional<DiluicaoConfiguracaoEntity> findByMedicamentoIdAndViaAdministracaoIdAndSequencia(Long medicamentoId, Long viaAdministracaoId, int sequencia);
-	
 
+
+	void deleteByMedicamentoIdAndViaAdministracaoIdAndSequencia(Long medicamentoId, Long viaAdministracaoId, int sequencia);
 
 
 	

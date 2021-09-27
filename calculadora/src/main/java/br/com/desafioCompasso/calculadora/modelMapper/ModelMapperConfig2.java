@@ -14,15 +14,14 @@ public class ModelMapperConfig2 {
 	@Bean
 	public ModelMapper modelMapper2() {
 		var modelMapper = new ModelMapper();
-		//modelMapper.createTypeMap(DiluicaoConfiguracaoDto.class , MedicamentoDto.class).addMappings(mapper -> {
-			//mapper.map(src -> src., CalculoHistoricoDto::setLst);
-			
-		//});
+		// modelMapper.createTypeMap(DiluicaoConfiguracaoDto.class ,
+		// MedicamentoDto.class).addMappings(mapper -> {
+		// mapper.map(src -> src., CalculoHistoricoDto::setLst);
 
-return modelMapper;
+		// });
 
+		return modelMapper;
 
 	}
-
 
 }

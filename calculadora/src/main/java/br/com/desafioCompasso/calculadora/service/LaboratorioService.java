@@ -1,15 +1,17 @@
 package br.com.desafioCompasso.calculadora.service;
 
+
+
 import java.util.List;
 
+import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import aj.org.objectweb.asm.Type;
+
 import br.com.desafioCompasso.calculadora.controller.dto.LaboratorioDto;
 import br.com.desafioCompasso.calculadora.controller.form.AtualizacaoLaboratorioForm;
 import br.com.desafioCompasso.calculadora.controller.form.LaboratorioForm;
-import br.com.desafioCompasso.calculadora.exceptions.NotFoundException;
 import br.com.desafioCompasso.calculadora.exceptions.NotFoundIdException;
 import br.com.desafioCompasso.calculadora.exceptions.NotFoundNameException;
 import br.com.desafioCompasso.calculadora.exceptions.ServiceException;
@@ -27,9 +29,15 @@ public class LaboratorioService {
 	@Autowired
 	private ModelMapperConfigLaboratorio modelMapper;
 
-	public List<LaboratorioEntity> listar() {
+	public List<LaboratorioDto> listar() {
 		List<LaboratorioEntity> lstLab= laboratorioRepository.findAll();
-		return laboratorioRepository.findAll();
+		
+		TypeToken<List<LaboratorioDto>> typeToken = new TypeToken<>() {
+		};
+
+		List<LaboratorioDto> laboratorioDtos = modelMapper.modelMapperLab().map(lstLab, typeToken.getType());
+
+		return laboratorioDtos;
 	}
 	
 	public LaboratorioDto listarId(Long id) throws NotFoundIdException {

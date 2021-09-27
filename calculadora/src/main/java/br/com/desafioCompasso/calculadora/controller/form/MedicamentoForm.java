@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 public class MedicamentoForm {
-	
+
 	private String nome;
 	private BigDecimal concentracaoInicial;
 	private String embalagemApresentada;
@@ -23,10 +23,7 @@ public class MedicamentoForm {
 	private BigDecimal quantidadeApresentacao;
 	private String unidadeMedida;
 
-	
-	private List<DiluicaoConfiguracaoForm> diluicaoConfiguracaoForm; 
-	
-
+	private List<DiluicaoConfiguracaoForm> diluicaoConfiguracaoForm;
 
 	public MedicamentoForm(String nome, BigDecimal concentracaoInicial, String embalagemApresentada,
 			Long idGrupoMedicamento, Long idLaboratorio, String infoObs, String infoSobra, String infoTempoAdm,
@@ -46,7 +43,4 @@ public class MedicamentoForm {
 		this.diluicaoConfiguracaoForm = diluicaoConfiguracaoForm;
 	}
 
-
-
-	
 }

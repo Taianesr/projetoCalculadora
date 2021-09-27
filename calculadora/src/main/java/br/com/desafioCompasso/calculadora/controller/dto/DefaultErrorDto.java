@@ -8,6 +8,4 @@ import lombok.NoArgsConstructor;
 public class DefaultErrorDto {
 	private String errorMessage;
 
-	
-
 }

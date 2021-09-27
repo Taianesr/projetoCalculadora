@@ -20,70 +20,61 @@ import br.com.desafioCompasso.calculadora.controller.dto.ViaAdministracaoDto;
 import br.com.desafioCompasso.calculadora.controller.form.AtualizacaoViaAdministracaoForm;
 import br.com.desafioCompasso.calculadora.controller.form.ViaAdministracaoForm;
 import br.com.desafioCompasso.calculadora.exceptions.ServiceException;
-import br.com.desafioCompasso.calculadora.model.ViaAdministracaoEntity;
 import br.com.desafioCompasso.calculadora.service.ViaAdministracaoService;
 
 @RestController
 @RequestMapping("/via_administracao")
 public class ViaAdministracaoController {
-	
+
 	@Autowired
 	private ViaAdministracaoService viaAdministracaoService;
-	
 
 	@GetMapping("/listar")
-	public List<ViaAdministracaoEntity> listarViaAdministracoes() {
+	public List<ViaAdministracaoDto> listarViaAdministracoes() {
 		return viaAdministracaoService.listar();
 
 	}
-	
-	//lista os laboratorios pelo id
+
 	@GetMapping("/listar/{id}")
-	public ViaAdministracaoDto listarViaAdmsId(Long id){
+	public ViaAdministracaoDto listarViaAdmsId(Long id) {
 		return viaAdministracaoService.listarId(id);
-		
+
 	}
-	
-	
-	//lista os laboratorios pelo nome
-		@GetMapping("/listar/{nome}")
-		public ViaAdministracaoDto listarViaAdmsId(String nome){
-			return viaAdministracaoService.listarNome(nome);
-			
-		}
-	
-	
+
+	@GetMapping("/listar/{nome}")
+	public ViaAdministracaoDto listarViaAdmsId(String nome) {
+		return viaAdministracaoService.listarNome(nome);
+
+	}
+
 	@PostMapping("/criar")
-	public ResponseEntity<ViaAdministracaoDto> criar(@RequestBody ViaAdministracaoForm viaAdmForm, UriComponentsBuilder uriBuilder) {
-		
-	    ViaAdministracaoDto viaAdmDto =  viaAdministracaoService.criar(viaAdmForm);
-	    
-	    URI uri= uriBuilder.path("/{id}/").buildAndExpand(viaAdmDto.getId()).toUri();
-	    
+	public ResponseEntity<ViaAdministracaoDto> criar(@RequestBody ViaAdministracaoForm viaAdmForm,
+			UriComponentsBuilder uriBuilder) {
+
+		ViaAdministracaoDto viaAdmDto = viaAdministracaoService.criar(viaAdmForm);
+
+		URI uri = uriBuilder.path("/{id}/").buildAndExpand(viaAdmDto.getId()).toUri();
+
 		return ResponseEntity.created(uri).body(viaAdmDto);
-		
+
 	}
-	
-	
+
 	@PutMapping("/atualizar/{id}")
 	@Transactional
-	public ResponseEntity<ViaAdministracaoDto> atualizar(@PathVariable Long id, @RequestBody AtualizacaoViaAdministracaoForm atViaAdmForm) throws ServiceException{
-		
-		ViaAdministracaoDto viaAdmDto =  viaAdministracaoService.atualizar(id, atViaAdmForm);
-		
+	public ResponseEntity<ViaAdministracaoDto> atualizar(@PathVariable Long id,
+			@RequestBody AtualizacaoViaAdministracaoForm atViaAdmForm) throws ServiceException {
+
+		ViaAdministracaoDto viaAdmDto = viaAdministracaoService.atualizar(id, atViaAdmForm);
+
 		return ResponseEntity.ok(viaAdmDto);
-		
+
 	}
-	
-	
+
 	@DeleteMapping("/remover/{id}")
 	@Transactional
-	public ResponseEntity<?> excluir(@PathVariable Long id){
+	public ResponseEntity<?> excluir(@PathVariable Long id) {
 		viaAdministracaoService.excluir(id);
 		return ResponseEntity.ok().build();
 	}
-	
-	
-	
-	
+
 }

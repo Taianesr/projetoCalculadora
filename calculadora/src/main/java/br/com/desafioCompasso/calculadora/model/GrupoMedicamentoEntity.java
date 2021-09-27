@@ -1,7 +1,5 @@
 package br.com.desafioCompasso.calculadora.model;
 
-import java.math.BigDecimal;
-import java.math.BigInteger;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -13,20 +11,18 @@ import javax.persistence.Table;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-
 @Entity
 
 @Data
 @NoArgsConstructor
-@Table(name ="grupo_medicamento")
+@Table(name = "grupo_medicamento")
 public class GrupoMedicamentoEntity {
 
-	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	@Column(name ="nome")
+	@Column(name = "nome")
 	private String nome;
-
-	
 
 	public GrupoMedicamentoEntity(Long id, String nome) {
 		super();
@@ -34,8 +30,4 @@ public class GrupoMedicamentoEntity {
 		this.nome = nome;
 	}
 
-   
-
-	
-	
 }

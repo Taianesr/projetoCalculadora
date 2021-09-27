@@ -6,11 +6,13 @@ import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.com.desafioCompasso.calculadora.controller.dto.CalculoDto;
 import br.com.desafioCompasso.calculadora.controller.dto.CalculoHistoricoDto;
+import br.com.desafioCompasso.calculadora.controller.dto.LaboratorioDto;
 import br.com.desafioCompasso.calculadora.controller.form.CalculoHistoricoForm;
 import br.com.desafioCompasso.calculadora.exceptions.NotFoundException;
 import br.com.desafioCompasso.calculadora.exceptions.NotFoundIdException;
@@ -42,7 +44,6 @@ public class CalculoHistoricoService {
 	@Autowired
 	private ModelMapperConfigCalcHistorico modelMapper;
 
-	
 	public CalculoDto criar(CalculoHistoricoForm calcHistoricoForm) throws NotFoundIdException {
 
 		MedicamentoEntity med = medRepository.findById(calcHistoricoForm.getIdMedicamento())
@@ -54,77 +55,63 @@ public class CalculoHistoricoService {
 		CalculoHistoricoEntity calcHistorico = new CalculoHistoricoEntity(calcHistoricoForm.getNomeUsuario(), med,
 				viaAdm, calcHistoricoForm.getQuantidadePrescrita());
 
-		
-
 		CalculoDto calcDto = listarInfo(med, viaAdm, calcHistorico);
 
-
 		calculoHistoricoRepository.save(calcHistorico);
-		
 
 		return calcDto;
 
 	}
 
-	
+	public List<CalculoHistoricoDto> listar(Long id, Date dataIni, Date dataFim) {
 
-	public CalculoHistoricoDto listar(Long id, Date dataIni, Date dataFim) throws NotFoundException {
+		List<CalculoHistoricoEntity> lstCalcHistorico = calculoHistoricoRepository.findAllByDataCalculoBetween(dataIni,
+				dataFim);
 
-		CalculoHistoricoEntity calcHistorico = calculoHistoricoRepository.findDataIniDataFim(id, dataIni, dataFim)
-				.orElseThrow(() -> new NotFoundException("Não encontrado calculo entre as datas!"));
+		TypeToken<List<CalculoHistoricoDto>> typeToken = new TypeToken<>() {
+		};
 
-		return modelMapper.modelMapperCalcHistorico().map(calcHistorico, CalculoHistoricoDto.class);
+		List<CalculoHistoricoDto> calcHistoricoDtos = modelMapper.modelMapperCalcHistorico().map(lstCalcHistorico,
+				typeToken.getType());
+
+		return calcHistoricoDtos;
 
 	}
-	
-	
 
 	public CalculoDto listarInfo(MedicamentoEntity med, ViaAdministracaoEntity viaAdm,
 			CalculoHistoricoEntity calcHistorico) {
 
 		List<DiluicaoConfiguracaoEntity> lstDiluicaoConf = diluicaoConfRepository
 				.findByMedicamentoIdAndViaAdministracaoIdOrderBySequenciaAsc(med.getId(), viaAdm.getId());
-		
-		
+
 		List<String> msgPassosAdministracao = new ArrayList<String>();
 		List<String> infoList = new ArrayList<String>();
-		String infoAdministracao= "";
-		
+		String infoAdministracao = "";
+
 		BigDecimal concentracaoFinal = BigDecimal.ZERO;
 
-
-
 		for (DiluicaoConfiguracaoEntity diluicaoConfiguracaoEntity : lstDiluicaoConf) {
-			 msgPassosAdministracao.add(diluicaoConfiguracaoEntity.getModoPreparo());
-			 concentracaoFinal= diluicaoConfiguracaoEntity.getConcentracao();
+			msgPassosAdministracao.add(diluicaoConfiguracaoEntity.getModoPreparo());
+			concentracaoFinal = diluicaoConfiguracaoEntity.getConcentracao();
 		}
-		
-	
-		
+
 		if (lstDiluicaoConf.isEmpty()) {
-			 msgPassosAdministracao.add("Pronto para uso");
-			 concentracaoFinal = med.getConcentracaoInicial();
+			msgPassosAdministracao.add("Pronto para uso");
+			concentracaoFinal = med.getConcentracaoInicial();
 		}
 
-		
-		infoList.add("Info Sobra: "+ med.getInfoSobra());
-		infoList.add("Tempo de administracao: "+ med.getInfoTempoAdministracao());
-		infoList.add("Observação: "+ med.getInfoObservacao());
-		
-
+		infoList.add("Info Sobra: " + med.getInfoSobra());
+		infoList.add("Tempo de administracao: " + med.getInfoTempoAdministracao());
+		infoList.add("Observação: " + med.getInfoObservacao());
 
 		BigDecimal result = calcHistorico.getQuantidadePrescrita().divide(concentracaoFinal, 2, RoundingMode.HALF_UP);
-		
-		infoAdministracao = "Resultado da aspiração é " + result;
-		
-		
-		
-		CalculoDto calcDto= new CalculoDto(infoAdministracao, msgPassosAdministracao ,infoList);
-		
+
+		infoAdministracao = "Aspire " + result;
+
+		CalculoDto calcDto = new CalculoDto(infoAdministracao, msgPassosAdministracao, infoList);
+
 		return calcDto;
 
 	}
-	
-	
 
 }

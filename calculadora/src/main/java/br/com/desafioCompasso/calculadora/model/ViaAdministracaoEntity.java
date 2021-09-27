@@ -1,7 +1,5 @@
 package br.com.desafioCompasso.calculadora.model;
 
-import java.math.BigDecimal;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -18,21 +16,17 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Table(name = "via_administracao")
 public class ViaAdministracaoEntity {
-	
-	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
-	@Column(name ="nome")
-	private String nome;
-	
 
-	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
+	@Column(name = "nome")
+	private String nome;
+
 	public ViaAdministracaoEntity(Long id, String nome) {
 		super();
 		this.id = id;
 		this.nome = nome;
 	}
-	
-
-	
 
 }

@@ -5,13 +5,9 @@ import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-public class GrupoMedicamentoForm {
-
-	private String nome;
-
-	public GrupoMedicamentoForm(String nome) {
-		super();
-		this.nome = nome;
-	}
+public class DiluicaoConfiguracaoFormPK {
+	private Long idMedicamento;
+	private Long idViaAdministracao;
+	private int sequencia;
 
 }

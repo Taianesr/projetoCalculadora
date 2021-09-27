@@ -13,7 +13,6 @@ public class CalculoHistoricoForm {
 	private Long idViaAdministracao;
 	private String nomeUsuario;
 	private BigDecimal quantidadePrescrita;
-	
 
 	public CalculoHistoricoForm(Long idMedicamento, Long idViaAdministracao, String nomeUsuario,
 			BigDecimal quantidadePrescrita) {
@@ -24,6 +23,4 @@ public class CalculoHistoricoForm {
 		this.quantidadePrescrita = quantidadePrescrita;
 	}
 
-
-	
 }

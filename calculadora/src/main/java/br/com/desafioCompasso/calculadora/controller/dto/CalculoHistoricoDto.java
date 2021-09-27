@@ -3,16 +3,13 @@ package br.com.desafioCompasso.calculadora.controller.dto;
 import java.math.BigDecimal;
 import java.sql.Date;
 
-import br.com.desafioCompasso.calculadora.model.CalculoHistoricoEntity;
-import br.com.desafioCompasso.calculadora.model.MedicamentoEntity;
-import br.com.desafioCompasso.calculadora.model.ViaAdministracaoEntity;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
 public class CalculoHistoricoDto {
-	
+
 	private Date dataCalculo;
 	private Long id;
 	private String nomeMedicamento;
@@ -20,10 +17,8 @@ public class CalculoHistoricoDto {
 	private BigDecimal quantidadePrescrita;
 	private String resultadosJson;
 	private String viaAdministracao;
-	
-	
 
-	public CalculoHistoricoDto( Long id,Date dataCalculo, String nomeMedicamento, BigDecimal quantidadeApresentada,
+	public CalculoHistoricoDto(Long id, Date dataCalculo, String nomeMedicamento, BigDecimal quantidadeApresentada,
 			BigDecimal quantidadePrescrita, String resultadosJson, String viaAdministracao) {
 		super();
 		this.dataCalculo = dataCalculo;
@@ -34,10 +29,5 @@ public class CalculoHistoricoDto {
 		this.resultadosJson = resultadosJson;
 		this.viaAdministracao = viaAdministracao;
 	}
-	
-	
-	
-	
-	
 
 }

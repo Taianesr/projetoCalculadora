@@ -8,39 +8,30 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.desafioCompasso.calculadora.model.DiluicaoConfiguracaoEntity;
-import br.com.desafioCompasso.calculadora.model.DiluicaoConfiguracaoEntityPK;
+import br.com.desafioCompasso.calculadora.controller.dto.DiluicaoConfiguracaoDto;
 import br.com.desafioCompasso.calculadora.service.DiluicaoConfiguracaoService;
 
 @RestController
 @RequestMapping("/diluicao_configuracao")
 public class DiluicaoConfiguracaoController {
-	
 
 	@Autowired
 	private DiluicaoConfiguracaoService diluicaoConfService;
-	
 
-	
 	@GetMapping("/listar")
-	public List<DiluicaoConfiguracaoEntity> listarGrupoMedicamentos() {
+	public List<DiluicaoConfiguracaoDto> listarGrupoMedicamentos() {
 		return diluicaoConfService.listar();
 
 	}
-	
-	
-	@DeleteMapping("/remover/{id}")
+
+	@DeleteMapping("/remover/{idMedicamento}/{idViaAdministracao}/{sequencia}")
 	@Transactional
-	public ResponseEntity<?> excluir(@PathVariable DiluicaoConfiguracaoEntityPK id){
-		diluicaoConfService.excluir(id);
+	public ResponseEntity<?> excluir(Long idMedicamento, Long idViaAdministracao, int sequencia) {
+		diluicaoConfService.excluir(idMedicamento, idViaAdministracao, sequencia);
 		return ResponseEntity.ok().build();
 	}
-	
-	
 
 }

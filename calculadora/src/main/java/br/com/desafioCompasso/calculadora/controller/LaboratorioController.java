@@ -22,9 +22,7 @@ import br.com.desafioCompasso.calculadora.controller.dto.LaboratorioDto;
 import br.com.desafioCompasso.calculadora.controller.form.AtualizacaoLaboratorioForm;
 import br.com.desafioCompasso.calculadora.controller.form.LaboratorioForm;
 import br.com.desafioCompasso.calculadora.exceptions.ServiceException;
-import br.com.desafioCompasso.calculadora.model.LaboratorioEntity;
 import br.com.desafioCompasso.calculadora.service.LaboratorioService;
-
 
 @RestController
 @RequestMapping(value = "/laboratorio")
@@ -34,67 +32,60 @@ public class LaboratorioController {
 	@Autowired
 	private LaboratorioService laboratorioService;
 
-	
 	@GetMapping("/listar")
-	public List<LaboratorioEntity> listarLaboratorios(){
+	public List<LaboratorioDto> listarLaboratorios() {
 		return laboratorioService.listar();
-		
+
 	}
-	
-	//lista os laboratorios pelo id
+
+
 	@GetMapping("/listar/{id}")
-	public LaboratorioDto listarLaboratorioId(Long id){
+	public LaboratorioDto listarLaboratorioId(Long id) {
 		return laboratorioService.listarId(id);
-		
+
 	}
-	
-	
-	//lista os laboratorios pelo nome
-		@GetMapping("/listar/{nome}")
-		public LaboratorioDto listarLaboratorioNome(String nome){
-			return laboratorioService.listarNome(nome);
-			
-		}
-		
-	
+
+
+	@GetMapping("/listar/{nome}")
+	public LaboratorioDto listarLaboratorioNome(String nome) {
+		return laboratorioService.listarNome(nome);
+
+	}
+
 	@PostMapping("/criar")
-	public ResponseEntity<LaboratorioDto> criar(@RequestBody LaboratorioForm laboratorioForm, UriComponentsBuilder uriBuilder) {
-		
-	    LaboratorioDto labDto = laboratorioService.criar(laboratorioForm);
-	    
-	    URI uri= uriBuilder.path("/{id}/").buildAndExpand(labDto.getId()).toUri();
-	    
+	public ResponseEntity<LaboratorioDto> criar(@RequestBody LaboratorioForm laboratorioForm,
+			UriComponentsBuilder uriBuilder) {
+
+		LaboratorioDto labDto = laboratorioService.criar(laboratorioForm);
+
+		URI uri = uriBuilder.path("/{id}/").buildAndExpand(labDto.getId()).toUri();
+
 		return ResponseEntity.created(uri).body(labDto);
-		
+
 	}
-	
-	
+
 	@PutMapping("/atualizar/{id}")
 	@Transactional
-	public ResponseEntity<LaboratorioDto> atualizar(@PathVariable Long id, @RequestBody AtualizacaoLaboratorioForm atlabForm) throws ServiceException{
-		
-		LaboratorioDto labDto =  laboratorioService.atualizar(id, atlabForm);
-		
+	public ResponseEntity<LaboratorioDto> atualizar(@PathVariable Long id,
+			@RequestBody AtualizacaoLaboratorioForm atlabForm) throws ServiceException {
+
+		LaboratorioDto labDto = laboratorioService.atualizar(id, atlabForm);
+
 		return ResponseEntity.ok(labDto);
-		
+
 	}
-	
-	
-	
+
 	@DeleteMapping("/remover/{id}")
 	@Transactional
-	public ResponseEntity<HttpStatus> excluir(@PathVariable Long id){
-		
-		 try {
-			 laboratorioService.excluir(id);
-		      return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-		    } catch (Exception e) {
-		      return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-		    }
-		
+	public ResponseEntity<HttpStatus> excluir(@PathVariable Long id) {
+
+		try {
+			laboratorioService.excluir(id);
+			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+		} catch (Exception e) {
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+
 	}
-	
-	
-	
-	
+
 }

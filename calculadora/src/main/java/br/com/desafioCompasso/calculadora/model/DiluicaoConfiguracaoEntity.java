@@ -17,28 +17,26 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Table(name = "diluicao_configuracao")
 public class DiluicaoConfiguracaoEntity {
-   
+
 	@EmbeddedId
 	@EqualsAndHashCode.Include
 	private DiluicaoConfiguracaoEntityPK diluicaoConfPK;
 	@Column(name = "medicamento_id", nullable = false, insertable = false, updatable = false)
-    private Long medicamentoId;
-    @Column(name = "via_administracao_id", nullable = false, insertable = false, updatable = false)
-    private Long viaAdministracaoId;
-    @Column(name="sequencia", nullable = false, insertable = false, updatable = false)  
-    private int sequencia;
-	@Column(name ="quantidade_aspirada")
+	private Long medicamentoId;
+	@Column(name = "via_administracao_id",  nullable = false, insertable = false, updatable = false)
+	private Long viaAdministracaoId;
+	@Column(name = "sequencia",  nullable = false, insertable = false, updatable = false)
+	private int sequencia;
+	@Column(name = "quantidade_aspirada")
 	private BigDecimal quantidadeAspirada;
-	@Column(name ="quantidade_adicionada")
+	@Column(name = "quantidade_adicionada")
 	private BigDecimal quantidadeAdicionada;
-	@Column(name ="concentracao")
+	@Column(name = "concentracao")
 	private BigDecimal concentracao;
-	@Column(name ="diluente")
+	@Column(name = "diluente")
 	private String diluente;
-	@Column(name ="modo_preparo")
+	@Column(name = "modo_preparo")
 	private String modoPreparo;
-	
-
 
 	public DiluicaoConfiguracaoEntity(DiluicaoConfiguracaoEntityPK diluicaoConfPK, BigDecimal quantidadeAspirada,
 			BigDecimal quantidadeAdicionada, BigDecimal concentracao, String diluente, String modoPreparo) {
@@ -50,12 +48,9 @@ public class DiluicaoConfiguracaoEntity {
 		this.diluente = diluente;
 		this.modoPreparo = modoPreparo;
 	}
-	
-	
-	
 
-	public DiluicaoConfiguracaoEntity(BigDecimal quantidadeAspirada,
-			BigDecimal quantidadeAdicionada, BigDecimal concentracao, String diluente, String modoPreparo) {
+	public DiluicaoConfiguracaoEntity(BigDecimal quantidadeAspirada, BigDecimal quantidadeAdicionada,
+			BigDecimal concentracao, String diluente, String modoPreparo) {
 		super();
 		this.quantidadeAspirada = quantidadeAspirada;
 		this.quantidadeAdicionada = quantidadeAdicionada;
@@ -64,27 +59,11 @@ public class DiluicaoConfiguracaoEntity {
 		this.modoPreparo = modoPreparo;
 	}
 
-
-
-
 	public DiluicaoConfiguracaoEntity(Long medicamentoId, Long viaAdministracaoId, int sequencia) {
 		super();
 		this.medicamentoId = medicamentoId;
 		this.viaAdministracaoId = viaAdministracaoId;
 		this.sequencia = sequencia;
 	}
-
-	
-
-
-
-
-
-	
-
-
-
-	
-
 
 }
