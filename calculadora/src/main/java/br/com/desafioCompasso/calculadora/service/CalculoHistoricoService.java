@@ -153,6 +153,9 @@ public class CalculoHistoricoService {
 		return med;
 	}
 
+	///
+	
+	
 	public List<CalculoHistoricoEntity> filtro(String nome, Date dataIni, Date dataFim) {
 		if (!nome.isEmpty() && dataIni != null && dataFim != null ) {
 			List<CalculoHistoricoEntity> lstCalcHistorico= calculoHistoricoRepository.
