@@ -11,14 +11,18 @@ import org.springframework.stereotype.Repository;
 import br.com.desafioCompasso.calculadora.model.CalculoHistoricoEntity;
 
 @Repository
-public interface CalculoHistoricoRepository extends JpaRepository<CalculoHistoricoEntity,Long>{
+public interface CalculoHistoricoRepository extends JpaRepository<CalculoHistoricoEntity, Long> {
 
-	
-	Optional <CalculoHistoricoEntity> findByMedEntityNome(String nome);
-	
+	//Optional<CalculoHistoricoEntity> findByMedEntityNome(String nome);
 
+	List<CalculoHistoricoEntity> findByMedEntityNome(String nome);
+	
 	Optional<CalculoHistoricoEntity> findByQuantidadePrescrita(BigDecimal quantidadePrescrita);
-	
-	 List<CalculoHistoricoEntity> findAllByDataCalculoBetween(Date dataIni, Date dataFim);
 
+	List<CalculoHistoricoEntity> findAllByDataCalculoBetween(Date dataIni, Date dataFim);
+	
+	List<CalculoHistoricoEntity> findAllByMedEntityNomeAndDataCalculoBetween(String nome, Date dataIni, Date dataFim);
+
+	
+	
 }

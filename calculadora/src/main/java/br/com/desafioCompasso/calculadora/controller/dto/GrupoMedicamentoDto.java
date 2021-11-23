@@ -11,10 +11,9 @@ public class GrupoMedicamentoDto {
 	private Long id;
 	private String nome;
 
-	public GrupoMedicamentoDto(GrupoMedicamentoEntity grupoMed) {
-		super();
-		this.id = grupoMed.getId();
-		this.nome = grupoMed.getNome();
+	public GrupoMedicamentoDto(Long id, String nome) {
+		this.id = id;
+		this.nome = nome;
 	}
 
 }

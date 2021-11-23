@@ -63,15 +63,47 @@ public class CalculoHistoricoService {
 
 	}
 
+	// public List<CalculoHistoricoDto> listar(Long id, Date dataIni, Date dataFim)
+	// {
+
+	// List<CalculoHistoricoEntity> lstCalcHistorico =
+	// calculoHistoricoRepository.findAllByDataCalculoBetween(dataIni,
+	// dataFim);
+
+	// TypeToken<List<CalculoHistoricoDto>> typeToken = new TypeToken<>() {
+	// };
+
+	// List<CalculoHistoricoDto> calcHistoricoDtos =
+	// modelMapper.modelMapperCalcHistorico().map(lstCalcHistorico,
+	// typeToken.getType());
+
+	// return calcHistoricoDtos;
+
+	// }
+
 	public List<CalculoHistoricoDto> listar(Long id, Date dataIni, Date dataFim) {
 
-		List<CalculoHistoricoEntity> lstCalcHistorico = calculoHistoricoRepository.findAllByDataCalculoBetween(dataIni,
-				dataFim);
+		String nome = "";
+
+		if (id != null) {
+			MedicamentoEntity med = getMedicamento(id);
+			nome = med.getNome();
+
+		}
+
+		List<CalculoHistoricoEntity> historico= filtro(nome, dataIni, dataFim);
+
+		//List<CalculoHistoricoEntity> lstCalcHistorico = calculoHistoricoRepository.findAllByDataCalculoBetween(dataIni,
+		//		dataFim);
+		
+		if (historico.isEmpty()) {
+			throw new RuntimeException("Não foram encontrados resultados para os parametros informados!");
+		}
 
 		TypeToken<List<CalculoHistoricoDto>> typeToken = new TypeToken<>() {
 		};
 
-		List<CalculoHistoricoDto> calcHistoricoDtos = modelMapper.modelMapperCalcHistorico().map(lstCalcHistorico,
+		List<CalculoHistoricoDto> calcHistoricoDtos = modelMapper.modelMapperCalcHistorico().map(historico,
 				typeToken.getType());
 
 		return calcHistoricoDtos;
@@ -114,4 +146,26 @@ public class CalculoHistoricoService {
 
 	}
 
+	public MedicamentoEntity getMedicamento(Long id) {
+		MedicamentoEntity med = medRepository.findById(id)
+				.orElseThrow(() -> new NotFoundIdException("Não encontrado o medicamento pelo id!"));
+
+		return med;
+	}
+
+	public List<CalculoHistoricoEntity> filtro(String nome, Date dataIni, Date dataFim) {
+		if (!nome.isEmpty() && dataIni != null && dataFim != null ) {
+			List<CalculoHistoricoEntity> lstCalcHistorico= calculoHistoricoRepository.
+					findAllByMedEntityNomeAndDataCalculoBetween(nome, dataIni, dataFim);
+		}else if(!nome.isEmpty()) {
+			List<CalculoHistoricoEntity> lstCalcHistorico = calculoHistoricoRepository.findByMedEntityNome(nome);
+		}
+		else if (dataIni != null && dataFim != null) {
+			List<CalculoHistoricoEntity> lstCalcHistorico = calculoHistoricoRepository
+					.findAllByDataCalculoBetween(dataIni, dataFim);
+		}
+		
+		throw new RuntimeException("Valores do filtro errados");
+
+	}
 }

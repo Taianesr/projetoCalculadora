@@ -11,10 +11,9 @@ public class LaboratorioDto {
 	private Long id;
 	private String nome;
 
-	public LaboratorioDto(LaboratorioEntity lab) {
-		this.id = lab.getId();
-		this.nome = lab.getNome();
-
+	public LaboratorioDto(Long id, String nome) {
+		this.id = id;
+		this.nome = nome;
 	}
 
 }
