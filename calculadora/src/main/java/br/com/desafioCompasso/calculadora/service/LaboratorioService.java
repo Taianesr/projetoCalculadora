@@ -23,6 +23,8 @@ import br.com.desafioCompasso.calculadora.repository.LaboratorioRepository;
 @Service
 public class LaboratorioService {
 
+	//
+	
 	@Autowired
 	private LaboratorioRepository laboratorioRepository;
 
