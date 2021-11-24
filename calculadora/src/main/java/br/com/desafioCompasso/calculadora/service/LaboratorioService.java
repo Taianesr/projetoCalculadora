@@ -1,13 +1,10 @@
 package br.com.desafioCompasso.calculadora.service;
 
-
-
 import java.util.List;
 
 import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 
 import br.com.desafioCompasso.calculadora.controller.dto.LaboratorioDto;
 import br.com.desafioCompasso.calculadora.controller.form.AtualizacaoLaboratorioForm;
@@ -19,9 +16,10 @@ import br.com.desafioCompasso.calculadora.model.LaboratorioEntity;
 import br.com.desafioCompasso.calculadora.modelMapper.ModelMapperConfigLaboratorio;
 import br.com.desafioCompasso.calculadora.repository.LaboratorioRepository;
 
-
 @Service
 public class LaboratorioService {
+
+	//
 
 	@Autowired
 	private LaboratorioRepository laboratorioRepository;
@@ -30,8 +28,8 @@ public class LaboratorioService {
 	private ModelMapperConfigLaboratorio modelMapper;
 
 	public List<LaboratorioDto> listar() {
-		List<LaboratorioEntity> lstLab= laboratorioRepository.findAll();
-		
+		List<LaboratorioEntity> lstLab = laboratorioRepository.findAll();
+
 		TypeToken<List<LaboratorioDto>> typeToken = new TypeToken<>() {
 		};
 
@@ -39,56 +37,61 @@ public class LaboratorioService {
 
 		return laboratorioDtos;
 	}
-	
-	public LaboratorioDto listarId(Long id) throws NotFoundIdException {
-		LaboratorioEntity lab = laboratorioRepository.findById(id)
-				.orElseThrow(() -> new NotFoundIdException("Não encontrado o laboratório com esse id!"));
+
+	public LaboratorioDto listar(Long id, String nome) throws NotFoundNameException{
+		if (!nome.trim().isEmpty()) 
+			LaboratorioDto labDto= getLaboratorio(nome);
+		return labDto;
+		else if (id != null)
+			LaboratorioDto labDto2= getLaboratorio(id);
+		return labDto2;
+		throw new RuntimeException("Algum campo precisa estar preenchido!");
 		
-		return modelMapper.modelMapperLab().map(lab, LaboratorioDto.class);
 	}
-	
-	public LaboratorioDto listarNome(String nome) throws NotFoundNameException {
-		LaboratorioEntity lab = laboratorioRepository.findByNome(nome)
-				.orElseThrow(() -> new NotFoundNameException("Não encontrado o laboratório com esse nome!"));
-		
-		return modelMapper.modelMapperLab().map(lab, LaboratorioDto.class);
-	}
-	
-	
 
 	public LaboratorioDto criar(LaboratorioForm labForm) throws ServiceException {
 
-		 Boolean lab= laboratorioRepository.findByNome(labForm.getNome()).isEmpty();		
-				
-         if(lab==true) {
-        	LaboratorioEntity lab2 = modelMapper.modelMapperLab().map(labForm, LaboratorioEntity.class);
-     		laboratorioRepository.save(lab2);
-     		
-     		return modelMapper.modelMapperLab().map(lab2, LaboratorioDto.class);
-         }else {
-        	 throw new ServiceException("Já existe um laboratório cadastrado com esse nome!");
-         }
-			
-		
+		Boolean lab = laboratorioRepository.findByNome(labForm.getNome()).isEmpty();
+
+		if (lab == true) {
+			LaboratorioEntity lab2 = modelMapper.modelMapperLab().map(labForm, LaboratorioEntity.class);
+			laboratorioRepository.save(lab2);
+
+			return modelMapper.modelMapperLab().map(lab2, LaboratorioDto.class);
+		} else {
+			throw new ServiceException("Já existe um laboratório cadastrado com esse nome!");
+		}
+
 	}
 
-	
 	public LaboratorioDto atualizar(Long id, AtualizacaoLaboratorioForm atLabForm) throws NotFoundIdException {
 		LaboratorioEntity lab = laboratorioRepository.findById(id)
 				.orElseThrow(() -> new NotFoundIdException("Não encontrado o laboratório com esse id!"));
-		
+
 		lab.setNome(atLabForm.getNome());
-		
+
 		return modelMapper.modelMapperLab().map(lab, LaboratorioDto.class);
 	}
-	
-	
-	public void excluir(Long  id) throws NotFoundIdException{
+
+	public void excluir(Long id) throws NotFoundIdException {
 		LaboratorioEntity lab = laboratorioRepository.findById(id)
 				.orElseThrow(() -> new NotFoundIdException("Não encontrado o laboratório com esse id!"));
-		
+
 		laboratorioRepository.deleteById(id);
 	}
-	
+
+	public LaboratorioDto getLaboratorio(Long id) {
+		LaboratorioEntity lab = laboratorioRepository.findById(id)
+				.orElseThrow(() -> new NotFoundIdException("Não encontrado o laboratório com esse id!"));
+		return modelMapper.modelMapperLab().map(lab, LaboratorioDto.class);
+
+	}
+
+	public LaboratorioDto getLaboratorio(String nome) {
+		LaboratorioEntity lab = laboratorioRepository.findByNome(nome)
+				.orElseThrow(() -> new NotFoundIdException("Não encontrado o laboratório com esse nome!"));
+		return modelMapper.modelMapperLab().map(lab, LaboratorioDto.class);
+
+	}
 
 }

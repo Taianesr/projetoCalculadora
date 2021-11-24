@@ -18,6 +18,8 @@ import br.com.desafioCompasso.calculadora.controller.dto.CalculoHistoricoDto;
 import br.com.desafioCompasso.calculadora.controller.form.CalculoHistoricoForm;
 import br.com.desafioCompasso.calculadora.service.CalculoHistoricoService;
 
+import org.springframework.web.bind.annotation.RequestParam;
+
 @RestController
 @RequestMapping("/calculo_historico")
 public class CalculoHistoricoController {
@@ -25,8 +27,9 @@ public class CalculoHistoricoController {
 	@Autowired
 	private CalculoHistoricoService calculoHistoricoService;
 
-	@GetMapping("/listar/{id}/{dataInicial}/{dataFinal}")
-	public List<CalculoHistoricoDto> listarLaboratorioId(Long id, Date dataInicial, Date dataFinal) {
+	@GetMapping()
+	public List<CalculoHistoricoDto> listarLaboratorioId(@RequestParam(required = false) Long id, 
+			@RequestParam(required = false) Date dataInicial, @RequestParam(required = false) Date dataFinal) {
 		return calculoHistoricoService.listar(id, dataInicial, dataFinal);
 
 	}
