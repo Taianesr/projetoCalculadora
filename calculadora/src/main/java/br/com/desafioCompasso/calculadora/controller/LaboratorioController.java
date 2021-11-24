@@ -48,7 +48,7 @@ public class LaboratorioController {
 	}
 
 
-	@PostMapping("/criar")
+	@PostMapping("")
 	public ResponseEntity<LaboratorioDto> criar(@RequestBody LaboratorioForm laboratorioForm,
 			UriComponentsBuilder uriBuilder) {
 
@@ -60,7 +60,7 @@ public class LaboratorioController {
 
 	}
 
-	@PutMapping("/atualizar/{id}")
+	@PutMapping("{id}")
 	@Transactional
 	public ResponseEntity<LaboratorioDto> atualizar(@PathVariable Long id,
 			@RequestBody AtualizacaoLaboratorioForm atlabForm) throws ServiceException {
@@ -71,7 +71,7 @@ public class LaboratorioController {
 
 	}
 
-	@DeleteMapping("/remover/{id}")
+	@DeleteMapping("{id}")
 	@Transactional
 	public ResponseEntity<HttpStatus> excluir(@PathVariable Long id) {
 
