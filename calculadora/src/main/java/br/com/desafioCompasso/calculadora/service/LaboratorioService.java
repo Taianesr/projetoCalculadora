@@ -38,15 +38,13 @@ public class LaboratorioService {
 		return laboratorioDtos;
 	}
 
-	public LaboratorioDto listar(Long id, String nome) throws NotFoundNameException{
-		if (!nome.trim().isEmpty()) 
-			LaboratorioDto labDto= getLaboratorio(nome);
-		return labDto;
+	public LaboratorioDto listar(Long id, String nome) throws NotFoundNameException {
+		if (!nome.trim().isEmpty())
+			return getLaboratorio(nome);
 		else if (id != null)
-			LaboratorioDto labDto2= getLaboratorio(id);
-		return labDto2;
-		throw new RuntimeException("Algum campo precisa estar preenchido!");
-		
+			return getLaboratorio(id);
+		throw new NotFoundNameException("Algum campo precisa estar preenchido!");
+
 	}
 
 	public LaboratorioDto criar(LaboratorioForm labForm) throws ServiceException {
