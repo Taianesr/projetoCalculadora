@@ -12,9 +12,7 @@ import org.springframework.stereotype.Service;
 
 import br.com.desafioCompasso.calculadora.controller.dto.CalculoDto;
 import br.com.desafioCompasso.calculadora.controller.dto.CalculoHistoricoDto;
-import br.com.desafioCompasso.calculadora.controller.dto.LaboratorioDto;
 import br.com.desafioCompasso.calculadora.controller.form.CalculoHistoricoForm;
-import br.com.desafioCompasso.calculadora.exceptions.NotFoundException;
 import br.com.desafioCompasso.calculadora.exceptions.NotFoundIdException;
 import br.com.desafioCompasso.calculadora.model.CalculoHistoricoEntity;
 import br.com.desafioCompasso.calculadora.model.DiluicaoConfiguracaoEntity;
@@ -78,6 +76,7 @@ public class CalculoHistoricoService {
 
 	}
 
+	
 	public CalculoDto listarInfo(MedicamentoEntity med, ViaAdministracaoEntity viaAdm,
 			CalculoHistoricoEntity calcHistorico) {
 
@@ -96,7 +95,6 @@ public class CalculoHistoricoService {
 		}
 
 		if (lstDiluicaoConf.isEmpty()) {
-			msgPassosAdministracao.add("Pronto para uso");
 			concentracaoFinal = med.getConcentracaoInicial();
 		}
 

@@ -21,12 +21,12 @@ public class ModelMapperConfigDiluicao {
 		modelMapper.createTypeMap(DiluicaoConfiguracaoEntity.class, DiluicaoConfiguracaoDto.class).addMappings(mapper -> {
 			 mapper.map(src -> src.getDiluicaoConfPK().getMedicamento().getId(),   DiluicaoConfiguracaoDto::setIdMedicamento);
 			 mapper.map(src -> src.getDiluicaoConfPK().getViaAdministracao().getId(),   DiluicaoConfiguracaoDto::setIdViaAdministracao);
-			// mapper.map(src -> src.getDiluicaoConfPK().getSequencia(),   DiluicaoConfiguracaoDto::setSequencia);
-			// mapper.map(src -> src.getQuantidadeAspirada(),   DiluicaoConfiguracaoDto::setQuantidadeAspirada);
-			// mapper.map(src -> src.getQuantidadeAdicionada(),   DiluicaoConfiguracaoDto::setQuantidadeAdicionada);
-			// mapper.map(src -> src.getConcentracao(),   DiluicaoConfiguracaoDto::setConcentracao);
-			// mapper.map(src -> src.getDiluente(),   DiluicaoConfiguracaoDto::setDiluente);
-			// mapper.map(src -> src.getModoPreparo(),   DiluicaoConfiguracaoDto::setModoPreparo);
+			mapper.map(src -> src.getDiluicaoConfPK().getSequencia(),   DiluicaoConfiguracaoDto::setSequencia);
+			 mapper.map(src -> src.getQuantidadeAspirada(),   DiluicaoConfiguracaoDto::setQuantidadeAspirada);
+			 mapper.map(src -> src.getQuantidadeAdicionada(),   DiluicaoConfiguracaoDto::setQuantidadeAdicionada);
+			 mapper.map(src -> src.getConcentracao(),   DiluicaoConfiguracaoDto::setConcentracao);
+			 mapper.map(src -> src.getDiluente(),   DiluicaoConfiguracaoDto::setDiluente);
+			 mapper.map(src -> src.getModoPreparo(),   DiluicaoConfiguracaoDto::setModoPreparo);
 			});
 		
 		modelMapper.validate();

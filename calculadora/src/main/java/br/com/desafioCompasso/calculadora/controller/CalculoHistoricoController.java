@@ -28,7 +28,7 @@ public class CalculoHistoricoController {
 	@GetMapping("/listar/{id}/{dataInicial}/{dataFinal}")
 	public List<CalculoHistoricoDto> listarLaboratorioId(Long id, Date dataInicial, Date dataFinal) {
 		return calculoHistoricoService.listar(id, dataInicial, dataFinal);
-	
+
 	}
 
 	@PostMapping("/criar")

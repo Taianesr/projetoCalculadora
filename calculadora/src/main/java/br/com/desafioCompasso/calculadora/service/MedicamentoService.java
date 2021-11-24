@@ -92,12 +92,19 @@ public class MedicamentoService {
 		GrupoMedicamentoEntity grupoMed = grupoMedicamentoRepository.findById(medForm.getIdGrupoMedicamento())
 				.orElseThrow(() -> new NotFoundException("Não encontrado o grupo medicamento com esse id!"));
 
+		//deixar só o nome
+		//mudar o nome da variavel
+		//encontradoMedicamento
+		
 		Boolean med2 = medicamentoRepository.findByNomeAndGrupoMedicamentoIdAndLaboratorioId(medForm.getNome(),
 				medForm.getIdGrupoMedicamento(), medForm.getIdLaboratorio()).isEmpty();
+		
+		//Boolean med2 = medicamentoRepository.findByNomeAndGrupoMedicamentoIdAndLaboratorioIdAndQuantidadeApresentacao(medForm.getNome(),
+				//medForm.getIdGrupoMedicamento(), medForm.getIdLaboratorio(), medForm.getQuantidadeApresentacao()).isEmpty();
 
 		List<DiluicaoConfiguracaoEntity> lstDiluicaoConfiguracao = new ArrayList<DiluicaoConfiguracaoEntity>();
 
-		if (med2 == true) {
+		if (med2) {
 			// cria o objeto medicamento com os dados recebidos do form
 
 			MedicamentoEntity med = new MedicamentoEntity(grupoMed, lab, medForm.getNome(),
@@ -107,7 +114,7 @@ public class MedicamentoService {
 
 			med = medicamentoRepository.save(med);
 			
-			
+			//criar outro metodo 
 			for (DiluicaoConfiguracaoForm diluicaoConf2:  medForm.getDiluicaoConfiguracaoForm()) {
 
 				ViaAdministracaoEntity viaAdm = viaAdmRepository
@@ -128,23 +135,20 @@ public class MedicamentoService {
 				diluicaoConf.setDiluicaoConfPK(diluicaoConfPK);
 				
 				diluicaoConf.setConcentracao(diluicaoConf2.getConcentracao());
-
-				diluicaoConfRepository.save(diluicaoConf);
 				
 				diluicaoConf.setQuantidadeAdicionada(diluicaoConf2.getQuantidadeAdicionada());
 				diluicaoConf.setQuantidadeAspirada(diluicaoConf2.getQuantidadeAspirada());
 
 				diluicaoConf.setDiluente(diluicaoConf2.getDiluente());
 				diluicaoConf.setModoPreparo(diluicaoConf2.getModoPreparo());
+				
+				diluicaoConfRepository.save(diluicaoConf);
 
 				lstDiluicaoConfiguracao.add(diluicaoConf);
 				
 			}
 			
-			
-			
 		
-
 			List<DiluicaoConfiguracaoDto> lstDiluicaoConfDto = new ArrayList<DiluicaoConfiguracaoDto>();
 
 		

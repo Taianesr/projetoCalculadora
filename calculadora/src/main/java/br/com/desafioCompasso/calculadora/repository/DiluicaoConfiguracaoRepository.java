@@ -21,5 +21,5 @@ public interface DiluicaoConfiguracaoRepository extends JpaRepository <DiluicaoC
 	void deleteByMedicamentoIdAndViaAdministracaoIdAndSequencia(Long medicamentoId, Long viaAdministracaoId, int sequencia);
 
 
-	
+
 }

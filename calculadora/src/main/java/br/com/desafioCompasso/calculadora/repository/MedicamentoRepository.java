@@ -18,6 +18,7 @@ public interface MedicamentoRepository extends JpaRepository<MedicamentoEntity,L
 	
 	
 	Optional<MedicamentoEntity> findByNomeAndGrupoMedicamentoIdAndLaboratorioId(String nome,Long grupo_medicamento_id , Long laboratorio_id);
+//	Optional<MedicamentoEntity> findByNomeAndGrupoMedicamentoIdAndLaboratorioIdAnQuantidadeApresentacao(String nome,Long grupo_medicamento_id , Long laboratorio_id, BigDecimal quantiadeApresentada);
 	
 	Optional<MedicamentoEntity> findByNomeAndGrupoMedicamentoIdAndLaboratorioIdAndQuantidadeApresentacao(String nome,Long grupo_medicamento_id , Long laboratorio_id, 
 			BigDecimal quanteApresentacao);
