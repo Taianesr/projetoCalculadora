@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -32,25 +33,20 @@ public class LaboratorioController {
 	@Autowired
 	private LaboratorioService laboratorioService;
 
-	@GetMapping("/listar")
+	@GetMapping()
 	public List<LaboratorioDto> listarLaboratorios() {
 		return laboratorioService.listar();
 
 	}
 
 
-	@GetMapping("/listar/{id}")
-	public LaboratorioDto listarLaboratorioId(Long id) {
-		return laboratorioService.listarId(id);
+	@GetMapping("/")
+	public LaboratorioDto listarLaboratorioId(@RequestParam(required = false) Long id, 
+			@RequestParam(required = false) String nome) {
+		return laboratorioService.listar(id, nome);
 
 	}
 
-
-	@GetMapping("/listar/{nome}")
-	public LaboratorioDto listarLaboratorioNome(String nome) {
-		return laboratorioService.listarNome(nome);
-
-	}
 
 	@PostMapping("/criar")
 	public ResponseEntity<LaboratorioDto> criar(@RequestBody LaboratorioForm laboratorioForm,
