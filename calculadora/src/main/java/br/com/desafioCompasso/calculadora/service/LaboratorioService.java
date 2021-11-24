@@ -39,7 +39,7 @@ public class LaboratorioService {
 	}
 
 	public LaboratorioDto listar(Long id, String nome) throws NotFoundNameException {
-		if (!nome.trim().isEmpty())
+		if (nome !=null)
 			return getLaboratorio(nome);
 		else if (id != null)
 			return getLaboratorio(id);
