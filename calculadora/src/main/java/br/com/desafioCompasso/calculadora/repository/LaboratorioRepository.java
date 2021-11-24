@@ -12,5 +12,6 @@ public interface LaboratorioRepository extends JpaRepository<LaboratorioEntity, 
 	
 	Optional<LaboratorioEntity> findByNome(String nome);
 	
+	
 
 }
