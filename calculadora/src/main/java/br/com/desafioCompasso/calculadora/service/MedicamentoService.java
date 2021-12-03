@@ -59,32 +59,30 @@ public class MedicamentoService {
 	private ModelMapperConfig2 modelMapper2;
 
 	public List<MedicamentoDto> listar() {
-		
-		List<MedicamentoEntity> lstMed= medicamentoRepository.findAll();
-		
-		TypeToken<List<MedicamentoDto>> typeToken = new TypeToken<>() {};
 
-		List<MedicamentoDto> medicamentoDtos = modelMapperConfigMedicamento.modelMapperMed().map(lstMed, typeToken.getType());
-		
+		List<MedicamentoEntity> lstMed = medicamentoRepository.findAll();
+
+		TypeToken<List<MedicamentoDto>> typeToken = new TypeToken<>() {
+		};
+
+		List<MedicamentoDto> medicamentoDtos = modelMapperConfigMedicamento.modelMapperMed().map(lstMed,
+				typeToken.getType());
+
 		return medicamentoDtos;
-		
+
 	}
 
 	public MedicamentoDto listarId(Long id) throws NotFoundIdException {
-		MedicamentoEntity med = medicamentoRepository.findById(id)
-				.orElseThrow(() -> new NotFoundIdException("Não encontrado o medicamento com esse id!"));
-
+		MedicamentoEntity med = getMedicamento(id);
 		return modelMapperConfigMedicamento.modelMapperMed().map(med, MedicamentoDto.class);
 	}
 
 	public MedicamentoDto listarNome(String nome) throws NotFoundNameException {
-		MedicamentoEntity med = medicamentoRepository.findByNome(nome)
-				.orElseThrow(() -> new NotFoundNameException("Não encontrado o medicamento com esse nome!"));
-
+		MedicamentoEntity med = getMedicamento(nome);
 		return modelMapperConfigMedicamento.modelMapperMed().map(med, MedicamentoDto.class);
 	}
 
-	public MedicamentoDto criar(MedicamentoForm medForm) throws NotFoundIdException {
+	public MedicamentoDto criar(MedicamentoForm medForm) throws NotFoundException {
 
 		LaboratorioEntity lab = labRepository.findById(medForm.getIdLaboratorio())
 				.orElseThrow(() -> new NotFoundException("Não encontrado o laboratório com esse id!"));
@@ -92,15 +90,17 @@ public class MedicamentoService {
 		GrupoMedicamentoEntity grupoMed = grupoMedicamentoRepository.findById(medForm.getIdGrupoMedicamento())
 				.orElseThrow(() -> new NotFoundException("Não encontrado o grupo medicamento com esse id!"));
 
-		//deixar só o nome
-		//mudar o nome da variavel
-		//encontradoMedicamento
-		
+		// deixar só o nome
+		// mudar o nome da variavel
+		// encontradoMedicamento
+
 		Boolean med2 = medicamentoRepository.findByNomeAndGrupoMedicamentoIdAndLaboratorioId(medForm.getNome(),
 				medForm.getIdGrupoMedicamento(), medForm.getIdLaboratorio()).isEmpty();
-		
-		//Boolean med2 = medicamentoRepository.findByNomeAndGrupoMedicamentoIdAndLaboratorioIdAndQuantidadeApresentacao(medForm.getNome(),
-				//medForm.getIdGrupoMedicamento(), medForm.getIdLaboratorio(), medForm.getQuantidadeApresentacao()).isEmpty();
+
+		// Boolean med2 =
+		// medicamentoRepository.findByNomeAndGrupoMedicamentoIdAndLaboratorioIdAndQuantidadeApresentacao(medForm.getNome(),
+		// medForm.getIdGrupoMedicamento(), medForm.getIdLaboratorio(),
+		// medForm.getQuantidadeApresentacao()).isEmpty();
 
 		List<DiluicaoConfiguracaoEntity> lstDiluicaoConfiguracao = new ArrayList<DiluicaoConfiguracaoEntity>();
 
@@ -113,13 +113,12 @@ public class MedicamentoService {
 					medForm.getInfoSobra(), medForm.getInfoTempoAdm());
 
 			med = medicamentoRepository.save(med);
-			
-			//criar outro metodo 
-			for (DiluicaoConfiguracaoForm diluicaoConf2:  medForm.getDiluicaoConfiguracaoForm()) {
 
-				ViaAdministracaoEntity viaAdm = viaAdmRepository
-						.findById(diluicaoConf2.getIdViaAdministracao())
-						.orElseThrow(() -> new NotFoundIdException("Não encontrado a via administração com esse id!"));
+			// criar outro metodo
+			for (DiluicaoConfiguracaoForm diluicaoConf2 : medForm.getDiluicaoConfiguracaoForm()) {
+
+				ViaAdministracaoEntity viaAdm = viaAdmRepository.findById(diluicaoConf2.getIdViaAdministracao())
+						.orElseThrow(() -> new NotFoundException("Não encontrado a via administração com esse id!"));
 
 				lstDiluicaoConfiguracao = diluicaoConfRepository
 						.findByMedicamentoIdAndViaAdministracaoIdOrderBySequenciaAsc(med.getId(), viaAdm.getId());
@@ -128,32 +127,29 @@ public class MedicamentoService {
 				diluicaoConf.setMedicamentoId(med.getId());
 				diluicaoConf.setViaAdministracaoId(viaAdm.getId());
 				diluicaoConf.setSequencia(diluicaoConf2.getSequencia());
-				
+
 				DiluicaoConfiguracaoEntityPK diluicaoConfPK = new DiluicaoConfiguracaoEntityPK(med, viaAdm,
-					diluicaoConf2.getSequencia());
-				
+						diluicaoConf2.getSequencia());
+
 				diluicaoConf.setDiluicaoConfPK(diluicaoConfPK);
-				
+
 				diluicaoConf.setConcentracao(diluicaoConf2.getConcentracao());
-				
+
 				diluicaoConf.setQuantidadeAdicionada(diluicaoConf2.getQuantidadeAdicionada());
 				diluicaoConf.setQuantidadeAspirada(diluicaoConf2.getQuantidadeAspirada());
 
 				diluicaoConf.setDiluente(diluicaoConf2.getDiluente());
 				diluicaoConf.setModoPreparo(diluicaoConf2.getModoPreparo());
-				
+
 				diluicaoConfRepository.save(diluicaoConf);
 
 				lstDiluicaoConfiguracao.add(diluicaoConf);
-				
+
 			}
-			
-		
+
 			List<DiluicaoConfiguracaoDto> lstDiluicaoConfDto = new ArrayList<DiluicaoConfiguracaoDto>();
 
-		
-			
-			for (DiluicaoConfiguracaoEntity diluicaoConf3:lstDiluicaoConfiguracao ) {
+			for (DiluicaoConfiguracaoEntity diluicaoConf3 : lstDiluicaoConfiguracao) {
 				DiluicaoConfiguracaoDto diluicaoConfDto = modelMapperConfigDiluicaoConf.modelMapperDiluicaoConf()
 						.map(diluicaoConf3, DiluicaoConfiguracaoDto.class);
 
@@ -165,8 +161,8 @@ public class MedicamentoService {
 			MedicamentoDto medDto2 = modelMapper2.modelMapper2().map(lstDiluicaoConfDto, MedicamentoDto.class);
 
 			MedicamentoDto medDto = modelMapperConfigMedicamento.modelMapperMed().map(med, MedicamentoDto.class);
-            medDto.setLstDiluicao(lstDiluicaoConfDto);
-			
+			medDto.setLstDiluicao(lstDiluicaoConfDto);
+
 			return medDto;
 
 		} else {
@@ -175,7 +171,18 @@ public class MedicamentoService {
 		}
 
 	}
+
+	private MedicamentoEntity getMedicamento(Long id) {
+		MedicamentoEntity med = medicamentoRepository.findById(id)
+				.orElseThrow(() -> new NotFoundException("Não encontrado o medicamento com esse id!"));
+		return med;
+	}
 	
+	private MedicamentoEntity getMedicamento(String nome) {
+		MedicamentoEntity med = medicamentoRepository.findByNome(nome)
+				.orElseThrow(() -> new NotFoundException("Não encontrado o medicamento com esse id!"));
+		return med;
+	}
 
 	public MedicamentoDto atualizar(Long id, AtualizacaoMedicamentoForm atMedForm) throws NotFoundIdException {
 

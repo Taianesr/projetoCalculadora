@@ -1,6 +1,7 @@
 package br.com.desafioCompasso.calculadora.service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,18 +29,14 @@ public class LaboratorioService {
 	private ModelMapperConfigLaboratorio modelMapper;
 
 	public List<LaboratorioDto> listar() {
-		List<LaboratorioEntity> lstLab = laboratorioRepository.findAll();
+		List<LaboratorioEntity> lstLab = laboratorioRepository.findAllByOrderByIdDesc();
 
-		TypeToken<List<LaboratorioDto>> typeToken = new TypeToken<>() {
-		};
-
-		List<LaboratorioDto> laboratorioDtos = modelMapper.modelMapperLab().map(lstLab, typeToken.getType());
-
-		return laboratorioDtos;
+		return lstLab.stream().map(lab -> modelMapper.modelMapperLab().map(lstLab, LaboratorioDto.class))
+				.collect(Collectors.toList());
 	}
 
 	public LaboratorioDto listar(Long id, String nome) throws NotFoundNameException {
-		if (nome !=null)
+		if (nome != null)
 			return getLaboratorio(nome);
 		else if (id != null)
 			return getLaboratorio(id);

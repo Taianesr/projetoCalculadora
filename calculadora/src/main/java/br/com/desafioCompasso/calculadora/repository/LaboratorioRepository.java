@@ -1,5 +1,6 @@
 package br.com.desafioCompasso.calculadora.repository;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -12,6 +13,6 @@ public interface LaboratorioRepository extends JpaRepository<LaboratorioEntity, 
 	
 	Optional<LaboratorioEntity> findByNome(String nome);
 	
-	
+	List<LaboratorioEntity> findAllByOrderByIdDesc();
 
 }
